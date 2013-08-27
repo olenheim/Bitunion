@@ -1,0 +1,58 @@
+﻿<phone:PhoneApplicationPage
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
+    x:Class="Bitunion.BitThreadPage"
+     d:DataContext="{d:DesignData SampleData/ThreadViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d"
+    shell:SystemTray.IsVisible="True">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Transparent">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--TitlePanel 包含应用程序的名称和页标题-->
+        <StackPanel Grid.Row="0" Margin="12,17,0,28">
+            <TextBlock x:Name="ThreadName" Text="页面名称" Margin="9,-7,12,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24"/>
+        </StackPanel>
+
+        <!--ContentPanel - 在此处放置其他内容-->
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="24,0,10,10">
+            <!--具有文字环绕的双线列表-->
+            <phone:LongListSelector x:Name="Thread" ItemsSource="{Binding PostItems}" Height="688" VerticalAlignment="Top" HorizontalAlignment="Right" Width="446"  >
+                <phone:LongListSelector.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Margin="0,0,2,0">               
+                            <Border BorderThickness="5,1,0,0" Height="32" HorizontalAlignment="Left" Width="457">
+                                <TextBlock Text="{Binding AddInfo}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="20" Margin="12,0"/>
+                                <Border.BorderBrush>
+                                    <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
+                                </Border.BorderBrush>                         
+                            </Border>
+                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="24"/>
+                            <Button Content="引用" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="90" Height="66" FontSize="18"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </phone:LongListSelector.ItemTemplate>
+            </phone:LongListSelector>
+        
+            <!--<ScrollViewer x:Name="TrueTest" HorizontalAlignment="Left" Height="667" Margin="10,10,0,0" VerticalAlignment="Top" Width="426">
+            <ScrollViewer.Content>
+                <TextBlock Name="textBlock1" Text="TextBlock" TextWrapping="Wrap" Height="510" />
+            </ScrollViewer.Content>
+            </ScrollViewer>-->
+        </Grid>
+    </Grid>
+
+</phone:PhoneApplicationPage>
