@@ -45,8 +45,12 @@ namespace Bitunion
 
             LatestThreadViewList.SelectedItem = null;
 
+            var thread  = item.latestthread;
+
             // Navigate to the new page
-            NavigationService.Navigate(new Uri("/BitThreadPage.xaml?msg=" + item.tid, UriKind.Relative));
+            NavigationService.Navigate(new Uri("/BitThreadPage.xaml?tid=" + thread.tid
+                + "&subject="+ thread.fname 
+                + "&replies=" + thread.tid_sum, UriKind.Relative));
         }
 
         // 用于生成本地化 ApplicationBar 的示例代码

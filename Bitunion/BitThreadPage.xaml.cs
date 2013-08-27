@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using HtmlAgilityPack;
 using Bitunion.ViewModels;
+using System.Security;
 
 namespace Bitunion
 {
@@ -22,11 +23,11 @@ namespace Bitunion
         //HTML解析类
         private HtmlDocument _htmldoc;
 
-        //帖子的tid
-        private string _tid;
+        //帖子的tid,名称以及回复数
+        private string _tid,_subject,_replies;
 
-        //目前存在的帖子页数
-        private uint _page;
+        //目前所在的帖子页面,以及最大的页面数
+        private uint _page,_maxpage;
         #endregion
 
         public BitThreadPage()
@@ -38,23 +39,26 @@ namespace Bitunion
             DataContext = _threadview;
             
             _htmldoc = new HtmlDocument();
-            _page = 0;
         }
 
-        protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
+        protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
             //获取从父页面传递过来的tid
-            NavigationContext.QueryString.TryGetValue("msg", out _tid);
+            NavigationContext.QueryString.TryGetValue("tid", out _tid);
+            NavigationContext.QueryString.TryGetValue("subject", out _subject);
+            NavigationContext.QueryString.TryGetValue("replies", out _replies);
 
-            await AddViewModel();
-            ThreadName.Text = Uri.UnescapeDataString(lp[0].subject);
+            _page = 1;
+            _maxpage = Convert.ToUInt16(_replies) / (uint)10 + 1;
+            ShowViewModel();
         }
 
-        private async void AddViewModel()
+        private async void ShowViewModel()
         {
-            List<BitPost> postlist = await BitAPI.QueryPost(_tid, (_page * 10).ToString(), (_page * 10+9).ToString());
+            _threadview.PostItems.Clear();
+            List<BitPost> postlist = await BitAPI.QueryPost(_tid, ((_page-1) * 10).ToString(), (_page * 10 -1).ToString());
             if (postlist == null || postlist.Count == 0)
                 return;
 
@@ -62,10 +66,33 @@ namespace Bitunion
             {
                 _htmldoc.LoadHtml(Uri.UnescapeDataString(post.message));
                 var node = _htmldoc.DocumentNode;
-                _tm.PostItems.Add(new PostViewModel() { Message = Uri.UnescapeDataString(node.InnerText), AddInfo = Uri.UnescapeDataString(post.author) + "  " + Uri.UnescapeDataString(post.dateline) });
-            }
 
+                _threadview.PostItems.Add(new PostViewModel() { Message = Uri.UnescapeDataString(node.InnerText), AddInfo = Uri.UnescapeDataString(post.author) + "  " + post.dateline });
+            }
+            CheckBtnEnable();
+        }
+
+        private void reply_click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Prev_Click(object sender, EventArgs e)
+        {
+            _page--;
+            ShowViewModel();
+        }
+
+        private void Next_Click(object sender, EventArgs e)
+        {
             _page++;
+            ShowViewModel();
+        }
+
+        private void CheckBtnEnable()
+        {
+                (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_page != (uint)1);
+                (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_page != _maxpage);
         }
     }
 }

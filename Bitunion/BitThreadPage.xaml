@@ -45,14 +45,22 @@
                         </StackPanel>
                     </DataTemplate>
                 </phone:LongListSelector.ItemTemplate>
-            </phone:LongListSelector>
-        
-            <!--<ScrollViewer x:Name="TrueTest" HorizontalAlignment="Left" Height="667" Margin="10,10,0,0" VerticalAlignment="Top" Width="426">
-            <ScrollViewer.Content>
-                <TextBlock Name="textBlock1" Text="TextBlock" TextWrapping="Wrap" Height="510" />
-            </ScrollViewer.Content>
-            </ScrollViewer>-->
+            </phone:LongListSelector>     
         </Grid>
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
+
+            <shell:ApplicationBarIconButton x:Name="reply" IconUri="/Images/reply.png" Text="回复" Click="reply_click" />
+            <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
+            <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="help" Click="Next_Click" />
+           
+            <!--<shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="get default size value" Click="MenuItem1_Click" />
+                <shell:ApplicationBarMenuItem Text="get mini size value" Click="MenuItem2_Click" />
+            </shell:ApplicationBar.MenuItems>-->
+
+        </shell:ApplicationBar>
+        </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

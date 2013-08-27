@@ -18,13 +18,13 @@ namespace Bitunion.ViewModels
             LineOne = Uri.UnescapeDataString(bt.pname);
             LineTwo = Uri.UnescapeDataString(bt.author);
             LineThree = Uri.UnescapeDataString(bt.fname);
-            tid = bt.tid;
+            this.latestthread = bt;
         }
 
         public BitThreadModel() { }
 
 
-        public string tid { get; private set; }
+        public BitLatestThread latestthread { get; private set; }
 
         private string _lineOne;
         /// <summary>
