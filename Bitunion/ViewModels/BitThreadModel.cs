@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Net;
@@ -15,80 +15,132 @@ namespace Bitunion.ViewModels
 
         public BitThreadModel(BitLatestThread bt)
         {
-            LineOne = Uri.UnescapeDataString(bt.pname);
-            LineTwo = Uri.UnescapeDataString(bt.author);
-            LineThree = Uri.UnescapeDataString(bt.fname);
+            Subject = Uri.UnescapeDataString(bt.pname);
+            Author = Uri.UnescapeDataString(bt.author);
+            ForumName = Uri.UnescapeDataString(bt.fname);
+            Replies = bt.replies;
             this.latestthread = bt;
         }
 
         public BitThreadModel() { }
 
+        public BitThreadModel(BitThread thread) 
+        {
+	    Subject = Uri.UnescapeDataString(thread.subject);
+            Author = Uri.UnescapeDataString(thread.author);
+            Time = thread.dateline;
+            Replies = bt.replies;
+            this.latestthread = bt;
+        }
+
 
         public BitLatestThread latestthread { get; private set; }
+	public BitThread thread {get; private set;}
 
-        private string _lineOne;
+        private string _subject;
         /// <summary>
         /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
         /// </summary>
         /// <returns></returns>
-        public string LineOne
+        public string Subject
         {
             get
             {
-                return _lineOne;
+                return _subject;
             }
             set
             {
-                if (value != _lineOne)
+                if (value != _subject)
                 {
-                    _lineOne = value;
-                    NotifyPropertyChanged("LineOne");
+                    _subject = value;
+                    NotifyPropertyChanged("Subject");
                 }
             }
         }
 
-        private string _lineTwo;
+	        private string _author;
         /// <summary>
         /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
         /// </summary>
         /// <returns></returns>
-        public string LineTwo
+        public string Author
         {
             get
             {
-                return _lineTwo;
+                return _author;
             }
             set
             {
-                if (value != _lineTwo)
+                if (value != _author)
                 {
-                    _lineTwo = value;
-                    NotifyPropertyChanged("LineTwo");
+                    _author = value;
+                    NotifyPropertyChanged("Author");
                 }
             }
         }
 
-        private string _lineThree;
+	        private string _forumname;
         /// <summary>
         /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
         /// </summary>
         /// <returns></returns>
-        public string LineThree
+        public string ForumName
         {
             get
             {
-                return _lineThree;
+                return _forumname;
             }
             set
             {
-                if (value != _lineThree)
+                if (value != _forumname)
                 {
-                    _lineThree = value;
-                    NotifyPropertyChanged("LineThree");
+                    _forumname = value;
+                    NotifyPropertyChanged("ForumName");
                 }
             }
         }
 
+	        private string _time;
+        /// <summary>
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+        /// </summary>
+        /// <returns></returns>
+        public string Time
+        {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                if (value != _time)
+                {
+                    _time = value;
+                    NotifyPropertyChanged("Time");
+                }
+            }
+        }
+
+	        private string _replies;
+        /// <summary>
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+        /// </summary>
+        /// <returns></returns>
+        public string Replies
+        {
+            get
+            {
+                return _replies;
+            }
+            set
+            {
+                if (value != _replies)
+                {
+                    _replies = value;
+                    NotifyPropertyChanged("Replies");
+                }
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
@@ -101,3 +153,4 @@ namespace Bitunion.ViewModels
         }
     }
 }
+
