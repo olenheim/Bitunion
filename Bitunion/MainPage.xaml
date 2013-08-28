@@ -45,9 +45,9 @@
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding LineOne}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30"/>
-                                <TextBlock Text="{Binding LineTwo}" TextWrapping="Wrap" Margin="12,-6,254,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="170"/>
-                                <TextBlock Text="{Binding LineThree}" TextWrapping="Wrap" Margin="254,-26,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Right" Width="170" TextAlignment="Right"/>
+                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30"/>
+                                <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,-6,254,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="170"/>
+                                <TextBlock Text="{Binding ForumName}" TextWrapping="Wrap" Margin="254,-26,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Right" Width="170" TextAlignment="Right"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
@@ -61,14 +61,15 @@
                     <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17">
-                                    <TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
-                                    <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>
+                                    <!--<TextBlock Text="{Binding LineOne}" TextWrapping="NoWrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextExtraLargeStyle}"/>
+                                    <TextBlock Text="{Binding LineThree}" TextWrapping="NoWrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}"/>-->
                                 </StackPanel>
                             </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
             </phone:PivotItem>
         </phone:Pivot>
+        <ProgressBar x:Name="pgBar" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="473" IsIndeterminate="True"/>
 
         <!--取消注释，以显示对齐网格，从而帮助确保
             控件在公用边界上对齐。图像在系统栏中显示时的

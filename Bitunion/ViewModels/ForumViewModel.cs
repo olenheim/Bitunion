@@ -13,7 +13,7 @@ namespace Bitunion.ViewModels
     public class ForumViewModel : INotifyPropertyChanged
     {
 
-        public ForumViewModel(BitForum forum)
+        public ForumViewModel(BuForum forum)
         {
             Name = Uri.UnescapeDataString(forum.name);
             Description = Uri.UnescapeDataString(forum.description);
@@ -24,7 +24,7 @@ namespace Bitunion.ViewModels
 
         public ForumViewModel() { }
 
-        public BitForum forum { get; private set; }
+        public BuForum forum { get; private set; }
 
         //论坛名称
         private string _name;

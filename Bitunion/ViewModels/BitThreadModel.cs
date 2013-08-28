@@ -13,29 +13,29 @@ namespace Bitunion.ViewModels
     public class BitThreadModel : INotifyPropertyChanged
     {
 
-        public BitThreadModel(BitLatestThread bt)
+        public BitThreadModel(BuLatestThread bt)
         {
             Subject = Uri.UnescapeDataString(bt.pname);
             Author = Uri.UnescapeDataString(bt.author);
             ForumName = Uri.UnescapeDataString(bt.fname);
-            Replies = bt.replies;
+            Replies = bt.tid_sum;
             this.latestthread = bt;
         }
 
         public BitThreadModel() { }
 
-        public BitThreadModel(BitThread thread) 
+        public BitThreadModel(BuThread thread) 
         {
-	    Subject = Uri.UnescapeDataString(thread.subject);
+	        Subject = Uri.UnescapeDataString(thread.subject);
             Author = Uri.UnescapeDataString(thread.author);
             Time = thread.dateline;
-            Replies = bt.replies;
-            this.latestthread = bt;
+            Replies = thread.replies;
+            this.thread = thread;
         }
 
 
-        public BitLatestThread latestthread { get; private set; }
-	public BitThread thread {get; private set;}
+        public BuLatestThread latestthread { get; private set; }
+    	public BuThread thread {get; private set;}
 
         private string _subject;
         /// <summary>

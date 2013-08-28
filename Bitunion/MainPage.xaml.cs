@@ -29,10 +29,12 @@ namespace Bitunion
         // 为 ViewModel 项加载数据
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            pgBar.Visibility = Visibility.Visible;
             if (!App.ViewModel.IsDataLoaded)
             {
                 App.ViewModel.LoadData();
             }
+            pgBar.Visibility = Visibility.Collapsed;
         }
 
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
@@ -46,11 +48,14 @@ namespace Bitunion
             LatestThreadViewList.SelectedItem = null;
 
             var thread  = item.latestthread;
-
+            
             // Navigate to the new page
-            NavigationService.Navigate(new Uri("/BitThreadPage.xaml?tid=" + thread.tid
+            NavigationService.Navigate(new Uri("/BuThreadPage.xaml?tid=" + thread.tid
                 + "&subject="+ thread.pname 
-                + "&replies=" + thread.tid_sum, UriKind.Relative));
+                + "&replies=" + thread.tid_sum
+                + "&fid=" + thread.fid
+                + "&fname=" + thread.fname
+                , UriKind.Relative));
         }
 
         // 用于生成本地化 ApplicationBar 的示例代码

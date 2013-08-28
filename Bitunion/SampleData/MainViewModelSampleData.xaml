@@ -6,6 +6,6 @@
     SampleProperty="示例文本属性值">
 
     <vm:MainViewModel.Items>
-        <vm:BitThreadModel LineOne="设计一" LineTwo="Maecenas praesent accumsan bibendum" LineThree="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
+        <vm:BitThreadModel Subject="设计一" Author="Maecenas praesent accumsan bibendum" ForumName="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
     </vm:MainViewModel.Items>
 </vm:MainViewModel>

@@ -93,9 +93,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="BitAPI.cs" />
-    <Compile Include="BitThreadPage.xaml.cs">
-      <DependentUpon>BitThreadPage.xaml</DependentUpon>
+    <Compile Include="BuAPI.cs" />
+    <Compile Include="BuForumPage.xaml.cs">
+      <DependentUpon>BuForumPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="BuThreadPage.xaml.cs">
+      <DependentUpon>BuThreadPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="HttpLibrary.cs" />
     <Compile Include="LocalizedStrings.cs" />
@@ -109,6 +112,7 @@
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\BitThreadModel.cs" />
+    <Compile Include="ViewModels\ForumViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\PostViewModel.cs" />
@@ -119,7 +123,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
-    <Page Include="BitThreadPage.xaml">
+    <Page Include="BuForumPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuThreadPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -175,6 +183,7 @@
       <HintPath>..\packages\HtmlAgilityPack.1.4.6\lib\sl4-windowsphone71\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Interactions, Version=3.9.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Phone.Controls, Version=8.0.0.0, Culture=neutral, PublicKeyToken=24eec0d8c86cda1e, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Threading.Tasks">
       <HintPath>..\packages\Microsoft.Bcl.Async.1.0.16\lib\wp8\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>

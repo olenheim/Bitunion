@@ -39,14 +39,16 @@
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
                                 </Border.BorderBrush>                         
-                            </Border>
-                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="24" Margin="3,0,12,0" Height="88"/>
+                            </Border>                       
+                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="24" Margin="3,0,12,0"/>
                             <Button Content="引用" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="90" Height="66" FontSize="18"/>
+
                         </StackPanel>
                     </DataTemplate>
                 </phone:LongListSelector.ItemTemplate>
-            </phone:LongListSelector>     
+            </phone:LongListSelector>
         </Grid>
+        <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="10" Margin="8,-6,0,0" VerticalAlignment="Top" Width="458" IsIndeterminate="True"/>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
@@ -55,10 +57,10 @@
             <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
             <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
            
-            <!--<shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="get default size value" Click="MenuItem1_Click" />
-                <shell:ApplicationBarMenuItem Text="get mini size value" Click="MenuItem2_Click" />
-            </shell:ApplicationBar.MenuItems>-->
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="进入该板块" Click="Enter_Click" />
+               
+            </shell:ApplicationBar.MenuItems>
 
         </shell:ApplicationBar>
         </phone:PhoneApplicationPage.ApplicationBar>

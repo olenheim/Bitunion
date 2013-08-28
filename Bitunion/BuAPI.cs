@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bitunion
 {
-    struct BitForum
+    public struct BuForum
     {
         public string type;
         public string fid;
@@ -25,7 +25,7 @@ namespace Bitunion
         List<int> subforumid;
     }
 
-    struct BitThread
+    public struct BuThread
     {
         public string tid;
         public string author;
@@ -38,7 +38,7 @@ namespace Bitunion
         public string replies;
     }         
 
-    struct BitPost
+    struct BuPost
     {
         public string pid;
         public string fid;
@@ -74,7 +74,7 @@ namespace Bitunion
         public string maskpost;
     }
 
-    class BitUserProfile
+    class BuUserProfile
     {
        public string uid;
        public string status;
@@ -102,7 +102,7 @@ namespace Bitunion
         public string what;
     }
 
-    public struct  BitLatestThread
+    public struct  BuLatestThread
     {
         public string pname;
         public string fname;
@@ -114,7 +114,7 @@ namespace Bitunion
         public List<lastreplay> lastreplay;
     }
 
-    class BitAPI
+    class BuAPI
     {
         #region Resources
         //保存登陆后的session
@@ -130,7 +130,7 @@ namespace Bitunion
         static string _name, _password;
 
         //用于保存获取的论坛列表
-        static Dictionary<string ,BitForum> _forumList;
+        static Dictionary<string ,BuForum> _forumList;
 
         #endregion
 
@@ -207,14 +207,14 @@ namespace Bitunion
             if(!StreamToJobjAndCheckState(response,ref jsonret))
                 return false;
 
-            Dictionary<string,Dictionary<string,BitForum>> ForumList = 
-                JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,BitForum>>>(jsonret["forumslist"].ToString());
+            Dictionary<string,Dictionary<string,BuForum>> ForumList = 
+                JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,BuForum>>>(jsonret["forumslist"].ToString());
             
             return true;
         }
 
         //查询某特定论坛的帖子列表
-        public static async Task<List<BitThread>> QueryThreadList(string fid, string start, string end)
+        public static async Task<List<BuThread>> QueryThreadList(string fid, string start, string end)
         {
             JObject staff = new JObject();
             staff.Add(new JProperty("action", "thread"));
@@ -233,11 +233,11 @@ namespace Bitunion
             if(!StreamToJobjAndCheckState(response,ref jsonret))
                 return null;
 
-            return JsonConvert.DeserializeObject<List<BitThread>>(jsonret["threadlist"].ToString());
+            return JsonConvert.DeserializeObject<List<BuThread>>(jsonret["threadlist"].ToString());
         }
 
         //查询某特定帖子的详情
-        public static async Task<List<BitPost>> QueryPost(string tid, string start, string end)
+        public static async Task<List<BuPost>> QueryPost(string tid, string start, string end)
         {
             JObject staff = new JObject();
             staff.Add(new JProperty("action", "post"));
@@ -256,11 +256,11 @@ namespace Bitunion
             if (!StreamToJobjAndCheckState(response, ref jsonret))
                 return null;
 
-            return JsonConvert.DeserializeObject<List<BitPost>>(jsonret["postlist"].ToString());
+            return JsonConvert.DeserializeObject<List<BuPost>>(jsonret["postlist"].ToString());
         }
 
         //查询特定用户信息
-        public static async Task<BitUserProfile> QueryUserProfile(string uid)
+        public static async Task<BuUserProfile> QueryUserProfile(string uid)
         {
             JObject staff = new JObject();
             staff.Add(new JProperty("action", "profile"));
@@ -277,7 +277,7 @@ namespace Bitunion
             if (!StreamToJobjAndCheckState(response, ref jsonret))
                 return null;
 
-            return JsonConvert.DeserializeObject<BitUserProfile>(jsonret["BitUserProfile"].ToString());
+            return JsonConvert.DeserializeObject<BuUserProfile>(jsonret["BuUserProfile"].ToString());
         }
 
         //回复帖子
@@ -293,7 +293,7 @@ namespace Bitunion
        }
 
         //查询最新的帖子列表
-        public static async Task<List<BitLatestThread>> QueryLatestThreadList()
+        public static async Task<List<BuLatestThread>> QueryLatestThreadList()
        {
            JObject staff = new JObject();
            staff.Add(new JProperty("username", Uri.EscapeDataString(_name)));
@@ -308,7 +308,7 @@ namespace Bitunion
            if (!StreamToJobjAndCheckState(response, ref jsonret))
                return null;
 
-           return JsonConvert.DeserializeObject<List<BitLatestThread>>(jsonret["newlist"].ToString());
+           return JsonConvert.DeserializeObject<List<BuLatestThread>>(jsonret["newlist"].ToString());
        }
 
         //将PHP时间戳格式转换为DateTime格式

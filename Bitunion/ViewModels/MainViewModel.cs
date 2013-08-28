@@ -61,10 +61,10 @@ namespace Bitunion.ViewModels
         /// </summary>
         public async void LoadData()
         {
-            bool bl = await BitAPI.Login("泪沸腾", "bitwdazsc");
-            List<BitLatestThread> btl = await BitAPI.QueryLatestThreadList();
+            bool bl = await BuAPI.Login("泪沸腾", "bitwdazsc");
+            List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
 
-            foreach (BitLatestThread bt in btl)
+            foreach (BuLatestThread bt in btl)
                 this.Items.Add(new BitThreadModel(bt));
 
 
