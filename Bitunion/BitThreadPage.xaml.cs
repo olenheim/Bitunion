@@ -24,10 +24,13 @@ namespace Bitunion
         private HtmlDocument _htmldoc;
 
         //帖子的tid,名称以及回复数
-        private string _tid,_subject,_replies;
+        private string _tid, _subject, _replies;
 
         //目前所在的帖子页面,以及最大的页面数
-        private uint _page,_maxpage;
+        private uint _currentpage, _maxpage;
+
+        //页面数据缓存
+        private Dictionary<uint, List<BitPost>> _pagecache;
         #endregion
 
         public BitThreadPage()
@@ -37,7 +40,7 @@ namespace Bitunion
             //设定数据上下文
             _threadview.PostItems.Clear();
             DataContext = _threadview;
-            
+            _currentpage = 1;
             _htmldoc = new HtmlDocument();
         }
 
@@ -50,19 +53,28 @@ namespace Bitunion
             NavigationContext.QueryString.TryGetValue("subject", out _subject);
             NavigationContext.QueryString.TryGetValue("replies", out _replies);
 
-            _page = 1;
             ThreadName.Text = _subject;
             _maxpage = Convert.ToUInt16(_replies) / (uint)10 + 1;
-            ShowViewModel();
+            ShowViewModel(_currentpage);
         }
 
-        private async void ShowViewModel()
+        private async void ShowViewModel(uint pageno)
         {
+            //清除界面数据
             _threadview.PostItems.Clear();
-            List<BitPost> postlist = await BitAPI.QueryPost(_tid, ((_page-1) * 10).ToString(), (_page * 10 -1).ToString());
+
+            //先从缓存中获取
+            List<BitPost> postlist;
+            if (!_currentcache.TryGetValue(pageno, out postlist))
+            {
+                postlist = await BitAPI.QueryPost(_tid, ((pageno - 1) * 10).ToString(), (pageno * 10 - 1).ToString());
+                _currentcach[pageno] = postlist;
+            }
+
             if (postlist == null || postlist.Count == 0)
                 return;
-
+        
+            //填写显示模型
             foreach (BitPost post in postlist)
             {
                 _htmldoc.LoadHtml(Uri.UnescapeDataString(post.message));
@@ -73,6 +85,7 @@ namespace Bitunion
                 string strtime = dt.ToString("yyyy-M-d HH:mm");
                 _threadview.PostItems.Add(new PostViewModel() { Message = Uri.UnescapeDataString(node.InnerText), AddInfo = Uri.UnescapeDataString(post.author) + "  " + strtime });
             }
+
             CheckBtnEnable();
         }
 
@@ -83,21 +96,20 @@ namespace Bitunion
 
         private void Prev_Click(object sender, EventArgs e)
         {
-            _page--;
-            ShowViewModel();
+            ShowViewModel(--_currentpage);
         }
 
+        //置灰可能的翻页按钮
         private void Next_Click(object sender, EventArgs e)
         {
-            _page++;
-            ShowViewModel();
+            ShowViewModel(++_currentpage);
         }
 
         private void CheckBtnEnable()
         {
             //禁用工具栏按钮的方法
-            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_page != (uint)1);
-            (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_page != _maxpage);
+            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_currentpage != (uint)1);
+            (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_currentpage != _maxpage);
         }
     }
 }
