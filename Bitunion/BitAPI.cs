@@ -311,6 +311,16 @@ namespace Bitunion
            return JsonConvert.DeserializeObject<List<BitLatestThread>>(jsonret["newlist"].ToString());
        }
 
+        //将PHP时间戳格式转换为DateTime格式
+        public static DateTime  DateTimeConvertTime(string  strtime)
+        {
+            long time = Convert.ToInt64(strtime);
+            DateTime timeStamp = new DateTime(1970, 1, 1);  //得到1970年的时间戳
+            long t = (time + 8 * 60 * 60) * 10000000 + timeStamp.Ticks;
+            DateTime dt = new DateTime(t);
+            return dt;
+        }
+
 
     }
 }

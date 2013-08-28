@@ -49,7 +49,7 @@ namespace Bitunion
 
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/BitThreadPage.xaml?tid=" + thread.tid
-                + "&subject="+ thread.fname 
+                + "&subject="+ thread.pname 
                 + "&replies=" + thread.tid_sum, UriKind.Relative));
         }
 

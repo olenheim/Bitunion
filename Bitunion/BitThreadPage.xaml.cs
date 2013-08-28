@@ -51,6 +51,7 @@ namespace Bitunion
             NavigationContext.QueryString.TryGetValue("replies", out _replies);
 
             _page = 1;
+            ThreadName.Text = _subject;
             _maxpage = Convert.ToUInt16(_replies) / (uint)10 + 1;
             ShowViewModel();
         }
@@ -66,8 +67,11 @@ namespace Bitunion
             {
                 _htmldoc.LoadHtml(Uri.UnescapeDataString(post.message));
                 var node = _htmldoc.DocumentNode;
+                DateTime dt = BitAPI.DateTimeConvertTime(post.dateline);
 
-                _threadview.PostItems.Add(new PostViewModel() { Message = Uri.UnescapeDataString(node.InnerText), AddInfo = Uri.UnescapeDataString(post.author) + "  " + post.dateline });
+                //格式化时间”年-月-日 小时:分钟“
+                string strtime = dt.ToString("yyyy-M-d HH:mm");
+                _threadview.PostItems.Add(new PostViewModel() { Message = Uri.UnescapeDataString(node.InnerText), AddInfo = Uri.UnescapeDataString(post.author) + "  " + strtime });
             }
             CheckBtnEnable();
         }
@@ -91,8 +95,9 @@ namespace Bitunion
 
         private void CheckBtnEnable()
         {
-                (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_page != (uint)1);
-                (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_page != _maxpage);
+            //禁用工具栏按钮的方法
+            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_page != (uint)1);
+            (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_page != _maxpage);
         }
     }
 }
