@@ -16,11 +16,14 @@ namespace Bitunion
         private static MainViewModel _mainviewmodel = new MainViewModel();
 
         private string _fid,_forumname;
+        
+        private Dictionary<string,List<BuThread>> _pagecache;
 
         public BuForumPage()
         {
             InitializeComponent();
             DataContext = _mainviewmodel;
+            _pagecache = new Dictionary<string,List<BuThread>>();
         }
 
         protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -39,6 +42,12 @@ namespace Bitunion
                 _mainviewmodel.Items.Add(new BitThreadModel(bt));
 
         }
+        
+        private void LoadThreadList(uint page)
+        {
+            
+        }
+        
 
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
@@ -49,14 +58,14 @@ namespace Bitunion
 
            ThreadViewList.SelectedItem = null;
 
-            var thread = item.latestthread;
+            var thread = item.thread;
 
             // Navigate to the new page
             NavigationService.Navigate(new Uri("/BitThreadPage.xaml?tid=" + thread.tid
-                + "&subject=" + thread.pname
-                + "&replies=" + thread.tid_sum
-                + "&fid=" + thread.fid
-                + "&fname=" + thread.fname
+                + "&subject=" + thread.subject
+                + "&replies=" + thread.replies
+                + "&fid=" + _fid
+                + "&fname=" + _forumname
                 , UriKind.Relative));
         }
     }
