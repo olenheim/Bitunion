@@ -20,10 +20,15 @@ namespace Bitunion.ViewModels
             Moderator = Uri.UnescapeDataString(forum.moderator);
             Onlines = forum.onlines;
             this.forum= forum;
+            this.ThreadItems = new ObservableCollection<BitThreadModel>();
         }
 
-        public ForumViewModel() { }
+        public ForumViewModel() {this.ThreadItems = new ObservableCollection<BitThreadModel>(); }
+        
+        //论坛vm下的帖子vm列表
+        public ObservableCollection<BitThreadModel> ThreadItems { get; private set; }
 
+        //论坛逻辑实体对象
         public BuForum forum { get; private set; }
 
         //论坛名称
