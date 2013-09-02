@@ -16,10 +16,10 @@ namespace Bitunion
     public partial class MainPage : PhoneApplicationPage
     {
         //论坛最新帖子VM对象列表
-        private static ObservableCollection<BitThreadModel> LatestThreadItems;
+        private static ObservableCollection<BitThreadModel> LatestThreadItems = new ObservableCollection<BitThreadModel>();
         
         //论坛VM对象列表
-        private static ObservableCollection<ForumViewModel> ForumItems;
+        private static ObservableCollection<ForumViewModel> ForumItem = new ObservableCollection<ForumViewModel>();
         
         // 构造函数
         public MainPage()
@@ -34,13 +34,17 @@ namespace Bitunion
         }
 
         // 为 ViewModel 项加载数据
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             pgBar.Visibility = Visibility.Visible;
-            if (!App.ViewModel.IsDataLoaded)
-            {
-                App.ViewModel.LoadData();
-            }
+            bool bl = await BuAPI.Login("泪沸腾", "bitwdazsc");
+            List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
+
+            foreach (BuLatestThread bt in btl)
+                LatestThreadItems.Add(new BitThreadModel(bt));
+
+
+           // this.IsDataLoaded = true;
             pgBar.Visibility = Visibility.Collapsed;
         }
 

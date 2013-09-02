@@ -41,7 +41,7 @@
             <!--枢轴项一-->
             <phone:PivotItem Header="最新帖子">
                 <!--具有文字环绕的双线列表-->
-                <phone:LongListSelector x:Name="LatestThreadViewList" Margin="0,0,-12,0" ItemsSource="{Binding Items}" SelectionChanged="LongListSelector_SelectionChanged_1">
+                <phone:LongListSelector x:Name="LatestThreadViewList" Margin="0,0,-12,0" ItemsSource="{Binding LatestThreadItems}" SelectionChanged="LongListSelector_SelectionChanged_1">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,17">
