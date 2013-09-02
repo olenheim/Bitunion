@@ -9,6 +9,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Bitunion.Resources;
 using Bitunion.ViewModels;
+using System.Collections.ObjectModel;
 
 namespace Bitunion
 {
@@ -18,7 +19,7 @@ namespace Bitunion
         private static ObservableCollection<BitThreadModel> LatestThreadItems;
         
         //论坛VM对象列表
-        private static ObservableCollection<ForumModelModel> ForumItems;
+        private static ObservableCollection<ForumViewModel> ForumItems;
         
         // 构造函数
         public MainPage()
@@ -86,19 +87,19 @@ namespace Bitunion
         //响应论坛列表选择进入某一个论坛的事件
          private void ForumListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (ThreadViewList.SelectedItem == null)
-                return;
+         //   if (ThreadViewList.SelectedItem == null)
+         //       return;
 
-            ForumModelModel item = ForumViewList.SelectedItem as ForumModelModel;
+        //    ForumModelModel item = ForumViewList.SelectedItem as ForumModelModel;
 
-            ForumViewList.SelectedItem = null;
+         //   ForumViewList.SelectedItem = null;
 
-            var forum = item.forum;
+           // var forum = item.forum;
 
             // Navigate to the new page
-            NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
-                + "fname=" + forum.naem
-                , UriKind.Relative));
+         //   NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
+         //       + "fname=" + forum.naem
+          //      , UriKind.Relative));
         }
 
         // 用于生成本地化 ApplicationBar 的示例代码
