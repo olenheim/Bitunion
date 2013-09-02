@@ -14,13 +14,19 @@ namespace Bitunion
 {
     public partial class MainPage : PhoneApplicationPage
     {
+        //论坛最新帖子VM对象列表
+        private static ObservableCollection<BitThreadModel> LatestThreadItems;
+        
+        //论坛VM对象列表
+        private static ObservableCollection<ForumModelModel> ForumItems;
+        
         // 构造函数
         public MainPage()
         {
             InitializeComponent();
 
             // 将 listbox 控件的数据上下文设置为示例数据
-            DataContext = App.ViewModel;
+            //DataContext = App.ViewModel;
 
             // 用于本地化 ApplicationBar 的示例代码
             //BuildLocalizedApplicationBar();
@@ -37,6 +43,7 @@ namespace Bitunion
             pgBar.Visibility = Visibility.Collapsed;
         }
 
+        //响应在最新帖子列表中选择某帖子的事件
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             // If selected item is null (no selection) do nothing
@@ -55,6 +62,42 @@ namespace Bitunion
                 + "&replies=" + thread.tid_sum
                 + "&fid=" + thread.fid
                 + "&fname=" + thread.fname
+                , UriKind.Relative));
+        }
+        
+        //异步加载最新帖子列表
+        private async void LoadLatestThreadList()
+        {
+            
+        }
+        
+        //异步加载论坛列表
+        private async void LoadForumList()
+        {
+        
+        }
+        
+        //刷新最新的帖子列表
+        private void refresh ()
+        {
+            
+        }
+        
+        //响应论坛列表选择进入某一个论坛的事件
+         private void ForumListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ThreadViewList.SelectedItem == null)
+                return;
+
+            ForumModelModel item = ForumViewList.SelectedItem as ForumModelModel;
+
+            ForumViewList.SelectedItem = null;
+
+            var forum = item.forum;
+
+            // Navigate to the new page
+            NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
+                + "fname=" + forum.naem
                 , UriKind.Relative));
         }
 
