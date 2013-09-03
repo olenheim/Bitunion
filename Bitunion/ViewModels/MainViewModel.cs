@@ -10,14 +10,16 @@ namespace Bitunion.ViewModels
     {
         public MainViewModel()
         {
-            this.Items = new ObservableCollection<BitThreadModel>();
+            this.LatestThreadItems = new ObservableCollection<BitThreadModel>();
+            this.ForumItems = new ObservableCollection<ForumViewModel>();
         }
 
-        /// <summary>
-        /// ItemViewModel 对象的集合。
-        /// </summary>
-        public ObservableCollection<BitThreadModel> Items { get; private set; }
+        //论坛最新帖子VM对象列表
+        public ObservableCollection<BitThreadModel> LatestThreadItems { get; private set; }
 
+        //论坛VM对象列表
+        public ObservableCollection<ForumViewModel> ForumItems { get; private set; }
+        
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>
         /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值
@@ -65,7 +67,7 @@ namespace Bitunion.ViewModels
             List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
 
             foreach (BuLatestThread bt in btl)
-                this.Items.Add(new BitThreadModel(bt));
+                this.LatestThreadItems.Add(new BitThreadModel(bt));
 
 
             this.IsDataLoaded = true;

@@ -15,37 +15,21 @@ namespace Bitunion
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        //论坛最新帖子VM对象列表
-        private static ObservableCollection<BitThreadModel> LatestThreadItems = new ObservableCollection<BitThreadModel>();
-        
-        //论坛VM对象列表
-        private static ObservableCollection<ForumViewModel> ForumItem = new ObservableCollection<ForumViewModel>();
+        //主页VM
+        private static MainViewModel _mainvm= new MainViewModel();
         
         // 构造函数
         public MainPage()
         {
             InitializeComponent();
-
-            // 将 listbox 控件的数据上下文设置为示例数据
-            //DataContext = App.ViewModel;
-
-            // 用于本地化 ApplicationBar 的示例代码
-            //BuildLocalizedApplicationBar();
+            DataContext = _mainvm;
         }
 
         // 为 ViewModel 项加载数据
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            pgBar.Visibility = Visibility.Visible;
-            bool bl = await BuAPI.Login("泪沸腾", "bitwdazsc");
-            List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
-
-            foreach (BuLatestThread bt in btl)
-                LatestThreadItems.Add(new BitThreadModel(bt));
-
-
-           // this.IsDataLoaded = true;
-            pgBar.Visibility = Visibility.Collapsed;
+            if (_mainvm.LatestThreadItems.Count == 0)
+                LoadLatestThreadList();
         }
 
         //响应在最新帖子列表中选择某帖子的事件
@@ -73,19 +57,31 @@ namespace Bitunion
         //异步加载最新帖子列表
         private async void LoadLatestThreadList()
         {
-            
+            pgBar.Visibility = Visibility.Visible;
+            bool bl = await BuAPI.Login("泪沸腾", "bitwdazsc");
+            List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
+
+            foreach (BuLatestThread bt in btl)
+                _mainvm.LatestThreadItems.Add(new BitThreadModel(bt));
+            pgBar.Visibility = Visibility.Collapsed;
         }
         
         //异步加载论坛列表
         private async void LoadForumList()
         {
-        
+            pgBar.Visibility = Visibility.Visible;
+           Dictionary<string, string> bfl = await BuAPI.QueryForumList();
+
+          //  foreach (BuLatestThread bt in btl)
+          //      _mainvm.LatestThreadItems.Add(new BitThreadModel(bt));
+            pgBar.Visibility = Visibility.Collapsed;
         }
         
         //刷新最新的帖子列表
         private void refresh ()
         {
-            
+            _mainvm.LatestThreadItems.Clear();
+            LoadLatestThreadList();
         }
         
         //响应论坛列表选择进入某一个论坛的事件
@@ -105,6 +101,20 @@ namespace Bitunion
          //       + "fname=" + forum.naem
           //      , UriKind.Relative));
         }
+
+        //点击刷新按钮
+         private void refresh_click(object sender, EventArgs e)
+         {
+             refresh();
+         }
+
+        //切换Tab页面
+         private void MainPagePivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+         {
+             //如果切换到论坛分组的页面才加载论坛分组列表
+             if (MainPagePivot.SelectedIndex == 1)
+                 LoadForumList();
+         }
 
         // 用于生成本地化 ApplicationBar 的示例代码
         //private void BuildLocalizedApplicationBar()

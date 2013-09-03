@@ -10,6 +10,16 @@ using System.Threading.Tasks;
 
 namespace Bitunion
 {
+    public struct BuRealForum
+    {
+         public string type;
+        public string fid;
+        public string name;
+        public List<BuForum> main;
+        public List<BuForum> sub;
+
+    }
+
     public struct BuForum
     {
         public string type;
@@ -22,7 +32,6 @@ namespace Bitunion
         public string threads;
         public string posts;
         public string onlines;
-        List<int> subforumid;
     }
 
     public struct BuThread
@@ -191,7 +200,7 @@ namespace Bitunion
         }
 
         //查询论坛列表
-        public static async Task<bool> QueryForumList()
+        public static async Task<Dictionary<string, string>> QueryForumList()
         {
             JObject staff = new JObject();
             staff.Add(new JProperty("action", "forum"));
@@ -201,16 +210,14 @@ namespace Bitunion
 
             Stream response = await _httphelper.PostAsync(_url + "bu_forum.php", Context);
             if (response.Length == 0)
-                return false;
+                return null;
 
             JObject jsonret = null;
             if(!StreamToJobjAndCheckState(response,ref jsonret))
-                return false;
+                return null;
 
-            Dictionary<string,Dictionary<string,BuForum>> ForumList = 
-                JsonConvert.DeserializeObject<Dictionary<string,Dictionary<string,BuForum>>>(jsonret["forumslist"].ToString());
-            
-            return true;
+
+            return JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonret["forumslist"].ToString());
         }
 
         //查询某特定论坛的帖子列表

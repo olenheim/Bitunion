@@ -39,7 +39,7 @@ namespace Bitunion
             List<BuThread> threadlist = await BuAPI.QueryThreadList(_fid, "0", "19");
 
             foreach (BuThread bt in threadlist)
-                _mainviewmodel.Items.Add(new BitThreadModel(bt));
+                _mainviewmodel.LatestThreadItems.Add(new BitThreadModel(bt));
 
         }
         
