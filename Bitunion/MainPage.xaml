@@ -62,7 +62,7 @@
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17">
                                         <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30" Margin="12,0,64,0" HorizontalAlignment="Left"/>
-                                       <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left"/>
+                                       <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" Width="358"/>
                                        <TextBlock Text="{Binding Onlines}" TextWrapping="Wrap" Margin="0,-64,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="47" Width="47" TextAlignment="Center" HorizontalAlignment="Right" FontSize="36" Foreground="{StaticResource PhoneAccentBrush}"/>
                                  </StackPanel>
                             </DataTemplate>

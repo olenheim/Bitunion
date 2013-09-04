@@ -10,14 +10,13 @@ using System.Threading.Tasks;
 
 namespace Bitunion
 {
-    public struct BuRealForum
+    public struct BuGroupForum
     {
-         public string type;
+        public string type;
         public string fid;
         public string name;
         public List<BuForum> main;
         public List<BuForum> sub;
-
     }
 
     public struct BuForum
@@ -200,7 +199,7 @@ namespace Bitunion
         }
 
         //查询论坛列表
-        public static async Task<Dictionary<string, string>> QueryForumList()
+        public static async Task<List<BuGroupForum>> QueryForumList()
         {
             JObject staff = new JObject();
             staff.Add(new JProperty("action", "forum"));
@@ -216,8 +215,22 @@ namespace Bitunion
             if(!StreamToJobjAndCheckState(response,ref jsonret))
                 return null;
 
+            List<BuGroupForum> BuGroupForumList = new List<BuGroupForum>(); int i=0;
+            foreach (JToken forumgroup in JObject.Parse(jsonret["forumslist"].ToString()).Values())
+            {
+                if(i == 6)
+                    break;
 
-            return JsonConvert.DeserializeObject<Dictionary<string, string>>(jsonret["forumslist"].ToString());
+ 
+                    foreach (JToken forum in JObject.Parse(forumgroup.ToString()).Values())
+                        BuGroupForumList.Add(JsonConvert.DeserializeObject<BuGroupForum>
+                            (JObject.Parse(forum.ToString()).ToString()));
+                    i++;
+            }
+
+            return BuGroupForumList;
+                
+
         }
 
         //查询某特定论坛的帖子列表

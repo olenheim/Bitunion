@@ -70,10 +70,20 @@ namespace Bitunion
         private async void LoadForumList()
         {
             pgBar.Visibility = Visibility.Visible;
-           Dictionary<string, string> bfl = await BuAPI.QueryForumList();
+          List<BuGroupForum> bl = await BuAPI.QueryForumList();
 
-          //  foreach (BuLatestThread bt in btl)
-          //      _mainvm.LatestThreadItems.Add(new BitThreadModel(bt));
+          foreach (BuGroupForum bt in bl)
+          {
+              if (bt.main == null)
+                  continue;
+              foreach (BuForum btt in bt.main)
+              {
+                  _mainvm.ForumItems.Add(new ForumViewModel(btt));
+              }
+              
+          }
+            
+
             pgBar.Visibility = Visibility.Collapsed;
         }
         
@@ -113,7 +123,10 @@ namespace Bitunion
          {
              //如果切换到论坛分组的页面才加载论坛分组列表
              if (MainPagePivot.SelectedIndex == 1)
-                 LoadForumList();
+             {
+                 if (_mainvm.ForumItems.Count() == 0)
+                    LoadForumList();
+             }
          }
 
         // 用于生成本地化 ApplicationBar 的示例代码
