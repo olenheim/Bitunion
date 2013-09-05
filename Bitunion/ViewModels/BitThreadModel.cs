@@ -29,7 +29,8 @@ namespace Bitunion.ViewModels
         {
 	        Subject = Uri.UnescapeDataString(thread.subject);
             Author = Uri.UnescapeDataString(thread.author);
-            Time = thread.dateline;
+            Time = BuAPI.DateTimeConvertTime(thread.dateline).ToString("MM-dd HH:mm");
+                
             Replies = thread.replies;
             this.thread = thread;
         }

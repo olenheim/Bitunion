@@ -88,7 +88,7 @@ namespace Bitunion
             // 确保正确恢复应用程序状态
             if (!App.ViewModel.IsDataLoaded)
             {
-                App.ViewModel.LoadData();
+               // App.ViewModel.LoadData();
             }
         }
 

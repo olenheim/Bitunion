@@ -57,20 +57,20 @@
             <!--枢轴项二-->
             <phone:PivotItem Header="论坛列表">
                 <!--无文字环绕的双线列表-->
-                <phone:LongListSelector Margin="0,0,-12,0" ItemsSource="{Binding ForumItems}">
+                <phone:LongListSelector x:Name="ForumViewList" Margin="0,0,-12,0" ItemsSource="{Binding ForumItems}" SelectionChanged="ForumViewList_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="0,0,0,17">
                                         <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30" Margin="12,0,64,0" HorizontalAlignment="Left"/>
-                                       <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" Width="358"/>
-                                       <TextBlock Text="{Binding Onlines}" TextWrapping="Wrap" Margin="0,-64,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="47" Width="47" TextAlignment="Center" HorizontalAlignment="Right" FontSize="36" Foreground="{StaticResource PhoneAccentBrush}"/>
+                                       <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" Width="387" Height="26"/>
+                                       <TextBlock Text="{Binding Onlines}"  Margin="0,-60,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="49" Width="64" FontSize="36" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Right" TextAlignment="Center"/>
                                  </StackPanel>
                             </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
                 </phone:LongListSelector>
             </phone:PivotItem>
         </phone:Pivot>
-        <ProgressBar x:Name="pgBar" HorizontalAlignment="Left" Height="21" VerticalAlignment="Top" Width="473" IsIndeterminate="True"/>
+        <ProgressBar x:Name="pgBar" HorizontalAlignment="Left" Height="10" VerticalAlignment="Top" Width="473" IsIndeterminate="True" Margin="0"/>
 
         <!--取消注释，以显示对齐网格，从而帮助确保
             控件在公用边界上对齐。图像在系统栏中显示时的

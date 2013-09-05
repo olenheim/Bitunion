@@ -94,24 +94,6 @@ namespace Bitunion
             LoadLatestThreadList();
         }
         
-        //响应论坛列表选择进入某一个论坛的事件
-         private void ForumListSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-         //   if (ThreadViewList.SelectedItem == null)
-         //       return;
-
-        //    ForumModelModel item = ForumViewList.SelectedItem as ForumModelModel;
-
-         //   ForumViewList.SelectedItem = null;
-
-           // var forum = item.forum;
-
-            // Navigate to the new page
-         //   NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
-         //       + "fname=" + forum.naem
-          //      , UriKind.Relative));
-        }
-
         //点击刷新按钮
          private void refresh_click(object sender, EventArgs e)
          {
@@ -127,6 +109,24 @@ namespace Bitunion
                  if (_mainvm.ForumItems.Count() == 0)
                     LoadForumList();
              }
+         }
+
+         //响应论坛列表选择进入某一个论坛的事件
+         private void ForumViewList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+         {
+                if (ForumViewList.SelectedItem == null)
+                    return;
+
+                 ForumViewModel item = ForumViewList.SelectedItem as ForumViewModel;
+
+                ForumViewList.SelectedItem = null;
+
+              var forum = item.forum;
+
+              //Navigate to the new page
+                NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
+                    + "&fname=" + forum.name
+                   , UriKind.Relative));
          }
 
         // 用于生成本地化 ApplicationBar 的示例代码

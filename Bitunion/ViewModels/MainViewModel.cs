@@ -58,21 +58,6 @@ namespace Bitunion.ViewModels
             private set;
         }
 
-        /// <summary>
-        /// 创建一些 ItemViewModel 对象并将其添加到 Items 集合中。
-        /// </summary>
-        public async void LoadData()
-        {
-            bool bl = await BuAPI.Login("泪沸腾", "bitwdazsc");
-            List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
-
-            foreach (BuLatestThread bt in btl)
-                this.LatestThreadItems.Add(new BitThreadModel(bt));
-
-
-            this.IsDataLoaded = true;
-        }
-
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String propertyName)
         {

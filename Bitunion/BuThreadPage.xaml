@@ -48,7 +48,7 @@
                 </phone:LongListSelector.ItemTemplate>
             </phone:LongListSelector>
         </Grid>
-        <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="10" Margin="8,-6,0,0" VerticalAlignment="Top" Width="458" IsIndeterminate="True"/>
+        <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="10" Margin="8,0,0,0" VerticalAlignment="Top" Width="458" IsIndeterminate="True"/>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
