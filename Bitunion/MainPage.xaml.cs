@@ -17,12 +17,17 @@ namespace Bitunion
     {
         //主页VM
         private static MainViewModel _mainvm= new MainViewModel();
+
+        //父子论坛视图对象
+        public static Dictionary<string,List<BuForum>> DictFourm { get; private set;}
         
         // 构造函数
         public MainPage()
         {
             InitializeComponent();
             DataContext = _mainvm;
+           
+            DictFourm = new Dictionary<string,List<BuForum>>();
         }
 
         // 为 ViewModel 项加载数据
@@ -39,7 +44,7 @@ namespace Bitunion
             if (LatestThreadViewList.SelectedItem == null)
                 return;
 
-            BitThreadModel item = LatestThreadViewList.SelectedItem as BitThreadModel;
+            ThreadViewModel item = LatestThreadViewList.SelectedItem as ThreadViewModel;
 
             LatestThreadViewList.SelectedItem = null;
 
@@ -62,7 +67,7 @@ namespace Bitunion
             List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
 
             foreach (BuLatestThread bt in btl)
-                _mainvm.LatestThreadItems.Add(new BitThreadModel(bt));
+                _mainvm.LatestThreadItems.Add(new ThreadViewModel(bt));
             pgBar.Visibility = Visibility.Collapsed;
         }
         
@@ -76,10 +81,12 @@ namespace Bitunion
           {
               if (bt.main == null)
                   continue;
-              foreach (BuForum btt in bt.main)
-              {
-                  _mainvm.ForumItems.Add(new ForumViewModel(btt));
-              }
+              if(bt.main.Count != 1)
+                  continue;
+
+              _mainvm.ForumItems.Add(new ForumViewModel(bt.main[0]));
+             
+
               
           }
             

@@ -13,27 +13,33 @@ namespace Bitunion
 {
     public partial class BuForumPage : PhoneApplicationPage
     {
+	#region 资源文件
+	//论坛页面视图模型
         private static ForumViewModel _forumviewmodel = new ForumViewModel();
 
+	//该论坛页面的fid以及论坛名称
         private string _fid,_forumname;
         
-        private Dictionary<string,List<BuThread>> _pagecache;
+	//每一个页面的贴子缓存
+        private Dictionary<uint,List<BuThread>> _pagecache;
 
-        private uint _page;
+	//当前页码
+        private uint _pageno;
+	#endregion
 
         public BuForumPage()
         {
             InitializeComponent();
             DataContext = _forumviewmodel;
-            _pagecache = new Dictionary<string,List<BuThread>>();
-            _page = 1;
+            _pagecache = new Dictionary<uint,List<BuThread>>();
+            _pageno = 1;
         }
 
         protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
 
-            //获取从父页面传递过来的tid
+            //获取从父页面传递过来的fid与论坛名称
             NavigationContext.QueryString.TryGetValue("fid", out _fid);
             NavigationContext.QueryString.TryGetValue("fname", out _forumname);
 
@@ -41,25 +47,33 @@ namespace Bitunion
             LoadThreadList();
         }
         
+	//异步加载帖子列表
         private async void LoadThreadList()
         {
             pgbar.Visibility = Visibility.Visible;
+	    CheckBtnEnable();
+	    //清除界面数据
             _forumviewmodel.ThreadItems.Clear();
-            List<BuThread> threadlist = await BuAPI.QueryThreadList(_fid, ((_page - 1)*20).ToString(),( _page*20 -1).ToString());
-            foreach (BuThread bt in threadlist)
-                _forumviewmodel.ThreadItems.Add(new BitThreadModel(bt));
 
-            CheckBtnEnable();
+	    //先从缓存中获取
+        List<BuThread> threadlist;
+	    if(!_pagecache.TryGetValue( _pageno, out threadlist))
+            _pagecache[_pageno] = await BuAPI.QueryThreadList(_fid, ((_pageno - 1) * 20).ToString(), (_pageno * 20 - 1).ToString());
+           
+	    //填写视图模型
+        foreach (BuThread bt in _pagecache[_pageno])
+                _forumviewmodel.ThreadItems.Add(new ThreadViewModel(bt));
+
             pgbar.Visibility = Visibility.Collapsed;
         }
         
-
+	//点击某一个帖子
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             if (ThreadViewList.SelectedItem == null)
                 return;
 
-            BitThreadModel item = ThreadViewList.SelectedItem as BitThreadModel;
+            ThreadViewModel item = ThreadViewList.SelectedItem as ThreadViewModel;
 
            ThreadViewList.SelectedItem = null;
 
@@ -74,31 +88,32 @@ namespace Bitunion
                 , UriKind.Relative));
         }
 
-
-
+	//刷新
         private void refresh_click(object sender, EventArgs e)
         {
             _pagecache.Clear();
-            _page = 1;
+            _pageno = 1;
             LoadThreadList();
         }
 
+	//前一页
         private void Prev_Click(object sender, EventArgs e)
         {
-            _page--;
+            _pageno--;
             LoadThreadList();
         }
 
+	//后一页
         private void Next_Click(object sender, EventArgs e)
         {
-            _page++;
+            _pageno++;
             LoadThreadList();
         }
 
         private void CheckBtnEnable()
         {
             //禁用工具栏按钮的方法
-            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_page != (uint)1);
+            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
         }
     }
 }

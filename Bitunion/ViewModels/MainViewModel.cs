@@ -10,12 +10,12 @@ namespace Bitunion.ViewModels
     {
         public MainViewModel()
         {
-            this.LatestThreadItems = new ObservableCollection<BitThreadModel>();
+            this.LatestThreadItems = new ObservableCollection<ThreadViewModel>();
             this.ForumItems = new ObservableCollection<ForumViewModel>();
         }
 
         //论坛最新帖子VM对象列表
-        public ObservableCollection<BitThreadModel> LatestThreadItems { get; private set; }
+        public ObservableCollection<ThreadViewModel> LatestThreadItems { get; private set; }
 
         //论坛VM对象列表
         public ObservableCollection<ForumViewModel> ForumItems { get; private set; }

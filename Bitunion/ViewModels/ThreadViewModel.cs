@@ -1,67 +1,150 @@
-﻿using System;
-using System.Collections.ObjectModel;
+using System;
 using System.ComponentModel;
-using Bitunion.Resources;
+using System.Diagnostics;
+using System.Net;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Bitunion.ViewModels
 {
-    class ThreadViewModel : INotifyPropertyChanged
+    public class ThreadViewModel : INotifyPropertyChanged
     {
-        public ThreadViewModel()
+
+        public ThreadViewModel(BuLatestThread bt)
         {
-            this.PostItems = new ObservableCollection<PostViewModel>();
+            Subject = Uri.UnescapeDataString(bt.pname);
+            Author = Uri.UnescapeDataString(bt.author);
+            ForumName = Uri.UnescapeDataString(bt.fname);
+            Replies = bt.tid_sum;
+            this.latestthread = bt;
+            PostItems = new ObservableCollection<PostViewModel>();
         }
 
-        /// <summary>
-        /// ItemViewModel 对象的集合。
-        /// </summary>
-        public ObservableCollection<PostViewModel> PostItems { get; private set; }
+        public ThreadViewModel() { PostItems = new ObservableCollection<PostViewModel>(); }
 
-        private string _sampleProperty = "Sample Runtime Property Value";
+        public ThreadViewModel(BuThread thread) 
+        {
+	        Subject = Uri.UnescapeDataString(thread.subject);
+            Author = Uri.UnescapeDataString(thread.author);
+            Time = BuAPI.DateTimeConvertTime(thread.dateline).ToString("MM-dd HH:mm");
+                
+            Replies = thread.replies;
+            this.thread = thread;
+            PostItems = new ObservableCollection<PostViewModel>();
+        }
+
+        public ObservableCollection<PostViewModel> PostItems { get; private set; }
+        public BuLatestThread latestthread { get; private set; }
+    	public BuThread thread {get; private set;}
+
+        private string _subject;
         /// <summary>
-        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
         /// </summary>
         /// <returns></returns>
-        public string SampleProperty
+        public string Subject
         {
             get
             {
-                return _sampleProperty;
+                return _subject;
             }
             set
             {
-                if (value != _sampleProperty)
+                if (value != _subject)
                 {
-                    _sampleProperty = value;
-                    NotifyPropertyChanged("SampleProperty");
+                    _subject = value;
+                    NotifyPropertyChanged("Subject");
                 }
             }
         }
 
+	        private string _author;
         /// <summary>
-        /// 返回本地化字符串的示例属性
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
         /// </summary>
-        public string LocalizedSampleProperty
+        /// <returns></returns>
+        public string Author
         {
             get
             {
-                return AppResources.SampleProperty;
+                return _author;
+            }
+            set
+            {
+                if (value != _author)
+                {
+                    _author = value;
+                    NotifyPropertyChanged("Author");
+                }
             }
         }
 
-        public bool IsDataLoaded
+	        private string _forumname;
+        /// <summary>
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+        /// </summary>
+        /// <returns></returns>
+        public string ForumName
         {
-            get;
-            private set;
+            get
+            {
+                return _forumname;
+            }
+            set
+            {
+                if (value != _forumname)
+                {
+                    _forumname = value;
+                    NotifyPropertyChanged("ForumName");
+                }
+            }
         }
 
+	        private string _time;
         /// <summary>
-        /// 创建一些 ItemViewModel 对象并将其添加到 Items 集合中。
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
         /// </summary>
-        public void LoadData()
+        /// <returns></returns>
+        public string Time
         {
+            get
+            {
+                return _time;
+            }
+            set
+            {
+                if (value != _time)
+                {
+                    _time = value;
+                    NotifyPropertyChanged("Time");
+                }
+            }
+        }
 
+	        private string _replies;
+        /// <summary>
+        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+        /// </summary>
+        /// <returns></returns>
+        public string Replies
+        {
+            get
+            {
+                return _replies;
+            }
+            set
+            {
+                if (value != _replies)
+                {
+                    _replies = value;
+                    NotifyPropertyChanged("Replies");
+                }
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -75,3 +158,4 @@ namespace Bitunion.ViewModels
         }
     }
 }
+

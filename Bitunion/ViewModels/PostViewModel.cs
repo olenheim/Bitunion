@@ -10,12 +10,11 @@ using System.Windows.Media.Animation;
 
 namespace Bitunion.ViewModels
 {
-    class PostViewModel : INotifyPropertyChanged
+    public class PostViewModel : INotifyPropertyChanged
     {
 
         public PostViewModel()
         {
-
         }
 
         public string tid { get; private set; }

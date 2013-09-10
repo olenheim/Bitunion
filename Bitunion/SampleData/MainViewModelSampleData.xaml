@@ -6,7 +6,7 @@
     SampleProperty="示例文本属性值">
 
     <vm:MainViewModel.LatestThreadItems>
-        <vm:BitThreadModel Subject="设计一" Author="Maecenas praesent accumsan bibendum" ForumName="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
+        <vm:ThreadViewModel Subject="设计一" Author="Maecenas praesent accumsan bibendum" ForumName="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
     </vm:MainViewModel.LatestThreadItems>
     <vm:MainViewModel.ForumItems>
         <vm:ForumViewModel Name="论坛名" Description="Maecenas praesent accumsan bibendum" Onlines="10"/>
