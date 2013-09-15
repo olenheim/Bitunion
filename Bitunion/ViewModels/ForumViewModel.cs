@@ -30,6 +30,9 @@ namespace Bitunion.ViewModels
         //论坛vm下的帖子vm列表
         public ObservableCollection<ThreadViewModel> ThreadItems { get; private set; }
 
+	   //子论坛视图模型列表
+        public ObservableCollection<ForumViewModel> ForumItems { get; private set; }
+
         //论坛逻辑实体对象
         public BuForum forum { get; private set; }
 

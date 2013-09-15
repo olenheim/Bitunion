@@ -10,6 +10,7 @@ using Microsoft.Phone.Shell;
 using Bitunion.Resources;
 using Bitunion.ViewModels;
 using System.Collections.ObjectModel;
+using System.IO.IsolatedStorage;
 
 namespace Bitunion
 {
@@ -20,6 +21,9 @@ namespace Bitunion
 
         //父子论坛视图对象
         public static Dictionary<string,List<BuForum>> DictFourm { get; private set;}
+
+        //本地登录数据以及配置信息
+        private IsolatedStorageSettings userlogininfo = IsolatedStorageSettings.ApplicationSettings;
         
         // 构造函数
         public MainPage()
@@ -31,8 +35,12 @@ namespace Bitunion
         }
 
         // 为 ViewModel 项加载数据
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override  void OnNavigatedTo(NavigationEventArgs e)
         {
+            //string isautologin;
+            //if (!userlogininfo.TryGetValue("autologin", out isautologin) || isautologin == "false")
+            //    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
+
             if (_mainvm.LatestThreadItems.Count == 0)
                 LoadLatestThreadList();
         }
@@ -84,10 +92,15 @@ namespace Bitunion
               if(bt.main.Count != 1)
                   continue;
 
+              //添加主论坛
               _mainvm.ForumItems.Add(new ForumViewModel(bt.main[0]));
-             
 
-              
+              if (bt.sub == null)
+                  continue;
+
+              DictFourm[bt.main[0].fid] = new List<BuForum>();
+              foreach (var subforum in bt.sub)
+                  DictFourm[bt.main[0].fid].Add(subforum);
           }
             
 

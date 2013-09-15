@@ -22,14 +22,26 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="我的应用程序" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="Bitunion" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBlock Text="登陆" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-
+            <TextBox HorizontalAlignment="Left" Height="72" Margin="131,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="315" FontSize="36"/>
+            <TextBlock HorizontalAlignment="Left" Margin="38,42,0,0" TextWrapping="Wrap" Text="账号:" VerticalAlignment="Top" FontSize="36"/>
+            <TextBlock HorizontalAlignment="Left" Margin="38,125,0,0" TextWrapping="Wrap" Text="密码:" VerticalAlignment="Top" FontSize="36"/>
+            <CheckBox Content="记住密码" HorizontalAlignment="Left" Margin="38,190,0,0" VerticalAlignment="Top"/>
+            <CheckBox Content="自动登录" HorizontalAlignment="Left" Margin="263,190,0,0" VerticalAlignment="Top"/>
+            <PasswordBox HorizontalAlignment="Left" Margin="131,113,0,0" VerticalAlignment="Top" Width="315"/>
         </Grid>
+        
+        
     </Grid>
+    <phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar x:Name="ForumAppBar" IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
+            <shell:ApplicationBarIconButton x:Name="longin" IconUri="/Images/login.png" Text="登录" Click="login_click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>
 
 </phone:PhoneApplicationPage>

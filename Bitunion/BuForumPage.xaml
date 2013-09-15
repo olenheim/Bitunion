@@ -16,7 +16,7 @@
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--枢轴控件-->
-        <phone:Pivot x:Name="ForumPivot" Title="Bitunion">
+        <phone:Pivot x:Name="ForumPivot" Title="Bitunion" SelectionChanged="ForumPivot_SelectionChanged">
             <!--枢轴项一-->
             <phone:PivotItem x:Name="Forum">
                 <phone:PivotItem.Header>
@@ -37,19 +37,26 @@
 
             <!--枢轴项二-->
             <phone:PivotItem x:Name="subforum" Header="子板">
-                <Grid/>
+                <phone:LongListSelector x:Name="SubForumViewList" Margin="0,0,-12,0" ItemsSource="{Binding SubForumItems}" SelectionChanged="LongListSelector_SelectionChanged_2">
+                    <phone:LongListSelector.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="0,0,0,17">
+                                <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30" Margin="12,0,64,0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" Width="387" Height="26"/>
+                                <TextBlock Text="{Binding Onlines}"  Margin="0,-60,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="49" Width="64" FontSize="36" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Right" TextAlignment="Center"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </phone:LongListSelector.ItemTemplate>
+                </phone:LongListSelector>
             </phone:PivotItem>
         </phone:Pivot>
         <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="13" VerticalAlignment="Top" Width="480" IsIndeterminate="True" Margin="0"/>
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
-
+        <shell:ApplicationBar x:Name="ForumAppBar" IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
             <shell:ApplicationBarIconButton x:Name="refresh" IconUri="/Images/refresh.png" Text="刷新" Click="refresh_click" />
             <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
             <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
-      
-
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 

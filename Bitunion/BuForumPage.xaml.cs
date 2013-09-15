@@ -13,25 +13,25 @@ namespace Bitunion
 {
     public partial class BuForumPage : PhoneApplicationPage
     {
-	#region 资源文件
-	//论坛页面视图模型
-        private static ForumViewModel _forumviewmodel = new ForumViewModel();
+        #region 资源文件
+        //论坛页面视图模型
+        private static ForumPageViewModel _forumpageviewmodel = new ForumPageViewModel();
 
-	//该论坛页面的fid以及论坛名称
-        private string _fid,_forumname;
-        
-	//每一个页面的贴子缓存
-        private Dictionary<uint,List<BuThread>> _pagecache;
+        //该论坛页面的fid以及论坛名称
+        private string _fid, _forumname;
 
-	//当前页码
+        //每一个页面的贴子缓存
+        private Dictionary<uint, List<BuThread>> _pagecache;
+
+        //当前页码
         private uint _pageno;
-	#endregion
+        #endregion
 
         public BuForumPage()
         {
             InitializeComponent();
-            DataContext = _forumviewmodel;
-            _pagecache = new Dictionary<uint,List<BuThread>>();
+            DataContext = _forumpageviewmodel;
+            _pagecache = new Dictionary<uint, List<BuThread>>();
             _pageno = 1;
         }
 
@@ -39,35 +39,51 @@ namespace Bitunion
         {
             base.OnNavigatedTo(e);
 
+            //清空子板数据
+            _forumpageviewmodel.SubForumItems.Clear();
+
             //获取从父页面传递过来的fid与论坛名称
             NavigationContext.QueryString.TryGetValue("fid", out _fid);
             NavigationContext.QueryString.TryGetValue("fname", out _forumname);
 
             pivotItem1.Text = _forumname;
+            List<BuForum> SubForumList;
+            if (MainPage.DictFourm.TryGetValue(_fid, out SubForumList) && SubForumList.Count != 0)
+            {
+                //添加子板相关信息
+                foreach (var forum in MainPage.DictFourm[_fid])
+                    _forumpageviewmodel.SubForumItems.Add(new ForumViewModel(forum));
+            }
+            else
+            {
+                //去除子板标签页
+                ForumPivot.Items.RemoveAt(1);
+            }
+
             LoadThreadList();
         }
-        
-	//异步加载帖子列表
+
+        //异步加载帖子列表
         private async void LoadThreadList()
         {
             pgbar.Visibility = Visibility.Visible;
-	    CheckBtnEnable();
-	    //清除界面数据
-            _forumviewmodel.ThreadItems.Clear();
+            CheckBtnEnable();
+            //清除界面数据
+            _forumpageviewmodel.ThreadItems.Clear();
 
-	    //先从缓存中获取
-        List<BuThread> threadlist;
-	    if(!_pagecache.TryGetValue( _pageno, out threadlist))
-            _pagecache[_pageno] = await BuAPI.QueryThreadList(_fid, ((_pageno - 1) * 20).ToString(), (_pageno * 20 - 1).ToString());
-           
-	    //填写视图模型
-        foreach (BuThread bt in _pagecache[_pageno])
-                _forumviewmodel.ThreadItems.Add(new ThreadViewModel(bt));
+            //先从缓存中获取
+            List<BuThread> threadlist;
+            if (!_pagecache.TryGetValue(_pageno, out threadlist))
+                _pagecache[_pageno] = await BuAPI.QueryThreadList(_fid, ((_pageno - 1) * 20).ToString(), (_pageno * 20 - 1).ToString());
+
+            //填写视图模型
+            foreach (BuThread bt in _pagecache[_pageno])
+                _forumpageviewmodel.ThreadItems.Add(new ThreadViewModel(bt));
 
             pgbar.Visibility = Visibility.Collapsed;
         }
-        
-	//点击某一个帖子
+
+        //点击某一个帖子
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
         {
             if (ThreadViewList.SelectedItem == null)
@@ -75,7 +91,7 @@ namespace Bitunion
 
             ThreadViewModel item = ThreadViewList.SelectedItem as ThreadViewModel;
 
-           ThreadViewList.SelectedItem = null;
+            ThreadViewList.SelectedItem = null;
 
             var thread = item.thread;
 
@@ -86,9 +102,46 @@ namespace Bitunion
                 + "&fid=" + _fid
                 + "&fname=" + _forumname
                 , UriKind.Relative));
+
+
+            //进入页面后应消除后退堆栈
         }
 
-	//刷新
+        //切换Tab页面
+        private void ForumPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //切换后修改AppBar状态
+            switch (((Pivot)sender).SelectedIndex)
+            {
+                case 0:
+                    ApplicationBar.IsVisible = true;
+                    break;
+
+                case 1:
+                    ApplicationBar.IsVisible = false;
+                    break;
+            }
+        }
+
+        //点击子版块
+        private void LongListSelector_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
+        {
+            if (SubForumViewList.SelectedItem == null)
+                return;
+
+            ForumViewModel item = SubForumViewList.SelectedItem as ForumViewModel;
+
+            SubForumViewList.SelectedItem = null;
+
+            var forum = item.forum;
+
+            // Navigate to the new page
+            NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
+                    + "&fname=" + forum.name
+                   , UriKind.Relative));
+        }
+
+        //刷新
         private void refresh_click(object sender, EventArgs e)
         {
             _pagecache.Clear();
@@ -96,14 +149,14 @@ namespace Bitunion
             LoadThreadList();
         }
 
-	//前一页
+        //前一页
         private void Prev_Click(object sender, EventArgs e)
         {
             _pageno--;
             LoadThreadList();
         }
 
-	//后一页
+        //后一页
         private void Next_Click(object sender, EventArgs e)
         {
             _pageno++;
@@ -115,5 +168,6 @@ namespace Bitunion
             //禁用工具栏按钮的方法
             (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
         }
+
     }
 }
