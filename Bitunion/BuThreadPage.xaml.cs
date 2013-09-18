@@ -18,19 +18,19 @@ namespace Bitunion
 
         #region 资源文件
         //LLS所绑定的帖子数据模型
-        private static ThreadViewModel _threadview = new ThreadViewModel();
+        private ThreadViewModel _threadview = new ThreadViewModel();
 
         //HTML解析类
-        private HtmlDocument _htmldoc;
+        private HtmlDocument _htmldoc = new HtmlDocument();
 
         //帖子的tid,名称,回复数,所在版块fid和fname
         private string _tid, _subject, _replies,_fid,_fname;
 
         //目前所在的帖子页面,以及最大的页面数
-        private uint _currentpage, _maxpage;
+        private uint _currentpage = 1, _maxpage;
 
         //页面数据缓存
-        private Dictionary<uint, List<BuPost>> _pagecache;
+        private Dictionary<uint, List<BuPost>> _pagecache = new Dictionary<uint, List<BuPost>>();
         #endregion
 
         public BitThreadPage()
@@ -38,11 +38,7 @@ namespace Bitunion
             InitializeComponent();
             SupportedOrientations = SupportedPageOrientation.Portrait | SupportedPageOrientation.Landscape;
             //设定数据上下文
-            _threadview.PostItems.Clear();
             DataContext = _threadview;
-            _currentpage = 1;
-            _pagecache = new Dictionary<uint, List<BuPost>>();
-            _htmldoc = new HtmlDocument();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)

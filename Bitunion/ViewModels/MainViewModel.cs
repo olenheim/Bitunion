@@ -8,17 +8,13 @@ namespace Bitunion.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public MainViewModel()
-        {
-            this.LatestThreadItems = new ObservableCollection<ThreadViewModel>();
-            this.ForumItems = new ObservableCollection<ForumViewModel>();
-        }
+        public MainViewModel(){}
 
         //论坛最新帖子VM对象列表
-        public ObservableCollection<ThreadViewModel> LatestThreadItems { get; private set; }
+        public ObservableCollection<ThreadViewModel> LatestThreadItems = new ObservableCollection<ThreadViewModel>();
 
         //论坛VM对象列表
-        public ObservableCollection<ForumViewModel> ForumItems { get; private set; }
+        public ObservableCollection<ForumViewModel> ForumItems = new ObservableCollection<ForumViewModel>();
         
         private string _sampleProperty = "Sample Runtime Property Value";
         /// <summary>

@@ -15,29 +15,30 @@ namespace Bitunion
     {
         #region 资源文件
         //论坛页面视图模型
-        private static ForumPageViewModel _forumpageviewmodel = new ForumPageViewModel();
+        private ForumPageViewModel _forumpageviewmodel = new ForumPageViewModel();
 
         //该论坛页面的fid以及论坛名称
         private string _fid, _forumname;
 
         //每一个页面的贴子缓存
-        private Dictionary<uint, List<BuThread>> _pagecache;
+        private Dictionary<uint, List<BuThread>> _pagecache = new Dictionary<uint, List<BuThread>>();
 
         //当前页码
-        private uint _pageno;
+        private uint _pageno = 1;
         #endregion
 
         public BuForumPage()
         {
             InitializeComponent();
             DataContext = _forumpageviewmodel;
-            _pagecache = new Dictionary<uint, List<BuThread>>();
-            _pageno = 1;
         }
 
         protected async override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            if (_fid != null && _forumname != null)
+                return;
 
             //清空子板数据
             _forumpageviewmodel.SubForumItems.Clear();
@@ -57,7 +58,8 @@ namespace Bitunion
             else
             {
                 //去除子板标签页
-                ForumPivot.Items.RemoveAt(1);
+                if(ForumPivot.Items.Count > 1)
+                    ForumPivot.Items.RemoveAt(1);
             }
 
             LoadThreadList();

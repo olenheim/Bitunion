@@ -22,16 +22,12 @@ namespace Bitunion.ViewModels
             Moderator = Uri.UnescapeDataString(forum.moderator);
             Onlines = forum.onlines;
             this.forum= forum;
-            this.ThreadItems = new ObservableCollection<ThreadViewModel>();
         }
 
-        public ForumViewModel() {this.ThreadItems = new ObservableCollection<ThreadViewModel>(); }
+        public ForumViewModel() { }
         
         //论坛vm下的帖子vm列表
-        public ObservableCollection<ThreadViewModel> ThreadItems { get; private set; }
-
-	   //子论坛视图模型列表
-        public ObservableCollection<ForumViewModel> ForumItems { get; private set; }
+        public ObservableCollection<ThreadViewModel> ThreadItems = new ObservableCollection<ThreadViewModel>();
 
         //论坛逻辑实体对象
         public BuForum forum { get; private set; }

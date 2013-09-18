@@ -22,10 +22,9 @@ namespace Bitunion.ViewModels
             ForumName = Uri.UnescapeDataString(bt.fname);
             Replies = bt.tid_sum;
             this.latestthread = bt;
-            PostItems = new ObservableCollection<PostViewModel>();
         }
 
-        public ThreadViewModel() { PostItems = new ObservableCollection<PostViewModel>(); }
+        public ThreadViewModel() {}
 
         public ThreadViewModel(BuThread thread) 
         {
@@ -35,10 +34,9 @@ namespace Bitunion.ViewModels
                 
             Replies = thread.replies;
             this.thread = thread;
-            PostItems = new ObservableCollection<PostViewModel>();
         }
 
-        public ObservableCollection<PostViewModel> PostItems { get; private set; }
+        public ObservableCollection<PostViewModel> PostItems = new ObservableCollection<PostViewModel>();
         public BuLatestThread latestthread { get; private set; }
     	public BuThread thread {get; private set;}
 
