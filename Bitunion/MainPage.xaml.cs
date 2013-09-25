@@ -17,10 +17,10 @@ namespace Bitunion
     public partial class MainPage : PhoneApplicationPage
     {
         //主页VM
-        private MainViewModel _mainvm= new MainViewModel();
+        private static MainViewModel _mainvm= new MainViewModel();
 
         //父子论坛视图对象
-        public static Dictionary<string,List<BuForum>> DictFourm { get; private set;}
+        public static Dictionary<string,List<BuForum>> DictFourm = new Dictionary<string,List<BuForum>>();
 
         //本地登录数据以及配置信息
         private IsolatedStorageSettings userlogininfo = IsolatedStorageSettings.ApplicationSettings;
@@ -37,10 +37,6 @@ namespace Bitunion
         // 为 ViewModel 项加载数据
         protected override  void OnNavigatedTo(NavigationEventArgs e)
         {
-            //string isautologin;
-            //if (!userlogininfo.TryGetValue("autologin", out isautologin) || isautologin == "false")
-            //    NavigationService.Navigate(new Uri("/LoginPage.xaml", UriKind.Relative));
-
             if (_mainvm.LatestThreadItems.Count == 0)
                 LoadLatestThreadList();
         }
@@ -71,7 +67,6 @@ namespace Bitunion
         private async void LoadLatestThreadList()
         {
             pgBar.Visibility = Visibility.Visible;
-            bool bl = await BuAPI.Login("泪沸腾", "bitwdazsc");
             List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
 
             foreach (BuLatestThread bt in btl)

@@ -15,14 +15,26 @@ namespace Bitunion
     {
         private IsolatedStorageSettings userinfo = IsolatedStorageSettings.ApplicationSettings;
 
+        private string _id, _password;
+
         public LoginPage()
         {
             InitializeComponent();
+            ID.Text = "泪沸腾";
+            Password.Password = "bitwdazsc";
         }
 
-        private void login_click(object sender, EventArgs e)
+        private async void login_click(object sender, EventArgs e)
         {
-
+            //Todo 动画效果
+            bool bl = await BuAPI.Login(ID.Text, Password.Password);
+            if (bl)
+                NavigationService.Navigate(new Uri("/MainPage.xaml",UriKind.Relative));
+            else
+                //Todo消除动画 重新输入
+                ;
         }
+
+
     }
 }
