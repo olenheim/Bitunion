@@ -17,7 +17,7 @@ namespace Bitunion
     public partial class MainPage : PhoneApplicationPage
     {
         //主页VM
-        private static MainViewModel _mainvm= new MainViewModel();
+        private MainViewModel _mainvm= new MainViewModel();
 
         //父子论坛视图对象
         public static Dictionary<string,List<BuForum>> DictFourm = new Dictionary<string,List<BuForum>>();
