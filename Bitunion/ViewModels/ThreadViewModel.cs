@@ -22,21 +22,22 @@ namespace Bitunion.ViewModels
             ForumName = Uri.UnescapeDataString(bt.fname);
             Replies = bt.tid_sum;
             this.latestthread = bt;
+            PostItems = new ObservableCollection<PostViewModel>();
         }
 
-        public ThreadViewModel() {}
+        public ThreadViewModel() { PostItems = new ObservableCollection<PostViewModel>(); }
 
         public ThreadViewModel(BuThread thread) 
         {
 	        Subject = Uri.UnescapeDataString(thread.subject);
             Author = Uri.UnescapeDataString(thread.author);
             Time = BuAPI.DateTimeConvertTime(thread.dateline).ToString("MM-dd HH:mm");
-                
+            PostItems = new ObservableCollection<PostViewModel>();
             Replies = thread.replies;
             this.thread = thread;
         }
 
-        public ObservableCollection<PostViewModel> PostItems = new ObservableCollection<PostViewModel>();
+        public ObservableCollection<PostViewModel> PostItems { get; private set; }
         public BuLatestThread latestthread { get; private set; }
     	public BuThread thread {get; private set;}
 

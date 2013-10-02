@@ -39,7 +39,7 @@ namespace Bitunion
         {
             if (_mainvm.LatestThreadItems.Count == 0)
                 LoadLatestThreadList();
-        }
+        }                                                                                                                                                                                                 
 
         //响应在最新帖子列表中选择某帖子的事件
         private void LongListSelector_SelectionChanged_1(object sender, SelectionChangedEventArgs e)

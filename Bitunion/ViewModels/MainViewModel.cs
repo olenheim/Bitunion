@@ -8,35 +8,18 @@ namespace Bitunion.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public MainViewModel(){}
-
-        //论坛最新帖子VM对象列表
-        public ObservableCollection<ThreadViewModel> LatestThreadItems = new ObservableCollection<ThreadViewModel>();
-
-        //论坛VM对象列表
-        public ObservableCollection<ForumViewModel> ForumItems = new ObservableCollection<ForumViewModel>();
-        
-        private string _sampleProperty = "Sample Runtime Property Value";
-        /// <summary>
-        /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值
-        /// </summary>
-        /// <returns></returns>
-        public string SampleProperty
+        public MainViewModel() 
         {
-            get
-            {
-                return _sampleProperty;
-            }
-            set
-            {
-                if (value != _sampleProperty)
-                {
-                    _sampleProperty = value;
-                    NotifyPropertyChanged("SampleProperty");
-                }
-            }
+            LatestThreadItems = new ObservableCollection<ThreadViewModel>();
+            ForumItems = new ObservableCollection<ForumViewModel>();
         }
 
+        //论坛最新帖子VM对象列表
+        public ObservableCollection<ThreadViewModel> LatestThreadItems{get;private set;}
+
+        //论坛VM对象列表
+        public ObservableCollection<ForumViewModel> ForumItems { get; private set; }
+        
         /// <summary>
         /// 返回本地化字符串的示例属性
         /// </summary>

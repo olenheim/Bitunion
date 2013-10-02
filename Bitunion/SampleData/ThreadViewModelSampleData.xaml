@@ -3,11 +3,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:vm="clr-namespace:Bitunion.ViewModels">
 
-    <!--<vm:ThreadViewModel.PostItems>
+    <vm:ThreadViewModel.PostItems>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
-    </vm:ThreadViewModel.PostItems>-->
-    </vm:ThreadViewModel>
+    </vm:ThreadViewModel.PostItems>
+</vm:ThreadViewModel>

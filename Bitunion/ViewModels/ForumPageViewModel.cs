@@ -15,13 +15,17 @@ namespace Bitunion.ViewModels
     public class ForumPageViewModel : INotifyPropertyChanged
     {
 
-        public ForumPageViewModel() {}
+        public ForumPageViewModel() 
+        {
+            ThreadItems = new ObservableCollection<ThreadViewModel>();
+            SubForumItems = new ObservableCollection<ForumViewModel>();
+        }
         
         //帖子视图模型集合
-        public ObservableCollection<ThreadViewModel> ThreadItems = new ObservableCollection<ThreadViewModel>(); 
+        public ObservableCollection<ThreadViewModel> ThreadItems { get; private set; }
 
 	    //子版块视图模型集合
-        public ObservableCollection<ForumViewModel> SubForumItems = new ObservableCollection<ForumViewModel>();
+        public ObservableCollection<ForumViewModel> SubForumItems { get; private set; }
 
         //论坛对象实体模型
         public BuForum forum { get; private set; }

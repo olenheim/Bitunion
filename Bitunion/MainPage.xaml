@@ -55,7 +55,7 @@
             </phone:PivotItem>
 
             <!--枢轴项二-->
-            <phone:PivotItem Header="论坛列表">
+            <phone:PivotItem Header="论坛列表">     
                 <!--无文字环绕的双线列表-->
                 <phone:LongListSelector x:Name="ForumViewList" Margin="0,0,-12,0" ItemsSource="{Binding ForumItems}" SelectionChanged="ForumViewList_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
