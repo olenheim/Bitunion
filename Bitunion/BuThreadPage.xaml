@@ -46,7 +46,7 @@
                                     <DataTemplate>
                                         <StackPanel Margin="0">
                                             <Border BorderThickness="0,0,0,0"  HorizontalAlignment="Left" Background="#FF494747" Margin="0">
-                                                <TextBlock Text="{Binding QuoteMsg}"  TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="20" Margin="3,0,-3,0" Width="400" Padding="5,0,10,5"/>
+                                                <TextBlock Text="{Binding QuoteMsg}"  TextWrapping="Wrap" FontSize="20" Margin="3,0,-3,0" Width="400" Padding="5,0,10,5"/>
                                             </Border>
                                           
                                         </StackPanel>
