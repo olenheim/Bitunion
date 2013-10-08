@@ -17,9 +17,9 @@ namespace Bitunion.ViewModels
 
         public ForumViewModel(BuForum forum)
         {
-            Name = Uri.UnescapeDataString(forum.name);
-            Description = Uri.UnescapeDataString(forum.description);
-            Moderator = Uri.UnescapeDataString(forum.moderator);
+            Name = BuAPI.parseHTML(HttpUtility.UrlDecode(forum.name));
+            Description = HttpUtility.UrlDecode(forum.description);
+            Moderator = HttpUtility.UrlDecode(forum.moderator);
             Onlines = forum.onlines;
             this.forum= forum;
             ThreadItems = new ObservableCollection<ThreadViewModel>();

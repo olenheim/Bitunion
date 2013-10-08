@@ -10,6 +10,8 @@ using Microsoft.Phone.Shell;
 using HtmlAgilityPack;
 using Bitunion.ViewModels;
 using System.Security;
+using System.Windows.Data;
+using System.Globalization;
 
 namespace Bitunion
 {
@@ -20,9 +22,6 @@ namespace Bitunion
         //LLS所绑定的帖子数据模型
         private ThreadViewModel _threadview = new ThreadViewModel();
 
-        //HTML解析类
-        private HtmlDocument _htmldoc = new HtmlDocument();
-
         //帖子的tid,名称,回复数,所在版块fid和fname
         private string _tid, _subject, _replies,_fid,_fname;
 
@@ -31,6 +30,9 @@ namespace Bitunion
 
         //页面数据缓存
         private Dictionary<uint, List<BuPost>> _pagecache = new Dictionary<uint, List<BuPost>>();
+
+        //父页面
+        private string _parentpage;
         #endregion
 
         public BitThreadPage()
@@ -45,6 +47,7 @@ namespace Bitunion
         {
             base.OnNavigatedTo(e);
 
+            _parentpage = NavigationService.BackStack.First().Source.OriginalString;
             //获取从父页面传递过来的tid
             NavigationContext.QueryString.TryGetValue("tid", out _tid);
             NavigationContext.QueryString.TryGetValue("subject", out _subject);
@@ -75,17 +78,10 @@ namespace Bitunion
             if (postlist == null || postlist.Count == 0)
                 return;
         
-            //填写显示模型
+            //填写视图模型
             foreach (BuPost post in postlist)
-            {
-                _htmldoc.LoadHtml(Uri.UnescapeDataString(post.message));
-                var node = _htmldoc.DocumentNode;
-                DateTime dt = BuAPI.DateTimeConvertTime(post.dateline);
+                _threadview.PostItems.Add(new PostViewModel(post));
 
-                //格式化时间”年-月-日 小时:分钟“
-                string strtime = dt.ToString("yyyy-M-d HH:mm");
-                _threadview.PostItems.Add(new PostViewModel() { Message = Uri.UnescapeDataString(node.InnerText), AddInfo = Uri.UnescapeDataString(post.author) + "  " + strtime });
-            }
             pgbar.Visibility = Visibility.Collapsed;
         }
 
@@ -114,8 +110,12 @@ namespace Bitunion
 
         private void Enter_Click(object sender, EventArgs e)
         {
-            NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + _fid
-           + "&fname=" + _fname, UriKind.Relative));
+            bool bl = NavigationService.CanGoBack;
+            if (_parentpage != "/MainPage.xaml" && NavigationService.CanGoBack)
+                NavigationService.GoBack();
+            else
+                NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + _fid
+                  + "&fname=" + _fname, UriKind.Relative));
         }
     }
 }

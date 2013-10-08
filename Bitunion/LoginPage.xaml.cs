@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
@@ -25,25 +21,41 @@ namespace Bitunion
         public LoginPage()
         {
             InitializeComponent();
-
             InitLoginPage();
+        }
 
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            bool bl = true;
             PgBar.Visibility = Visibility.Collapsed;
 
+            //可能的登出判断
+            string type;
+            NavigationContext.QueryString.TryGetValue("type", out type);
+            if (type == "logout")
+            {
+                NavigationService.RemoveBackEntry();
+                SwitchLoading();
+                bl = await BuAPI.Logout();
+                SwitchLoading(false);
+            }
+            if (bl == false)
+                MessageBox.Show("登出失败，可能与服务器连接已断开");
+         
+            //填写记录的默认信息
             ID.Text = _id;
             Password.Password = _password;
             if (_isrempw == "false")
-                isRemPassword.IsChecked = false ;
+                isRemPassword.IsChecked = false;
             if (_isautologin == "false")
                 isAutoLogin.IsChecked = false;
 
+            //调整第二个CheckBox的状态
             isRemPassword_Click(null, null);
 
-            if (_isautologin == "true" && _isrempw == "true")
-            {
+            //自动登录
+            if (_isautologin == "true" && _isrempw == "true" && type != "logout")
                 login_click(null, null);
-            }
-
         }
 
         //从独立存储中提取信息
@@ -117,8 +129,6 @@ namespace Bitunion
                 SwitchLoading(false);
                 MessageBox.Show("密码输入错误或联盟反思中……");
             }
-            SwitchLoading(false);
-
         }
 
         //载入动画效果的切换

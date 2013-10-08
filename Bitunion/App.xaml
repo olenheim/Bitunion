@@ -8,6 +8,7 @@
     <!--应用程序资源-->
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:Bitunion" x:Key="LocalizedStrings"/>
+        <converter:QuoteConverter xmlns:converter="clr-namespace:Bitunion.Converter" x:Key="QuoteConverter" />
     </Application.Resources>
 
     <Application.ApplicationLifetimeObjects>

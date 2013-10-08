@@ -7,9 +7,14 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+using System.Net;
+using HtmlAgilityPack;
 
 namespace Bitunion
 {
+    #region 论坛相关自定义对象
+
     public struct BuGroupForum
     {
         public string type;
@@ -46,7 +51,7 @@ namespace Bitunion
         public string replies;
     }         
 
-    struct BuPost
+    public struct BuPost
     {
         public string pid;
         public string fid;
@@ -103,7 +108,7 @@ namespace Bitunion
        public string msn;
     }
 
-   public  struct lastreplay
+    public  struct lastreplay
     {
         public string when;
         public string who;
@@ -121,6 +126,15 @@ namespace Bitunion
         public string fid_sum;
         public List<lastreplay> lastreplay;
     }
+
+    public struct BuQuote
+    {
+        public string author;
+        public string time;
+        public string content;
+    }
+
+    #endregion
 
     class BuAPI
     {
@@ -182,9 +196,12 @@ namespace Bitunion
             
             Stream response = await _httphelper.PostAsync(_url + "bu_logging.php", LogoutContext);
             if (response.Length == 0)
+            {
+                _session = "";
                 return false;
+            }
 
-            //直接返回是否成功推出的状态
+            //直接返回是否成功登出的状态
             JObject jsonret = null;
             return StreamToJobjAndCheckState(response,ref  jsonret);    
         }
@@ -311,6 +328,35 @@ namespace Bitunion
        {
            return true;
        }
+
+        //获取回复字串重的引用对象集合
+        public static List<BuQuote> parseQuotes(ref string message)
+        {
+            Regex rx = new Regex(@"<br><br><center><table border=\""0\"" width=\""90%\"".*?bgcolor=\""ALTBG2\""><b>([\s\S]*?)</b> (\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2})<br />([\s\S]*?)</td></tr></table></td></tr></table></center><br>",
+                RegexOptions.IgnoreCase);
+
+            List<BuQuote> quotes = new List<BuQuote>();
+
+            MatchCollection ms = rx.Matches(message);
+            bool bl = rx.IsMatch(message);
+
+            foreach (Match m in ms)
+            {
+                // 1: author; 2:time; 3:content
+                quotes.Add(new BuQuote() { author = m.Groups[1].Value, time = m.Groups[2].Value, content = parseHTML(m.Groups[3].Value) });
+                message = message.Replace(m.Groups[0].Value, "");
+            }
+            return quotes;
+        }
+
+        //解析HTML编码中的字符串
+        public static string parseHTML(string htmlstr)
+        {
+            HtmlDocument htmldoc = new HtmlDocument();
+            htmldoc.LoadHtml(htmlstr);
+            var node = htmldoc.DocumentNode;
+            return node.InnerText.Replace("&nbsp;"," ");
+        }
 
         //查询最新的帖子列表
         public static async Task<List<BuLatestThread>> QueryLatestThreadList()

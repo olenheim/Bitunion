@@ -37,6 +37,8 @@ namespace Bitunion
         // 为 ViewModel 项加载数据
         protected override  void OnNavigatedTo(NavigationEventArgs e)
         {
+            //消除后退堆栈中的登录页面
+            NavigationService.RemoveBackEntry();
             if (_mainvm.LatestThreadItems.Count == 0)
                 LoadLatestThreadList();
         }                                                                                                                                                                                                 
@@ -77,7 +79,7 @@ namespace Bitunion
         //异步加载论坛列表
         private async void LoadForumList()
         {
-            pgBar.Visibility = Visibility.Visible;
+          pgBar.Visibility = Visibility.Visible;
           List<BuGroupForum> bl = await BuAPI.QueryForumList();
 
           foreach (BuGroupForum bt in bl)
@@ -142,6 +144,11 @@ namespace Bitunion
                 NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + forum.fid
                     + "&fname=" + forum.name
                    , UriKind.Relative));
+         }
+
+         private void logout_click(object sender, EventArgs e)
+         {
+             NavigationService.Navigate(new Uri("/LoginPage.xaml?type=logout", UriKind.Relative));
          }
 
         // 用于生成本地化 ApplicationBar 的示例代码

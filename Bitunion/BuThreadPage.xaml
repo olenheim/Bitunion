@@ -24,25 +24,46 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="9,-7,12,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24"/>
+         
+                <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="9,-7,12,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24"/>
+              
+          
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="24,0,10,10">
+
             <!--具有文字环绕的双线列表-->
-            <phone:LongListSelector x:Name="Thread" ItemsSource="{Binding PostItems}" Height="632" VerticalAlignment="Top" Margin="-13,-13,-6,-67" HorizontalAlignment="Right" Width="465"  >
+            <phone:LongListSelector x:Name="ThreadLLS" ItemsSource="{Binding PostItems}" Height="632" VerticalAlignment="Top" Margin="-13,-13,-6,-67" HorizontalAlignment="Right" Width="465"  >
                 <phone:LongListSelector.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Margin="0,0,-11,0">               
-                            <Border BorderThickness="5,1,0,0" Height="32" HorizontalAlignment="Left" Width="457">
-                                <TextBlock Text="{Binding AddInfo}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="20" Margin="3,0,-3,0"/>
+                        <StackPanel x:Name="PostPanel" Margin="0,0,-11,0">               
+                         
+                             <TextBlock Text="{Binding AddInfo}" TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="20" Margin="3,15,-3,15"/>
+                           
+                            <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding QuoteItems}" Visibility="{Binding QuoteItems,Converter={StaticResource QuoteConverter}}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" Margin="30,0" >
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0">
+                                            <Border BorderThickness="0,0,0,0"  HorizontalAlignment="Left" Background="#FF494747" Margin="0">
+                                                <TextBlock Text="{Binding QuoteMsg}"  TextWrapping="Wrap" Style="{StaticResource PhoneTextSubtleStyle}" FontSize="20" Margin="3,0,-3,0" Width="400" Padding="5,0,10,5"/>
+                                            </Border>
+                                          
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+
+
+                            <Border BorderThickness="0,0,0,1"  HorizontalAlignment="Left" Width="457" Padding="0,0,0,5">
+                             <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="24" Margin="3,15,12,20"/>
                                 <Border.BorderBrush>
                                     <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
-                                </Border.BorderBrush>                         
-                            </Border>                       
-                            <TextBlock Text="{Binding Message}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="24" Margin="3,0,12,0"/>
-                            <Button Content="引用" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="90" Height="66" FontSize="18"/>
-
+                                </Border.BorderBrush>
+                            </Border>
+                          
+                            <!--<Button Content="引用" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="90" Height="66" FontSize="18"/>-->
+         
                         </StackPanel>
                     </DataTemplate>
                 </phone:LongListSelector.ItemTemplate>

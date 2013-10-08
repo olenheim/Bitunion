@@ -100,6 +100,7 @@
     <Compile Include="BuThreadPage.xaml.cs">
       <DependentUpon>BuThreadPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converter.cs" />
     <Compile Include="HttpLibrary.cs" />
     <Compile Include="LocalizedStrings.cs" />
     <Compile Include="LoginPage.xaml.cs">
