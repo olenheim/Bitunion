@@ -6,7 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
-    xmlns:local="clr-namespace:SuperTextBlock"
+    xmlns:local="clr-namespace:Bitunion"
     x:Class="Bitunion.BitThreadPage"
      d:DataContext="{d:DesignData SampleData/ThreadViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -55,20 +55,14 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
                             <!--<Border BorderThickness="0,0,0,1"  HorizontalAlignment="Left" Width="457" Padding="0,0,0,5">-->
-                            <Grid Grid.Row="1" Margin="12,0,12,0">
-                                <Grid.Children>
-                                    <ScrollViewer HorizontalAlignment="Left" Margin="0,0,0,0" Name="scrollViewer" VerticalAlignment="Top" Width="456">
-                                        <Grid x:Name="ContentPanel" Margin="0,0,0,0" Width="456">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <EyeableTextBlock Grid.Row="2" x:Name="textBlockContent" Width="456" FontSize="22" FontWeight="ExtraLight" FontFamily="Lucida Sans Unicode" Text="" Padding="0,1" />
-                                        </Grid>
-                                    </ScrollViewer>
-                                </Grid.Children>
-                            </Grid>
+
+
+
+
+
+                          
+               
+                    
                             
                             <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding MsgItems}" Visibility="{Binding QuoteItems}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" >
                                 <ItemsControl.ItemTemplate>
@@ -86,7 +80,7 @@
                                 </Border.BorderBrush>
                             </Border>-->      
                             <!--<Button Content="引用" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="90" Height="66" FontSize="18"/>-->
-                            <Image CacheMode="BitmapCache" Source="{Binding ImageSrc}" Height="120" Stretch="Uniform" Tap="OnImageTap" Margin="30,0,12,0" />
+                            <Image CacheMode="BitmapCache" Source="{Binding ImageSrc}"  Stretch="Uniform" Tap="OnImageTap" Margin="30,0,12,0" />
                             <Border BorderThickness="0,0,0,1"  HorizontalAlignment="Left" Width="457" Padding="0,0,0,5">
                             <Border.BorderBrush>
                                     <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>

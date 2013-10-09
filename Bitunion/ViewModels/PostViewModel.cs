@@ -14,26 +14,26 @@ using System.Windows.Media.Imaging;
 
 namespace Bitunion.ViewModels
 {
-    public class ImageViewModel : INotifyPropertyChanged
+    public class MessageViewModel : INotifyPropertyChanged
     {
-        public ImageViewModel(string path)
+        public MessageViewModel(string msg)
         {
-            ImageSrc = new BitmapImage(new Uri(path));
+            Message = msg;
         }
 
-        private ImageSource _imagesrc;
-        public ImageSource ImageSrc
+        private string _message;
+        public string Message
         {
             get
             {
-                return _imagesrc;
+                return _message;
             }
             set
             {
-                if (value != _imagesrc)
+                if (value != _message)
                 {
-                    _imagesrc = value;
-                    NotifyPropertyChanged("ImageSrc");
+                    _message = value;
+                    NotifyPropertyChanged("Message");
                 }
             }
         }
@@ -93,6 +93,7 @@ namespace Bitunion.ViewModels
        public PostViewModel(BuPost post)
         {
             QuoteItems = new ObservableCollection<QuoteViewModel>();
+            MsgItems = new ObservableCollection<MessageViewModel>();
         
            if(post.attachment!= null)
                ImageSrc = new BitmapImage(new Uri(BuAPI._url.Replace("open_api/", "") + HttpUtility.UrlDecode(post.attachment)));
@@ -110,7 +111,10 @@ namespace Bitunion.ViewModels
             //格式化时间”年-月-日 小时:分钟“
             string strtime = dt.ToString("yyyy-M-d HH:mm");
 
-            Message = HttpUtility.UrlDecode(BuAPI.parseHTML(message));
+           List<string>  Msgs = BuAPI.ParseText(HttpUtility.UrlDecode(BuAPI.parseHTML(message)));
+           foreach (var msg in Msgs)
+               MsgItems.Add(new MessageViewModel(msg));
+
             AddInfo = HttpUtility.UrlDecode(post.author) + "  " + strtime;
         }
 
@@ -120,6 +124,7 @@ namespace Bitunion.ViewModels
 
         //引用视图模型
         public ObservableCollection<QuoteViewModel> QuoteItems { get; private set; }
+        public ObservableCollection<MessageViewModel> MsgItems { get; private set; }
 
         //图片附件
         private ImageSource _imagesrc;

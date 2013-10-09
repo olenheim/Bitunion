@@ -377,6 +377,50 @@ namespace Bitunion
            return JsonConvert.DeserializeObject<List<BuLatestThread>>(jsonret["newlist"].ToString());
        }
 
+        public static List<string> ParseText(string text)
+        {
+            const int MAX = 100;
+            var reader = new StringReader(text);
+            var tblist = new List<string>();
+
+            string line;
+            var builder = new StringBuilder();
+            while ((line = reader.ReadLine()) != null)
+            {
+                //如果总长度不超过MAX，则加入
+                if (line.Length + builder.Length < MAX)
+                {
+                    builder.AppendLine(line);
+                }
+                else
+                {
+                    //先加入
+                    tblist.Add(builder.ToString().Trim());
+
+                    builder = new StringBuilder();
+                    //单行长度小于MAX，则Append
+                    if (line.Length < MAX)
+                    {
+                        builder.AppendLine(line);
+                    }
+                    //单行长度大于MAX，则
+                    else
+                    {
+                        int times = line.Length / MAX;
+                        for (int j = 0; j < times; j++)
+                        {
+                            tblist.Add(line.Substring(j * MAX, MAX).Trim());
+                        }
+                        builder.AppendLine(line.Substring(times * MAX));
+                    }
+                }
+            }
+            if (builder.Length > 0)
+                tblist.Add(builder.ToString().Trim());
+
+            return tblist;
+        }
+
         //将PHP时间戳格式转换为DateTime格式
         public static DateTime  DateTimeConvertTime(string  strtime)
         {
