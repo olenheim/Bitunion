@@ -143,7 +143,7 @@ namespace Bitunion
         static string _session;
 
         //保存访问联盟论坛的前缀地址
-        static string _url = "http://out.bitunion.org/open_api/";
+        public static string _url = "http://out.bitunion.org/open_api/";
 
         //Http库，用于进行Post操作
         static HttpEngine _httphelper = new HttpEngine();

@@ -117,5 +117,11 @@ namespace Bitunion
                 NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + _fid
                   + "&fname=" + _fname, UriKind.Relative));
         }
+
+        private void OnImageTap(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+
+        }
+
     }
 }

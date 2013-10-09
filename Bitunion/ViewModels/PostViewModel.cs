@@ -10,16 +10,44 @@ using System.Windows.Media.Animation;
 using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Media.Imaging;
 
 namespace Bitunion.ViewModels
 {
-    //public class ImageViewModel : INotifyPropertyChanged
-    //{
-    //    public ImageViewModel(string path)
-    //    {
-           
-    //    }
-    //}
+    public class ImageViewModel : INotifyPropertyChanged
+    {
+        public ImageViewModel(string path)
+        {
+            ImageSrc = new BitmapImage(new Uri(path));
+        }
+
+        private ImageSource _imagesrc;
+        public ImageSource ImageSrc
+        {
+            get
+            {
+                return _imagesrc;
+            }
+            set
+            {
+                if (value != _imagesrc)
+                {
+                    _imagesrc = value;
+                    NotifyPropertyChanged("ImageSrc");
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged(String propertyName)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (null != handler)
+            {
+                handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
 
     public class QuoteViewModel : INotifyPropertyChanged
     {
@@ -65,9 +93,11 @@ namespace Bitunion.ViewModels
        public PostViewModel(BuPost post)
         {
             QuoteItems = new ObservableCollection<QuoteViewModel>();
-
         
-            string message = HttpUtility.UrlDecode(post.message);
+           if(post.attachment!= null)
+               ImageSrc = new BitmapImage(new Uri(BuAPI._url.Replace("open_api/", "") + HttpUtility.UrlDecode(post.attachment)));
+
+           string message = HttpUtility.UrlDecode(post.message);
            
            //技术原因这里只显示引用的第一个人，以后再改吧……
             List<BuQuote> quotes= BuAPI.parseQuotes(ref message);
@@ -91,24 +121,23 @@ namespace Bitunion.ViewModels
         //引用视图模型
         public ObservableCollection<QuoteViewModel> QuoteItems { get; private set; }
 
-
-        //private string _quote;
-        //public string Quote
-        //{
-        //    get
-        //    {
-        //        return _quote;
-        //    }
-        //    set
-        //    {
-        //        if (value != _quote)
-        //        {
-        //            _quote = value;
-        //            NotifyPropertyChanged("Quote");
-        //        }
-        //    }
-
-        //}
+        //图片附件
+        private ImageSource _imagesrc;
+        public ImageSource ImageSrc
+        {
+            get
+            {
+                return _imagesrc;
+            }
+            set
+            {
+                if (value != _imagesrc)
+                {
+                    _imagesrc = value;
+                    NotifyPropertyChanged("ImageSrc");
+                }
+            }
+        }
 
         private string _message;
         /// <summary>
