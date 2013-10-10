@@ -102,8 +102,8 @@ namespace Bitunion.ViewModels
            
            //技术原因这里只显示引用的第一个人，以后再改吧……
             List<BuQuote> quotes= BuAPI.parseQuotes(ref message);
-            if (quotes.Count != 0)
-                QuoteItems.Add(new QuoteViewModel(quotes[0].author + "  " + quotes[0].time  + quotes[0].content));
+            foreach(var quote in quotes)
+                QuoteItems.Add(new QuoteViewModel(quote.author + "  " + quote.time  + quote.content));
             
 
             DateTime dt = BuAPI.DateTimeConvertTime(post.dateline);
@@ -111,10 +111,11 @@ namespace Bitunion.ViewModels
             //格式化时间”年-月-日 小时:分钟“
             string strtime = dt.ToString("yyyy-M-d HH:mm");
 
-           List<string>  Msgs = BuAPI.ParseText(HttpUtility.UrlDecode(BuAPI.parseHTML(message)));
-           foreach (var msg in Msgs)
-               MsgItems.Add(new MessageViewModel(msg));
+           //List<string>  Msgs = BuAPI.ParseText(HttpUtility.UrlDecode(BuAPI.parseHTML(message)));
+           //foreach (var msg in Msgs)
+           //    MsgItems.Add(new MessageViewModel(msg));
 
+           Message = HttpUtility.UrlDecode(BuAPI.parseHTML(message));
             AddInfo = HttpUtility.UrlDecode(post.author) + "  " + strtime;
         }
 

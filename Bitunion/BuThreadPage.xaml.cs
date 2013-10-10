@@ -64,6 +64,7 @@ namespace Bitunion
         {
             pgbar.Visibility = Visibility.Visible;
             CheckBtnEnable();
+            scrollViewer.ScrollToVerticalOffset(0);
             //清除界面数据
             _threadview.PostItems.Clear();
 
@@ -82,6 +83,7 @@ namespace Bitunion
             foreach (BuPost post in postlist)
                 _threadview.PostItems.Add(new PostViewModel(post));
 
+        
             pgbar.Visibility = Visibility.Collapsed;
         }
 

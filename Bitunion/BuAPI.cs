@@ -332,13 +332,12 @@ namespace Bitunion
         //获取回复字串重的引用对象集合
         public static List<BuQuote> parseQuotes(ref string message)
         {
-            Regex rx = new Regex(@"<br><br><center><table border=\""0\"" width=\""90%\"".*?bgcolor=\""ALTBG2\""><b>([\s\S]*?)</b> (\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2})<br />([\s\S]*?)</td></tr></table></td></tr></table></center><br>",
+            Regex rx = new Regex(@"<br><br><center><table border=\""0\"" width=\""90%\"".*?bgcolor=\""ALTBG2\""><b>([\s\S]*?)</b> (\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}[\s\S]*?)<br />([\s\S]*?)</td></tr></table></td></tr></table></center><br>",
                 RegexOptions.IgnoreCase);
 
             List<BuQuote> quotes = new List<BuQuote>();
 
             MatchCollection ms = rx.Matches(message);
-            bool bl = rx.IsMatch(message);
 
             foreach (Match m in ms)
             {

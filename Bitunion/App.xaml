@@ -13,13 +13,13 @@
         <Style x:Key="SuperTextBlockSytle"  TargetType="local:EyeableTextBlock" >
             <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
             <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="FontSize" Value="{StaticResource PhoneFontSizeMedium}"/>
+            <Setter Property="FontSize" Value= "24"/>
             <Setter Property="Padding" Value="0"/>
             <Setter Property="Width" Value="480" />
             <Setter Property="Height" Value="Auto" />
             <Setter Property="Template">
                 <Setter.Value>
-                    <ControlTemplate TargetType="local:EyeableTextBlock">
+                    <ControlTemplate TargetType="local:EyeableTextBlock"  >
                         <StackPanel Orientation="Vertical" x:Name="StackPanel"/>
                     </ControlTemplate>
                 </Setter.Value>
