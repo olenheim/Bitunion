@@ -33,10 +33,14 @@
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,10">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,-30">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="0*"/>
+            </Grid.RowDefinitions>
 
             <!--具有文字环绕的双线列表-->
-           <ScrollViewer HorizontalAlignment="Left" Margin="0,0,0,0" Name="scrollViewer" VerticalAlignment="Top" Width="480" Height="552">
+           <ScrollViewer HorizontalAlignment="Left" Margin="0,0,0,-40" Name="scrollViewer" Width="480" Grid.RowSpan="2" Height="632" VerticalAlignment="Top">
             <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" Width="480"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
@@ -60,7 +64,7 @@
                               
                                     <TextBlock Text="本帖包含图片附件: "  Visibility="{Binding ImageSrc, Converter={StaticResource ImgConverter}}"   FontSize="25" Margin="6,15,12,15"/>
                                   
-                                      <Image CacheMode="BitmapCache" Source="{Binding ImageSrc}"  Stretch="Uniform" Tap="OnImageTap" Margin="12,0,32,0" ImageFailed="Image_ImageFailed_1" ImageOpened="Image_ImageOpened_1" />
+                                      <Image CacheMode="BitmapCache" Source="{Binding ImageSrc}"  Stretch="Uniform" Tap="OnImageTap" Margin="12,0,32,15" ImageFailed="Image_ImageFailed_1" ImageOpened="Image_ImageOpened_1" />
                     
                                 <Border BorderThickness="0,0,0,1"  HorizontalAlignment="Left" Width="447" Padding="0,0,0,5" Margin="12,0,0,0">
                             <Border.BorderBrush>
