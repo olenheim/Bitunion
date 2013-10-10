@@ -125,5 +125,15 @@ namespace Bitunion
 
         }
 
+        private void Image_ImageFailed_1(object sender, ExceptionRoutedEventArgs e)
+        {
+    
+        }
+
+        private void Image_ImageOpened_1(object sender, RoutedEventArgs e)
+        {
+
+        }
+
     }
 }

@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Text.RegularExpressions;
 using System.Net;
 using HtmlAgilityPack;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace Bitunion
 {
@@ -143,13 +145,16 @@ namespace Bitunion
         static string _session;
 
         //保存访问联盟论坛的前缀地址
-        public static string _url = "http://out.bitunion.org/open_api/";
+        static string _url = "http://out.bitunion.org/open_api/";
 
         //Http库，用于进行Post操作
         static HttpEngine _httphelper = new HttpEngine();
 
         //保存账号密码，用于登出操作
         static string _name, _password;
+
+        //是否显示图片，是否外网
+        static bool _showpic = true, _LAN = false;
 
         //用于保存获取的论坛列表
         static Dictionary<string ,BuForum> _forumList;
@@ -428,6 +433,14 @@ namespace Bitunion
             long t = (time + 8 * 60 * 60) * 10000000 + timeStamp.Ticks;
             DateTime dt = new DateTime(t);
             return dt;
+        }
+
+        public static ImageSource GetImageSrc(string pid)
+        {
+            if (_showpic)
+                return new BitmapImage(new Uri(BuAPI._url.Replace("open_api/", "") + pid));
+            else
+                return null;
         }
 
 

@@ -26,7 +26,7 @@
         <!--TitlePanel 包含应用程序的名称和页标题-->
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
             <TextBlock Text="Bitunion" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="登陆" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
+            <TextBlock Text="登录" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
         </StackPanel>
 
         <!--ContentPanel - 在此处放置其他内容-->
@@ -39,7 +39,7 @@
             <PasswordBox x:Name="Password" HorizontalAlignment="Left" Margin="131,113,0,0" VerticalAlignment="Top" Width="315" FontSize="24"/>
         </Grid>
         <ProgressBar x:Name="PgBar" HorizontalAlignment="Left" Height="15" Margin="12,2,0,0" VerticalAlignment="Top" Width="456" IsIndeterminate="True"/>
-        <TextBlock HorizontalAlignment="Left" Margin="28,0,0,73" Grid.Row="1" TextWrapping="Wrap" Text="      “那些在阳光下挥洒青春的日子啊”" RenderTransformOrigin="-2.73,0.436" Width="416" FontSize="32" FontFamily="Arial Black" FontStyle="Italic" FontWeight="Bold" Height="94" VerticalAlignment="Bottom"/>
+        <TextBlock HorizontalAlignment="Left" Margin="28,0,0,73" Grid.Row="1" TextWrapping="Wrap" Text="      “那些在阳光下挥洒青春的日子”" RenderTransformOrigin="-2.73,0.436" Width="416" FontSize="32" FontFamily="Arial Black" FontStyle="Italic" FontWeight="Bold" Height="94" VerticalAlignment="Bottom"/>
 
 
     </Grid>

@@ -10,6 +10,7 @@
     <Application.Resources>
         <local:LocalizedStrings xmlns:local="clr-namespace:Bitunion" x:Key="LocalizedStrings"/>
         <converter:QuoteConverter xmlns:converter="clr-namespace:Bitunion.Converter" x:Key="QuoteConverter" />
+        <converter:ImgConverter xmlns:converter="clr-namespace:Bitunion.Converter" x:Key="ImgConverter" />
         <Style x:Key="SuperTextBlockSytle"  TargetType="local:EyeableTextBlock" >
             <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
             <Setter Property="Background" Value="Transparent"/>

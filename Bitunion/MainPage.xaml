@@ -37,7 +37,7 @@
          -->
 
         <!--枢轴控件-->
-        <phone:Pivot x:Name="MainPagePivot" Title="BitUnion" SelectionChanged="MainPagePivot_SelectionChanged" FontSize="48">
+        <phone:Pivot x:Name="MainPagePivot" Title="Bitunion" SelectionChanged="MainPagePivot_SelectionChanged" FontSize="48">
             <!--枢轴项一-->
             <phone:PivotItem Header="最新帖子">
                 <!--具有文字环绕的双线列表-->
