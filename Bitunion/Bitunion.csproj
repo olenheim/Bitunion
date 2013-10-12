@@ -100,6 +100,9 @@
     <Compile Include="BuThreadPage.xaml.cs">
       <DependentUpon>BuThreadPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PopupCotainer.xaml.cs">
+      <DependentUpon>PopupCotainer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SuperTextBlock.cs" />
     <Compile Include="Converter.cs" />
     <Compile Include="HttpLibrary.cs" />
@@ -148,6 +151,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
+    <Page Include="PopupCotainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="SampleData\ThreadViewModelSampleData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
