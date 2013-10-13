@@ -100,8 +100,11 @@
     <Compile Include="BuThreadPage.xaml.cs">
       <DependentUpon>BuThreadPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PopupCotainer.xaml.cs">
-      <DependentUpon>PopupCotainer.xaml</DependentUpon>
+    <Compile Include="PopupContainer.xaml.cs">
+      <DependentUpon>PopupContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PopupPost.xaml.cs">
+      <DependentUpon>PopupPost.xaml</DependentUpon>
     </Compile>
     <Compile Include="SuperTextBlock.cs" />
     <Compile Include="Converter.cs" />
@@ -151,7 +154,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </DesignData>
-    <Page Include="PopupCotainer.xaml">
+    <Page Include="PopupContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PopupPost.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

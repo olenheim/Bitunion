@@ -89,7 +89,8 @@ namespace Bitunion
 
         private void reply_click(object sender, EventArgs e)
         {
-
+            PopupContainer pc = new PopupContainer(this);
+            pc.Show(new PopupPost());  
         }
 
         private void Prev_Click(object sender, EventArgs e)

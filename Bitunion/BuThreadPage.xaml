@@ -11,10 +11,9 @@
      d:DataContext="{d:DesignData SampleData/ThreadViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}"
-    SupportedOrientations="Portrait" Orientation="Portrait"
+    Foreground="{StaticResource PhoneForegroundBrush}" 
     mc:Ignorable="d"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True" SupportedOrientations="Portrait" Orientation="Portrait">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
 

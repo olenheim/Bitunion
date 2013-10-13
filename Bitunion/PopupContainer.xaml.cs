@@ -15,11 +15,11 @@ using Microsoft.Phone.Controls;
 
 namespace Bitunion
 {
-    public partial class PopupCotainer : UserControl
+    public partial class PopupContainer : UserControl
     {
         #region Constructor
 
-        public PopupCotainer(PhoneApplicationPage basePage)
+        public PopupContainer(PhoneApplicationPage basePage)
         {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(PopupCotainer_Loaded);
@@ -171,7 +171,7 @@ namespace Bitunion
                     var layoutRoot = popupArea.Parent as Grid;
                     if (layoutRoot != null)
                     {
-                        var container = layoutRoot.Parent as PopupCotainer;
+                        var container = layoutRoot.Parent as PopupContainer;
                         if (container != null)
                         {
                             container.Close();

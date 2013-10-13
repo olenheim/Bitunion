@@ -167,6 +167,5 @@ namespace Bitunion
                 isAutoLogin.IsEnabled = false;
         }
 
-
     }
 }
