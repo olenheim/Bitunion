@@ -46,12 +46,9 @@ namespace Bitunion
             ID.Text = _id;
             Password.Password = _password;
             if (_isrempw == "false")
-                isRemPassword.IsChecked = false;
+                isRemPassword_Unchecked(null, null);
             if (_isautologin == "false")
-                isAutoLogin.IsChecked = false;
-
-            //调整第二个CheckBox的状态
-            isRemPassword_Click(null, null);
+                isAutoLogin_Unchecked(null, null);
 
             //自动登录
             if (_isautologin == "true" && _isrempw == "true" && type != "logout")
@@ -165,6 +162,28 @@ namespace Bitunion
                 isAutoLogin.IsEnabled = true;
             else
                 isAutoLogin.IsEnabled = false;
+        }
+
+        private void isRemPassword_Unchecked(object sender, RoutedEventArgs e)
+        {
+            isRemPassword.Content = "关闭";
+            isAutoLogin.IsEnabled = false;
+        }
+
+        private void isRemPassword_Checked(object sender, RoutedEventArgs e)
+        {
+            isRemPassword.Content = "开启";
+            isAutoLogin.IsEnabled = true;
+        }
+
+        private void isAutoLogin_Unchecked(object sender, RoutedEventArgs e)
+        {
+            isAutoLogin.Content = "关闭";
+        }
+
+        private void isAutoLogin_Checked(object sender, RoutedEventArgs e)
+        {
+            isAutoLogin.Content = "开启";
         }
 
     }

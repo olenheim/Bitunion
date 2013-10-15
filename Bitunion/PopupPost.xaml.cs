@@ -96,7 +96,7 @@ namespace Bitunion
         {
             string title = titleTextBox.Text;
             string content = contentTextBox.Text;
-
+            this.CloseMeAsPopup();
             //Article.PostArticle(board, title, content, reid, ReplySuccess, ReplyFailure);
         }
 
