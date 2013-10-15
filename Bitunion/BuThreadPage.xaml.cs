@@ -15,7 +15,7 @@ using System.Globalization;
 
 namespace Bitunion
 {
-    public partial class BitThreadPage : PhoneApplicationPage
+    public partial class BuThreadPage : PhoneApplicationPage
     {
 
         #region 资源文件
@@ -33,12 +33,14 @@ namespace Bitunion
 
         //父页面
         private string _parentpage;
+
+        //回复帖子的数据
+        private static string strreply = null;
         #endregion
 
-        public BitThreadPage()
+        public BuThreadPage()
         {
             InitializeComponent();
-            SupportedOrientations = SupportedPageOrientation.Portrait | SupportedPageOrientation.Landscape;
             //设定数据上下文
             DataContext = _threadview;
         }
@@ -89,8 +91,14 @@ namespace Bitunion
 
         private void reply_click(object sender, EventArgs e)
         {
+            strreply = null;
             PopupContainer pc = new PopupContainer(this);
-            pc.Show(new PopupPost());  
+            pc.Show(new PopupPost("reply",_subject,_tid));
+        }
+
+        public static void callback_replay(string str)
+        {
+            MessageBox.Show(str);
         }
 
         private void Prev_Click(object sender, EventArgs e)

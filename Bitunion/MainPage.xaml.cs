@@ -24,6 +24,9 @@ namespace Bitunion
 
         //本地登录数据以及配置信息
         private IsolatedStorageSettings userlogininfo = IsolatedStorageSettings.ApplicationSettings;
+
+        //加载论坛列表的锁
+        bool isloadingforumlist = false;
         
         // 构造函数
         public MainPage()
@@ -79,6 +82,11 @@ namespace Bitunion
         //异步加载论坛列表
         private async void LoadForumList()
         {
+            if (isloadingforumlist)
+                return;
+
+            isloadingforumlist = true;
+
           pgBar.Visibility = Visibility.Visible;
           List<BuGroupForum> bl = await BuAPI.QueryForumList();
 
@@ -102,6 +110,8 @@ namespace Bitunion
             
 
             pgBar.Visibility = Visibility.Collapsed;
+
+            isloadingforumlist = false;
         }
         
         //刷新最新的帖子列表

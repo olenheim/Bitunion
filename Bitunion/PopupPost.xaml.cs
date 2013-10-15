@@ -19,6 +19,11 @@ namespace Bitunion
         public string Title { get; set; }
         public event EventHandler closeEventHander;
 
+        
+
+        //内容
+        public static string strcontent = null;
+
         public bool IsOpen
         {
             get
@@ -44,10 +49,22 @@ namespace Bitunion
                 }
             }
         }
-
-        public PopupPost()
-        {
+        private string _id;
+        public PopupPost(string strtype,string strtitle,string id)
+        {     
             InitializeComponent();
+            if(strtype == "reply")
+            {
+                titletextblock.Text = strtitle;
+                titleTextBox.Visibility = Visibility.Collapsed;
+            }
+            else if (strtype  == "post")
+            {
+                titletextblock.Visibility = Visibility.Collapsed;
+            }
+
+            _id = id;
+       
         }
 
         public void ShowReply(string boardName, string article)
@@ -94,8 +111,14 @@ namespace Bitunion
 
         private void OnClickReply(object sender, RoutedEventArgs e)
         {
+            PostPBar.Visibility = Visibility.Visible;
             string title = titleTextBox.Text;
-            string content = contentTextBox.Text;
+            
+            
+            
+
+
+            PostPBar.Visibility = Visibility.Collapsed;
             this.CloseMeAsPopup();
             //Article.PostArticle(board, title, content, reid, ReplySuccess, ReplyFailure);
         }

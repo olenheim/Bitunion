@@ -7,7 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
     xmlns:local="clr-namespace:Bitunion"
-    x:Class="Bitunion.BitThreadPage"
+    x:Class="Bitunion.BuThreadPage"
      d:DataContext="{d:DesignData SampleData/ThreadViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -24,22 +24,19 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackPanel Grid.Row="0" Margin="12,17,0,28">
-         
-                <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="9,-7,12,0" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24"/>
-              
-          
-        </StackPanel>
+
+        <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="-1,10,0,595" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24" HorizontalAlignment="Right" Width="481" Grid.RowSpan="2" Padding="5,0,10,5"/>
+
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,0,0,-30">
-            <Grid.RowDefinitions>
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,96,0,0">
+            <!--<Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0*"/>
-            </Grid.RowDefinitions>
+            </Grid.RowDefinitions>-->
 
             <!--具有文字环绕的双线列表-->
-           <ScrollViewer HorizontalAlignment="Left" Margin="0,0,0,-40" Name="scrollViewer" Width="480" Grid.RowSpan="2" Height="632" VerticalAlignment="Top">
+           <ScrollViewer HorizontalAlignment="Left" Name="scrollViewer" Width="480" Margin="0,0,0,0">
             <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" Width="480"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
