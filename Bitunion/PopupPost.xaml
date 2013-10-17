@@ -3,20 +3,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit ="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}" d:DesignWidth="480" Height="390.435">
+    Foreground="{StaticResource PhoneForegroundBrush}" d:DesignWidth="480" Height="325">
 
-    <Grid x:Name="LayoutRoot" Width="480" Background="Black" Opacity="0.95" Margin="0,0,0,-23">
+    <Grid x:Name="LayoutRoot" Width="480" Background="Black" Opacity="0.95" Height="327" VerticalAlignment="Top">
         <StackPanel Height="Auto" HorizontalAlignment="Left" Margin="12,35,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="456"/>
-        <StackPanel Height="390" HorizontalAlignment="Right" Margin="0,13,12,0" Name="grid1" VerticalAlignment="Top" Width="456">
-            <TextBlock x:Name="titletextblock" Height="72" HorizontalAlignment="Left"    VerticalAlignment="Top" Width="456" />
-            <TextBox Height="72" HorizontalAlignment="Left" x:Name="titleTextBox"  VerticalAlignment="Top" Width="456" />
-            <TextBox Height="Auto" MinHeight="180" MaxHeight="400"  HorizontalAlignment="Left" x:Name="contentTextBox" Text="{Binding content}" VerticalAlignment="Top" Width="456" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" />
-            <Button Content="发布" Height="72" HorizontalAlignment="Right" x:Name="replyButton" VerticalAlignment="Top" Width="160" Click="OnClickReply" />
+        <StackPanel HorizontalAlignment="Right" Margin="0,13,12,10" Name="grid1" Width="456">
+            <toolkit:PhoneTextBox Hint="请输入标题" Height="72" HorizontalAlignment="Left" x:Name="titleTextBox"  VerticalAlignment="Top" Width="456" />
+            <toolkit:PhoneTextBox  Hint="请输入内容" x:Name="contentTextBox" VerticalAlignment="Top" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Height="232" />
         </StackPanel>
-        <ProgressBar x:Name="PostPBar" HorizontalAlignment="Left" Height="8" Margin="12,0,0,0" VerticalAlignment="Top" Width="468"/>
-       
+
     </Grid>
 </UserControl>

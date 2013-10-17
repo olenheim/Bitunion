@@ -19,6 +19,9 @@ namespace Bitunion
         public string Title { get; set; }
         public event EventHandler closeEventHander;
 
+        //调用该页面的类
+        private const string BUTHREADPAGE = "Bitunion.BuThreadPage";
+        private const string BUFORUMPAGE = "Bitunion.BuForumPage";
         
 
         //内容
@@ -50,21 +53,18 @@ namespace Bitunion
             }
         }
         private string _id;
-        public PopupPost(string strtype,string strtitle,string id)
+        public PopupPost()
         {     
             InitializeComponent();
-            if(strtype == "reply")
-            {
-                titletextblock.Text = strtitle;
-                titleTextBox.Visibility = Visibility.Collapsed;
-            }
-            else if (strtype  == "post")
-            {
-                titletextblock.Visibility = Visibility.Collapsed;
-            }
 
-            _id = id;
+
        
+        }
+
+
+        public void Close()
+        {
+            this.CloseMeAsPopup();
         }
 
         public void ShowReply(string boardName, string article)
@@ -111,14 +111,13 @@ namespace Bitunion
 
         private void OnClickReply(object sender, RoutedEventArgs e)
         {
-            PostPBar.Visibility = Visibility.Visible;
+      
             string title = titleTextBox.Text;
             
             
             
 
 
-            PostPBar.Visibility = Visibility.Collapsed;
             this.CloseMeAsPopup();
             //Article.PostArticle(board, title, content, reid, ReplySuccess, ReplyFailure);
         }

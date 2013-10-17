@@ -13,6 +13,20 @@
     SupportedOrientations="Portrait"  Orientation="Portrait"
     shell:SystemTray.IsVisible="True">
 
+    <phone:PhoneApplicationPage.Resources>
+        <shell:ApplicationBar x:Key="forum" IsVisible="True">
+           
+                <shell:ApplicationBarIconButton x:Name="refresh" IconUri="/Images/refresh.png" Text="刷新" Click="refresh_click" />
+                <shell:ApplicationBarIconButton x:Name="newpost" IconUri="/Images/post.png" Text="发帖" Click="newpost_click" />
+                <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
+                <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
+            </shell:ApplicationBar>
+     
+        <shell:ApplicationBar x:Key="post" IsVisible="True">
+            <shell:ApplicationBarIconButton x:Name="post" IconUri="/Images/post.png" Text="提交" Click="post_click" />
+            <shell:ApplicationBarIconButton x:Name="cancel" IconUri="/Images/cancel.png" Text="取消" Click="cancel_Click" />
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.Resources>
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--枢轴控件-->
@@ -52,12 +66,4 @@
         </phone:Pivot>
         <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="13" VerticalAlignment="Top" Width="480" IsIndeterminate="True" Margin="0"/>
     </Grid>
-    <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar x:Name="ForumAppBar" IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1.0" >
-            <shell:ApplicationBarIconButton x:Name="refresh" IconUri="/Images/refresh.png" Text="刷新" Click="refresh_click" />
-            <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
-            <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
-        </shell:ApplicationBar>
-    </phone:PhoneApplicationPage.ApplicationBar>
-
 </phone:PhoneApplicationPage>

@@ -38,11 +38,14 @@ namespace Bitunion
         private static string strreply = null;
         #endregion
 
+        private PopupPost pp;
+
         public BuThreadPage()
         {
             InitializeComponent();
             //设定数据上下文
             DataContext = _threadview;
+            ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["thread"];
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -91,9 +94,13 @@ namespace Bitunion
 
         private void reply_click(object sender, EventArgs e)
         {
-            strreply = null;
             PopupContainer pc = new PopupContainer(this);
-            pc.Show(new PopupPost("reply",_subject,_tid));
+            pp = new PopupPost();
+            pp.titleTextBox.Visibility = Visibility.Collapsed;
+            pp.Height -= 72;
+            pc.Show(pp);
+
+            ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["reply"];
         }
 
         public static void callback_replay(string str)
@@ -142,6 +149,22 @@ namespace Bitunion
         private void Image_ImageOpened_1(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {          
+            pp.CloseMeAsPopup();
+        }
+
+        private void post_click(object sender, EventArgs e)
+        {
+            if (pp.contentTextBox.Text == string.Empty)
+            {
+                MessageBox.Show("请输入内容");
+                return;
+            }
+            pp.CloseMeAsPopup();
+            //ToDo 回复
         }
 
     }

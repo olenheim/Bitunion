@@ -17,6 +17,7 @@ namespace Bitunion
 {
     public partial class PopupContainer : UserControl
     {
+        IApplicationBar _AppBar;
         #region Constructor
 
         public PopupContainer(PhoneApplicationPage basePage)
@@ -25,6 +26,7 @@ namespace Bitunion
             this.Loaded += new RoutedEventHandler(PopupCotainer_Loaded);
             _BasePage = basePage;
             _BasePage.BackKeyPress += BasePage_BackKeyPress;
+            _AppBar = basePage.ApplicationBar;
         }
 
         #endregion
@@ -150,6 +152,7 @@ namespace Bitunion
 
         public void Close()
         {
+            _BasePage.ApplicationBar = _AppBar;
             _BasePage.BackKeyPress -= BasePage_BackKeyPress;
             var story = PrepareCloseStory();
             story.Begin();

@@ -26,11 +26,12 @@ namespace Bitunion
         //当前页码
         private uint _pageno = 1;
         #endregion
-
+        private PopupPost pp;
         public BuForumPage()
         {
             InitializeComponent();
             DataContext = _forumpageviewmodel;
+            this.ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["forum"];
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -168,7 +169,39 @@ namespace Bitunion
         private void CheckBtnEnable()
         {
             //禁用工具栏按钮的方法
-            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
+            (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
+        }
+
+ 
+
+        private void newpost_click(object sender, EventArgs e)
+        {
+            PopupContainer pc = new PopupContainer(this);
+            pp = new PopupPost();
+            pc.Show(pp);
+
+            ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["post"];
+        }
+
+        private void post_click(object sender, EventArgs e)
+        {
+            if (pp.contentTextBox.Text == string.Empty)
+            {
+                MessageBox.Show("请输入内容");
+                return;
+            }
+            if (pp.titleTextBox.Text == string.Empty)
+            {
+                MessageBox.Show("请输入标题");
+                return;
+            }
+            pp.CloseMeAsPopup();
+            //ToDO 发表
+        }
+
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            pp.CloseMeAsPopup();
         }
 
     }
