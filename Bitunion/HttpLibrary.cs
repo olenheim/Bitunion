@@ -61,6 +61,44 @@ namespace HttpLibrary
                 throw;
             }
         }
+
+        public virtual async Task<Stream> PostFormAsync(string RequestUrl, string Context)
+        {
+            try
+            {
+                IsBusy = true;
+                WriteDebug("PostUrl", RequestUrl);
+                WriteDebug("PostContext", Context);
+
+                string boundary = "Bitunion WinPhone";
+                HttpWebRequest httpWebRequest = (HttpWebRequest)HttpWebRequest.Create(new Uri(RequestUrl, UriKind.Absolute));
+                httpWebRequest.Method = "POST";
+                httpWebRequest.ContentType = "multipart/form-data; boundary=" + boundary; 
+
+                using (Stream stream = await httpWebRequest.GetRequestStreamAsync())
+                {
+
+                    StringBuilder sb = new StringBuilder();
+
+                    sb.Append("\r\n--" + boundary + "\r\n");
+                    sb.Append("Content-Disposition: form-data; name=\"json\"");
+                    sb.Append("\r\n");
+                    sb.Append(Context);
+                    sb.Append("\r\n--" + boundary + "\r\n");
+
+                    byte[] entryBytes = Encoding.UTF8.GetBytes(sb.ToString());
+                    stream.Write(entryBytes, 0, entryBytes.Length);
+                }
+
+                WebResponse response = await httpWebRequest.GetResponseAsync();
+                return response.GetResponseStream();
+            }
+            catch (Exception ex)
+            {
+                WriteDebug("PostError", ex.Message);
+                throw;
+            }
+        }
         #endregion
 
         #region 请求数据

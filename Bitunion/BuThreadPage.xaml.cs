@@ -61,6 +61,8 @@ namespace Bitunion
             NavigationContext.QueryString.TryGetValue("fname", out _fname);
 
             ThreadName.Text = _subject;
+
+       //     ContentPanel.Margin = new Thickness(0,ThreadName.Height,0,0);
             _maxpage = Convert.ToUInt16(_replies) / (uint)10 + 1;
             ShowViewModel(_currentpage);
         }
@@ -156,7 +158,7 @@ namespace Bitunion
             pp.CloseMeAsPopup();
         }
 
-        private void post_click(object sender, EventArgs e)
+        private async void post_click(object sender, EventArgs e)
         {
             if (pp.contentTextBox.Text == string.Empty)
             {
@@ -164,7 +166,13 @@ namespace Bitunion
                 return;
             }
             pp.CloseMeAsPopup();
-            //ToDo 回复
+            pgbar.Visibility = Visibility.Visible;
+            bool bl = await BuAPI.ReplyPost(_tid,pp.contentTextBox.Text);
+            pgbar.Visibility = Visibility.Collapsed;
+            if(bl)
+                MessageBox.Show("回复成功");
+            else
+                MessageBox.Show("回复失败");
         }
 
     }

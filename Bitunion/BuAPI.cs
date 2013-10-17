@@ -12,6 +12,7 @@ using System.Net;
 using HtmlAgilityPack;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows;
 
 namespace Bitunion
 {
@@ -217,7 +218,12 @@ namespace Bitunion
             StreamReader reader = new StreamReader(stream);
             string strret = reader.ReadToEnd();
             jsonobj = JObject.Parse(strret);
-            return jsonobj["result"].ToString() == "success";
+            if (jsonobj["result"].ToString() != "success")
+            {
+                MessageBox.Show(HttpUtility.UrlDecode(jsonobj["msg"].ToString()));
+                return false;
+            }
+            return true;
         }
 
         //查询论坛列表
@@ -323,8 +329,25 @@ namespace Bitunion
         }
 
         //回复帖子
-        public static bool ReplyPost(string tid, string msg)
+        public static async Task<bool> ReplyPost(string tid, string msg)
        {
+           JObject staff = new JObject();
+           staff.Add(new JProperty("action", "newreply"));
+           staff.Add(new JProperty("username", Uri.EscapeDataString(_name)));
+           staff.Add(new JProperty("session", _session));
+           staff.Add(new JProperty("uid", tid));
+           staff.Add(new JProperty("message", Uri.EscapeDataString(msg)));
+            staff.Add(new JProperty("attachment", "0"));
+           string Context = staff.ToString();
+
+           Stream response = await _httphelper.PostFormAsync(_url + "bu_newpost.php", Context);
+           if (response.Length == 0)
+               return false;
+
+           JObject jsonret = null;
+           if (!StreamToJobjAndCheckState(response, ref jsonret))
+               return false;
+
            return true;
        }
 

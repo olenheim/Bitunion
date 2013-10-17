@@ -39,11 +39,11 @@
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
 
-        <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="-1,10,0,595" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24" HorizontalAlignment="Right" Width="481" Grid.RowSpan="2" Padding="5,0,10,5"/>
+        <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="-1,10,0,658" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24" HorizontalAlignment="Right" Width="481" Grid.RowSpan="2" Padding="5,0,10,5"/>
 
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,96,0,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,110,0,0">
             <!--<Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0*"/>
@@ -88,7 +88,7 @@
            </ScrollViewer>
         </Grid>
         
-        <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="10" Margin="8,0,0,0" VerticalAlignment="Top" Width="458" IsIndeterminate="True"/>
+        <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="11" Margin="0,-32,0,0" VerticalAlignment="Top" Width="480" IsIndeterminate="True"/>
     </Grid>
 
 </phone:PhoneApplicationPage>
