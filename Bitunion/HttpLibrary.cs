@@ -70,19 +70,29 @@ namespace HttpLibrary
                 WriteDebug("PostUrl", RequestUrl);
                 WriteDebug("PostContext", Context);
 
-                string boundary = "Bitunion WinPhone";
+                string boundary = "------------BitunionWinPhone";
                 HttpWebRequest httpWebRequest = (HttpWebRequest)HttpWebRequest.Create(new Uri(RequestUrl, UriKind.Absolute));
                 httpWebRequest.Method = "POST";
-                httpWebRequest.ContentType = "multipart/form-data; boundary=" + boundary; 
-
+                httpWebRequest.ContentType = "multipart/form-data;boundary=" + boundary;
+                //httpWebRequest.Headers["Connection"] = "keep-alive";
+                //httpWebRequest.Headers["Charset"] =  "UTF-8";
+                
                 using (Stream stream = await httpWebRequest.GetRequestStreamAsync())
                 {
 
                     StringBuilder sb = new StringBuilder();
+                    string lineEnd = "\r\n";
+
+                    //sb.Append("--" + boundary + lineEnd);
+                    //sb.Append("Content-Disposition: form-data; name=\"json\""
+                    //                + lineEnd);
+                    //sb.Append(lineEnd);
+                    //sb.Append(Context + lineEnd);
+                    //sb.Append("--" + boundary + "--" + lineEnd);
 
                     sb.Append("\r\n--" + boundary + "\r\n");
                     sb.Append("Content-Disposition: form-data; name=\"json\"");
-                    sb.Append("\r\n");
+                    sb.Append("\r\n\r\n");
                     sb.Append(Context);
                     sb.Append("\r\n--" + boundary + "\r\n");
 

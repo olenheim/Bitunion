@@ -335,9 +335,9 @@ namespace Bitunion
            staff.Add(new JProperty("action", "newreply"));
            staff.Add(new JProperty("username", Uri.EscapeDataString(_name)));
            staff.Add(new JProperty("session", _session));
-           staff.Add(new JProperty("uid", tid));
+           staff.Add(new JProperty("tid", tid));
            staff.Add(new JProperty("message", Uri.EscapeDataString(msg)));
-            staff.Add(new JProperty("attachment", "0"));
+            staff.Add(new JProperty("attachment", 1));
            string Context = staff.ToString();
 
            Stream response = await _httphelper.PostFormAsync(_url + "bu_newpost.php", Context);
