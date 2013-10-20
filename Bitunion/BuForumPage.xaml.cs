@@ -183,7 +183,7 @@ namespace Bitunion
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["post"];
         }
 
-        private void post_click(object sender, EventArgs e)
+        private async void post_click(object sender, EventArgs e)
         {
             if (pp.contentTextBox.Text == string.Empty)
             {
@@ -195,8 +195,19 @@ namespace Bitunion
                 MessageBox.Show("请输入标题");
                 return;
             }
-            pp.CloseMeAsPopup();
-            //ToDO 发表
+            
+            pgbar.Visibility = Visibility.Visible;
+            bool bl = await BuAPI.PostThread(_fid, pp.titleTextBox.Text, pp.contentTextBox.Text);
+            pgbar.Visibility = Visibility.Collapsed;
+
+            if (bl)
+            {
+                MessageBox.Show("发布成功");
+                pp.CloseMeAsPopup();
+            }
+            else
+                MessageBox.Show("发布失败");
+
         }
 
         private void cancel_Click(object sender, EventArgs e)

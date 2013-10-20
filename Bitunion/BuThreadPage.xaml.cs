@@ -46,6 +46,9 @@ namespace Bitunion
             //设定数据上下文
             DataContext = _threadview;
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["thread"];
+            pp = new PopupPost();
+            pp.titleTextBox.Visibility = Visibility.Collapsed;
+            pp.Height -= 72;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -79,7 +82,7 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
-                postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * 10).ToString(), (pageno * 10 - 1).ToString());
+                postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * 10).ToString(), (pageno * 10 ).ToString());
                 _pagecache[pageno] = postlist;
             }
 
@@ -97,9 +100,6 @@ namespace Bitunion
         private void reply_click(object sender, EventArgs e)
         {
             PopupContainer pc = new PopupContainer(this);
-            pp = new PopupPost();
-            pp.titleTextBox.Visibility = Visibility.Collapsed;
-            pp.Height -= 72;
             pc.Show(pp);
 
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["reply"];
@@ -156,6 +156,7 @@ namespace Bitunion
         private void cancel_Click(object sender, EventArgs e)
         {          
             pp.CloseMeAsPopup();
+            pp.contentTextBox.Text = string.Empty;
         }
 
         private async void post_click(object sender, EventArgs e)
@@ -167,10 +168,15 @@ namespace Bitunion
             }
             pp.CloseMeAsPopup();
             pgbar.Visibility = Visibility.Visible;
+            (ApplicationBar.Buttons[0] as ApplicationBarIconButton).IsEnabled = false;
             bool bl = await BuAPI.ReplyPost(_tid,pp.contentTextBox.Text);
             pgbar.Visibility = Visibility.Collapsed;
-            if(bl)
+            (ApplicationBar.Buttons[0] as ApplicationBarIconButton).IsEnabled = true;
+            if (bl)
+            {
                 MessageBox.Show("回复成功");
+                pp.contentTextBox.Text = string.Empty;
+            }
             else
                 MessageBox.Show("回复失败");
         }

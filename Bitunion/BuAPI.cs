@@ -352,8 +352,26 @@ namespace Bitunion
        }
 
         //发表新帖子
-        public static bool PostThread(string fid, string subject, string msg)
+        public static async Task<bool> PostThread(string fid, string subject, string msg)
        {
+            JObject staff = new JObject();
+           staff.Add(new JProperty("action", "newthread"));
+           staff.Add(new JProperty("username", Uri.EscapeDataString(_name)));
+           staff.Add(new JProperty("session", _session));
+           staff.Add(new JProperty("fid", fid));
+            staff.Add(new JProperty("subject", Uri.EscapeDataString(subject)));
+           staff.Add(new JProperty("message", Uri.EscapeDataString(msg)));
+            staff.Add(new JProperty("attachment", 1));
+           string Context = staff.ToString();
+
+           Stream response = await _httphelper.PostFormAsync(_url + "bu_newpost.php", Context);
+           if (response.Length == 0)
+               return false;
+
+           JObject jsonret = null;
+           if (!StreamToJobjAndCheckState(response, ref jsonret))
+               return false;
+
            return true;
        }
 
@@ -382,7 +400,10 @@ namespace Bitunion
             HtmlDocument htmldoc = new HtmlDocument();
             htmldoc.LoadHtml(htmlstr);
             var node = htmldoc.DocumentNode;
-            return node.InnerText.Replace("&nbsp;"," ");
+            string ret = node.InnerText.Replace("&nbsp;"," ");
+            ret = ret.Replace("..:: From BIT-Union Open API Project ::..","\r\n..:: From BIT-Union Open API Project ::..");
+            ret = ret.Replace("请仔细阅读发帖须知及本版版规，确认无误后删除本默认内容","");
+            return ret;
         }
 
         //查询最新的帖子列表
