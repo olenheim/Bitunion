@@ -50,8 +50,8 @@
             </Grid.RowDefinitions>-->
 
             <!--具有文字环绕的双线列表-->
-           <ScrollViewer HorizontalAlignment="Left" Name="scrollViewer" Width="480" Margin="0,0,0,0">
-            <ItemsControl HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" Width="480"  >
+           <!--<ScrollViewer HorizontalAlignment="Left" Name="scrollViewer" Width="480" Margin="0,0,0,0">-->
+            <ListBox x:Name="PostItemsList" HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" Width="480" DoubleTap="ItemsControl_DoubleTap_1"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PostPanel" Margin="0,0,-11,0">               
@@ -84,8 +84,8 @@
                         </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>
-           </ScrollViewer>
+              </ListBox>
+           <!--</ScrollViewer>-->
         </Grid>
         
         <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="11" Margin="-1,0,0,0" VerticalAlignment="Top" Width="480" IsIndeterminate="True" Grid.RowSpan="2"/>

@@ -34,11 +34,16 @@ namespace Bitunion
         //父页面
         private string _parentpage;
 
-        //回复帖子的数据
-        private static string strreply = null;
+        //回复所用的控件对象
+        private PopupPost _popupreply;
+
+        //引用的文字模板
+        private const string _quotetemplate = "[quote={0}][b]{1}[/b] {2}\r\n{3}[/quote]";
+    
+
         #endregion
 
-        private PopupPost pp;
+        
 
         public BuThreadPage()
         {
@@ -46,9 +51,10 @@ namespace Bitunion
             //设定数据上下文
             DataContext = _threadview;
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["thread"];
-            pp = new PopupPost();
-            pp.titleTextBox.Visibility = Visibility.Collapsed;
-            pp.Height -= 72;
+            _popupreply = new PopupPost();
+            _popupreply.titleTextBox.Visibility = Visibility.Collapsed;
+            //由于隐藏了title，所以缩小控件高度
+            _popupreply.Height -= 72;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -74,7 +80,7 @@ namespace Bitunion
         {
             pgbar.Visibility = Visibility.Visible;
             CheckBtnEnable();
-            scrollViewer.ScrollToVerticalOffset(0);
+           // scrollViewer.ScrollToVerticalOffset(0);
             //清除界面数据
             _threadview.PostItems.Clear();
 
@@ -82,7 +88,7 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
-                postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * 10).ToString(), (pageno * 10 ).ToString());
+                postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * 10).ToString(), (pageno * 10 - 1).ToString());
                 _pagecache[pageno] = postlist;
             }
 
@@ -100,8 +106,7 @@ namespace Bitunion
         private void reply_click(object sender, EventArgs e)
         {
             PopupContainer pc = new PopupContainer(this);
-            pc.Show(pp);
-
+            pc.Show(_popupreply);
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["reply"];
         }
 
@@ -155,30 +160,45 @@ namespace Bitunion
 
         private void cancel_Click(object sender, EventArgs e)
         {          
-            pp.CloseMeAsPopup();
-            pp.contentTextBox.Text = string.Empty;
+            _popupreply.contentTextBox.Text = string.Empty;
+            _popupreply.CloseMeAsPopup();
         }
 
         private async void post_click(object sender, EventArgs e)
         {
-            if (pp.contentTextBox.Text == string.Empty)
+            if (_popupreply.contentTextBox.Text == string.Empty)
             {
                 MessageBox.Show("请输入内容");
                 return;
             }
-            pp.CloseMeAsPopup();
+
+            _popupreply.CloseMeAsPopup();
+       
             pgbar.Visibility = Visibility.Visible;
             (ApplicationBar.Buttons[0] as ApplicationBarIconButton).IsEnabled = false;
-            bool bl = await BuAPI.ReplyPost(_tid,pp.contentTextBox.Text);
+        
+            bool bl = await BuAPI.ReplyPost(_tid,_popupreply.contentTextBox.Text);
+       
             pgbar.Visibility = Visibility.Collapsed;
             (ApplicationBar.Buttons[0] as ApplicationBarIconButton).IsEnabled = true;
-            if (bl)
+         
+            if(bl)
             {
+                _popupreply.contentTextBox.Text = string.Empty;
                 MessageBox.Show("回复成功");
-                pp.contentTextBox.Text = string.Empty;
             }
             else
                 MessageBox.Show("回复失败");
+        }
+
+        private void ItemsControl_DoubleTap_1(object sender, System.Windows.Input.GestureEventArgs e)
+        {         
+            if (PostItemsList.SelectedItem == null)
+                return;
+            PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
+            BuPost post = ps._post;
+            _popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
+            reply_click(null, null);
         }
 
     }

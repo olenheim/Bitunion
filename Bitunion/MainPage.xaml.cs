@@ -35,6 +35,7 @@ namespace Bitunion
             DataContext = _mainvm;
            
             DictFourm = new Dictionary<string,List<BuForum>>();
+            //TiltEffect.SetIsTiltEnabled((App.Current as App).RootFrame, true);
         }
 
         // 为 ViewModel 项加载数据

@@ -55,7 +55,6 @@ namespace Bitunion.ViewModels
             public PostViewModel(BuPost post)
             {
                 QuoteItems = new ObservableCollection<QuoteViewModel>();
-
                 //加载图片
                 if (post.attachment != null)
                     ImageSrc = BuAPI.GetImageSrc(HttpUtility.UrlDecode(post.attachment));
@@ -73,11 +72,15 @@ namespace Bitunion.ViewModels
 
                 Message = HttpUtility.UrlDecode(BuAPI.parseHTML(message));
                 AddInfo = HttpUtility.UrlDecode(post.author) + "  " + strtime;
+                post.dateline = strtime;
+                post.message = Message;
+                post.author = HttpUtility.UrlDecode(post.author);
+                _post = post;
             }
 
             public PostViewModel() { }
-
-            public string tid { get; private set; }
+            
+            public BuPost _post { get; private set; }
 
             //引用视图模型
             public ObservableCollection<QuoteViewModel> QuoteItems { get; private set; }

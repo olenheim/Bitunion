@@ -6,13 +6,15 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:Bitunion"
     mc:Ignorable="d"
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+     local:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -39,13 +41,13 @@
         <!--枢轴控件-->
         <phone:Pivot x:Name="MainPagePivot" Title="Bitunion" SelectionChanged="MainPagePivot_SelectionChanged" FontSize="48">
             <!--枢轴项一-->
-            <phone:PivotItem Header="最新帖子">
+            <phone:PivotItem Header="联盟首页">
                 <!--具有文字环绕的双线列表-->
                 <phone:LongListSelector x:Name="LatestThreadViewList" Margin="0,0,-12,0" ItemsSource="{Binding LatestThreadItems}" SelectionChanged="LongListSelector_SelectionChanged_1">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17">
-                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30"/>
+                            <StackPanel Margin="0,0,0,17" >
+                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30" local:TiltEffect.SuppressTilt="True"/>
                                 <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,-6,254,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="170"/>
                                 <TextBlock Text="{Binding ForumName}" TextWrapping="Wrap" Margin="254,-26,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Right" Width="170" TextAlignment="Right"/>
                             </StackPanel>
