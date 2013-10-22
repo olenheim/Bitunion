@@ -193,6 +193,11 @@ namespace Bitunion
 
         private void ItemsControl_DoubleTap_1(object sender, System.Windows.Input.GestureEventArgs e)
         {         
+
+        }
+
+        private void PostItemsList_Hold(object sender, System.Windows.Input.GestureEventArgs e)
+        {
             if (PostItemsList.SelectedItem == null)
                 return;
             PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
