@@ -6,6 +6,7 @@
 
     <vm:MainViewModel.LatestThreadItems>
         <vm:ThreadViewModel Subject="设计一" Author="Maecenas praesent accumsan bibendum" ForumName="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
+        <vm:ThreadViewModel Subject="设计一" Author="Maecenas praesent accumsan bibendum" ForumName="Maecenas praesent accumsan bibendum dictumst eleifend facilisi faucibus habitant inceptos interdum lobortis nascetur"/>
     </vm:MainViewModel.LatestThreadItems>
     <vm:MainViewModel.ForumItems>
         <vm:ForumViewModel Description="Maecenas praesent accumsan bibendum" Onlines="10"/>

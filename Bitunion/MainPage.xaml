@@ -6,7 +6,6 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:local="clr-namespace:Bitunion"
     xmlns:toolkit ="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
@@ -14,8 +13,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True"
-     local:TiltEffect.IsTiltEnabled="True">
+    shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
@@ -47,10 +45,10 @@
                 <phone:LongListSelector x:Name="LatestThreadViewList" Margin="0,0,-12,0" ItemsSource="{Binding LatestThreadItems}" SelectionChanged="LongListSelector_SelectionChanged_1">
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
-                            <StackPanel Margin="0,0,0,17" toolkit:TiltEffect.IsTiltEnabled="True" >
-                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30" local:TiltEffect.SuppressTilt="True"/>
-                                <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,-6,254,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="170"/>
-                                <TextBlock Text="{Binding ForumName}" TextWrapping="Wrap" Margin="254,-26,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Right" Width="170" TextAlignment="Right"/>
+                            <StackPanel Margin="0,0,0,20"  toolkit:TiltEffect.IsTiltEnabled="True">
+                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="28" Margin="12,0,12,5" />
+                                <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="274" />
+                                <TextBlock Text="{Binding ForumName}" TextWrapping="Wrap" Margin="0,-26,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Right" TextAlignment="Right" Width="170"/>
                             </StackPanel>
                         </DataTemplate>
                     </phone:LongListSelector.ItemTemplate>
@@ -63,7 +61,7 @@
                 <phone:LongListSelector x:Name="ForumViewList" Margin="0,0,-12,0" ItemsSource="{Binding ForumItems}" SelectionChanged="ForumViewList_SelectionChanged">
                     <phone:LongListSelector.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Margin="0,0,0,17">
+                            <StackPanel Margin="0,0,0,17"  toolkit:TiltEffect.IsTiltEnabled="True">
                                         <TextBlock Text="{Binding Name}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="30" Margin="12,0,64,0" HorizontalAlignment="Left"/>
                                        <TextBlock Text="{Binding Description}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" HorizontalAlignment="Left" Width="387" Height="26"/>
                                        <TextBlock Text="{Binding Onlines}"  Margin="0,-60,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="49" Width="64" FontSize="36" Foreground="{StaticResource PhoneAccentBrush}" HorizontalAlignment="Right" TextAlignment="Center"/>

@@ -32,18 +32,14 @@
     </phone:PhoneApplicationPage.Resources>
     
     <Grid x:Name="LayoutRoot" Background="Transparent">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-
+       
         <!--TitlePanel 包含应用程序的名称和页标题-->
 
-        <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="-1,10,0,658" Style="{StaticResource PhoneTextTitle1Style}" FontSize="24" HorizontalAlignment="Right" Width="481" Grid.RowSpan="2" Padding="5,0,10,5"/>
+        <TextBlock x:Name="ThreadName"   TextWrapping="Wrap" Text="页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称页面名称" Margin="0,10,0,0"  FontSize="20" HorizontalAlignment="Right" Width="481" Padding="5,0,10,5" Height="758" VerticalAlignment="Top"/>
 
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,110,0,0">
+        <Grid x:Name="ContentPanel" Grid.Row="1" Margin="0,73,0,0">
             <!--<Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition Height="0*"/>
@@ -51,7 +47,7 @@
 
             <!--具有文字环绕的双线列表-->
            <!--<ScrollViewer HorizontalAlignment="Left" Name="scrollViewer" Width="480" Margin="0,0,0,0">-->
-            <ListBox x:Name="PostItemsList" HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Grid.RowSpan="1" Width="480" DoubleTap="ItemsControl_DoubleTap_1" Hold="PostItemsList_Hold"  >
+            <ListBox x:Name="PostItemsList" HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.RowSpan="1" Width="480" DoubleTap="ItemsControl_DoubleTap_1" Hold="PostItemsList_Hold"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PostPanel" Margin="0,0,-11,0">               
