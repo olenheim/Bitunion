@@ -52,8 +52,14 @@ namespace Bitunion.ViewModels
 
         public class PostViewModel : INotifyPropertyChanged
         {
-            public PostViewModel(BuPost post)
+            public PostViewModel(BuPost post,uint floorno)
             {
+                //填写楼层信息
+                if (floorno == 1)
+                    FloorNo = "楼主";
+                else
+                    FloorNo = floorno.ToString() + "楼";
+
                 QuoteItems = new ObservableCollection<QuoteViewModel>();
                 //加载图片
                 if (post.attachment != null)
@@ -144,7 +150,27 @@ namespace Bitunion.ViewModels
                     }
                 }
             }
+            private string _floorno;
+            /// <summary>
+            /// 示例 ViewModel 属性；此属性在视图中用于使用绑定显示它的值。
+            /// </summary>
+            /// <returns></returns>
+            public string FloorNo
+            {
+                get
+                {
+                    return _floorno;
+                }
+                set
+                {
+                    if (value != _floorno)
+                    {
+                        _floorno = value;
+                        NotifyPropertyChanged("FloorNo");
+                    }
+                }
 
+            }
             public event PropertyChangedEventHandler PropertyChanged;
             private void NotifyPropertyChanged(String propertyName)
             {

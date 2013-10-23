@@ -4,9 +4,9 @@
     xmlns:vm="clr-namespace:Bitunion.ViewModels">
 
     <vm:ThreadViewModel.PostItems>
-        <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
-        <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
-        <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
+        <vm:PostViewModel Message="测试主贴内容" AddInfo="作者" FloorNo="楼猪"/>
+        <vm:PostViewModel Message="测试主贴内容" AddInfo="作者" FloorNo="楼猪"/>
+        <vm:PostViewModel Message="测试主贴内容" AddInfo="作者" FloorNo="楼猪"/>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
         <vm:PostViewModel Message="测试主贴内容" AddInfo="作者"/>
     </vm:ThreadViewModel.PostItems>

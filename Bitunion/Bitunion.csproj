@@ -97,6 +97,7 @@
     <Compile Include="BuForumPage.xaml.cs">
       <DependentUpon>BuForumPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="BuSetting.cs" />
     <Compile Include="BuThreadPage.xaml.cs">
       <DependentUpon>BuThreadPage.xaml</DependentUpon>
     </Compile>

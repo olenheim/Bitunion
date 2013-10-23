@@ -37,13 +37,11 @@ namespace Bitunion
         //回复所用的控件对象
         private PopupPost _popupreply;
 
-        //引用的文字模板
+        //引用、页码、楼层的文字模板
         private const string _quotetemplate = "[quote={0}][b]{1}[/b] {2}\r\n{3}[/quote]";
-    
-
+        private const string _pagetemplate = "({0}/{1})";
+        private const string _floortempalte = "{0}楼";
         #endregion
-
-        
 
         public BuThreadPage()
         {
@@ -68,16 +66,14 @@ namespace Bitunion
             NavigationContext.QueryString.TryGetValue("replies", out _replies);
             NavigationContext.QueryString.TryGetValue("fid", out _fid);
             NavigationContext.QueryString.TryGetValue("fname", out _fname);
-
-            ThreadName.Text = _subject;
-
-       //     ContentPanel.Margin = new Thickness(0,ThreadName.Height,0,0);
+            
             _maxpage = Convert.ToUInt16(_replies) / (uint)10 + 1;
             ShowViewModel(_currentpage);
         }
 
         private async void ShowViewModel(uint pageno)
         {
+            ThreadName.Text = string.Format(_pagetemplate, pageno.ToString(), _maxpage.ToString()) + _subject;
             pgbar.Visibility = Visibility.Visible;
             CheckBtnEnable();
            // scrollViewer.ScrollToVerticalOffset(0);
@@ -88,16 +84,18 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
-                postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * 10).ToString(), (pageno * 10 - 1).ToString());
+                postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * BuSetting.PageThreadCount).ToString(), 
+                    (pageno * BuSetting.PageThreadCount - 1).ToString());
                 _pagecache[pageno] = postlist;
             }
 
             if (postlist == null || postlist.Count == 0)
                 return;
-        
+
+            uint floorno = (pageno - 1) * BuSetting.PageThreadCount;
             //填写视图模型
             foreach (BuPost post in postlist)
-                _threadview.PostItems.Add(new PostViewModel(post));
+                _threadview.PostItems.Add(new PostViewModel(post,++floorno));
 
         
             pgbar.Visibility = Visibility.Collapsed;
@@ -118,12 +116,14 @@ namespace Bitunion
         private void Prev_Click(object sender, EventArgs e)
         {
             ShowViewModel(--_currentpage);
+            ThreadName.Text = string.Format(_pagetemplate, _currentpage.ToString(), _maxpage.ToString()) + _subject;
         }
 
         //置灰可能的翻页按钮
         private void Next_Click(object sender, EventArgs e)
         {
             ShowViewModel(++_currentpage);
+            ThreadName.Text = string.Format(_pagetemplate, _currentpage.ToString(), _maxpage.ToString()) + _subject;
         }
 
         private void CheckBtnEnable()

@@ -53,6 +53,9 @@ namespace Bitunion
             //自动登录
             if (_isautologin == "true" && _isrempw == "true" && type != "logout")
                 login_click(null, null);
+
+            //对设置类进行初始化
+            BuSetting.Inital();
         }
 
         //从独立存储中提取信息
