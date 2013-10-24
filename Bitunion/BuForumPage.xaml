@@ -12,7 +12,8 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait"  Orientation="Portrait"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+        shell:SystemTray.Opacity="0">
 
     <phone:PhoneApplicationPage.Resources>
         <shell:ApplicationBar x:Key="forum" IsVisible="True">

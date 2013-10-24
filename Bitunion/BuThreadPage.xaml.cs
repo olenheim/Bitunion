@@ -73,9 +73,9 @@ namespace Bitunion
 
         private async void ShowViewModel(uint pageno)
         {
+            _currentpage = pageno;
             ThreadName.Text = string.Format(_pagetemplate, pageno.ToString(), _maxpage.ToString()) + _subject;
             pgbar.Visibility = Visibility.Visible;
-            CheckBtnEnable();
            // scrollViewer.ScrollToVerticalOffset(0);
             //清除界面数据
             _threadview.PostItems.Clear();
@@ -84,9 +84,15 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
+                (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = false;
+                (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = false;
+                (ApplicationBar.MenuItems[0] as ApplicationBarMenuItem).IsEnabled = false;
+                (ApplicationBar.MenuItems[1] as ApplicationBarMenuItem).IsEnabled = false;
+
                 postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * BuSetting.PageThreadCount).ToString(), 
                     (pageno * BuSetting.PageThreadCount).ToString());
                 _pagecache[pageno] = postlist;
+                CheckBtnEnable();
             }
 
             if (postlist == null || postlist.Count == 0)
@@ -97,8 +103,8 @@ namespace Bitunion
             foreach (BuPost post in postlist)
                 _threadview.PostItems.Add(new PostViewModel(post,++floorno));
 
-        
             pgbar.Visibility = Visibility.Collapsed;
+         
         }
 
         private void reply_click(object sender, EventArgs e)
@@ -115,14 +121,14 @@ namespace Bitunion
 
         private void Prev_Click(object sender, EventArgs e)
         {
-            ShowViewModel(--_currentpage);
+            ShowViewModel(_currentpage-1);
             ThreadName.Text = string.Format(_pagetemplate, _currentpage.ToString(), _maxpage.ToString()) + _subject;
         }
 
         //置灰可能的翻页按钮
         private void Next_Click(object sender, EventArgs e)
         {
-            ShowViewModel(++_currentpage);
+            ShowViewModel(_currentpage+1);
             ThreadName.Text = string.Format(_pagetemplate, _currentpage.ToString(), _maxpage.ToString()) + _subject;
         }
 
@@ -131,6 +137,8 @@ namespace Bitunion
             //禁用工具栏按钮的方法
             (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_currentpage != (uint)1);
             (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_currentpage != _maxpage);
+            (ApplicationBar.MenuItems[0] as ApplicationBarMenuItem).IsEnabled = (_currentpage != (uint)1);
+            (ApplicationBar.MenuItems[1] as ApplicationBarMenuItem).IsEnabled = (_currentpage != _maxpage);
         }
 
         private void Enter_Click(object sender, EventArgs e)
@@ -142,6 +150,16 @@ namespace Bitunion
                 NavigationService.Navigate(new Uri("/BuForumPage.xaml?fid=" + _fid
                   + "&fname=" + _fname, UriKind.Relative));
         }
+
+          private void FirstPage_Click(object sender, EventArgs e)
+          {
+              ShowViewModel(1);
+          }
+
+          private void LastPage_Click(object sender, EventArgs e)
+          {
+              ShowViewModel(_maxpage);
+          }
 
         private void OnImageTap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -186,6 +204,9 @@ namespace Bitunion
             {
                 _popupreply.contentTextBox.Text = string.Empty;
                 MessageBox.Show("回复成功");
+                //todo 刷新，先简单做一下。
+                _pagecache.Remove(_maxpage);
+                ShowViewModel(_maxpage);
             }
             else
                 MessageBox.Show("回复失败");

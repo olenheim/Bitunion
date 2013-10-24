@@ -13,6 +13,7 @@
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}" 
     mc:Ignorable="d"
+    shell:SystemTray.Opacity="0"
     shell:SystemTray.IsVisible="True" SupportedOrientations="Portrait" Orientation="Portrait">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
@@ -22,6 +23,8 @@
             <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
             <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
             <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="第一页" Click="FirstPage_Click" />
+                <shell:ApplicationBarMenuItem Text="最后一页" Click="LastPage_Click" />
                 <shell:ApplicationBarMenuItem Text="进入该板块" Click="Enter_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>

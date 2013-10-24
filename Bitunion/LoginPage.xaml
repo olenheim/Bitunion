@@ -26,17 +26,14 @@
         </Grid.RowDefinitions>
 
         <!--TitlePanel 包含应用程序的名称和页标题-->
-        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="Bitunion" Style="{StaticResource PhoneTextNormalStyle}"/>
-            <TextBlock Text="登录" Margin="9,-7,0,0" Style="{StaticResource PhoneTextTitle1Style}"/>
-        </StackPanel>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28"/>
 
         <!--ContentPanel - 在此处放置其他内容-->
-        <Grid x:Name="GridContent" Grid.Row="1" Margin="12,0,12,0">
-            <toolkit:PhoneTextBox x:Name="ID" Hint="请输入账号" HorizontalAlignment="Left" Height="72" Margin="38,35,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="383" FontSize="24"/>
-            <PasswordBox x:Name="Password" Margin="38,113,35,0" VerticalAlignment="Top" FontSize="24"/>
-            <toolkit:ToggleSwitch x:Name="isRemPassword" HorizontalAlignment="Left" Margin="38,183,0,0" VerticalAlignment="Top" Content="开启" IsChecked="true" Unchecked="isRemPassword_Unchecked" Checked="isRemPassword_Checked" Width="383" Header="记住密码" />
-            <toolkit:ToggleSwitch x:Name="isAutoLogin" HorizontalAlignment="Left" Margin="38,286,0,0" VerticalAlignment="Top" Unchecked="isAutoLogin_Unchecked" IsChecked="true" Checked="isAutoLogin_Checked" Width="383" Header="自动登录" Content="开启"/>
+        <Grid x:Name="GridContent" Margin="12,10,12,0" Grid.RowSpan="2">
+            <toolkit:PhoneTextBox x:Name="ID" Hint="请输入账号" HorizontalAlignment="Left" Height="72" Margin="39,92,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="383" FontSize="24"/>
+            <PasswordBox x:Name="Password" Margin="39,170,34,0" VerticalAlignment="Top" FontSize="24"/>
+            <toolkit:ToggleSwitch x:Name="isRemPassword" HorizontalAlignment="Left" Margin="39,240,0,0" VerticalAlignment="Top" Content="开启" IsChecked="true" Unchecked="isRemPassword_Unchecked" Checked="isRemPassword_Checked" Width="383" Header="记住密码" />
+            <toolkit:ToggleSwitch x:Name="isAutoLogin" HorizontalAlignment="Left" Margin="39,343,0,0" VerticalAlignment="Top" Unchecked="isAutoLogin_Unchecked" IsChecked="true" Checked="isAutoLogin_Checked" Width="383" Header="自动登录" Content="开启"/>
         </Grid>
         <ProgressBar x:Name="PgBar" HorizontalAlignment="Left" Height="15" Margin="10,-3,0,0" VerticalAlignment="Top" Width="456" IsIndeterminate="True"/>
         <TextBlock HorizontalAlignment="Left" Margin="28,0,0,73" Grid.Row="1" TextWrapping="Wrap" Text="      “那些在阳光下挥洒青春的日子”" RenderTransformOrigin="-2.73,0.436" Width="416" FontSize="32" FontFamily="Arial Black" FontStyle="Italic" FontWeight="Bold" Height="94" VerticalAlignment="Bottom"/>
