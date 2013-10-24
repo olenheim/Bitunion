@@ -89,9 +89,9 @@
             <!--<shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
             <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />-->
 
-            <!--<shell:ApplicationBar.MenuItems>
-                <shell:ApplicationBarMenuItem Text="进入该板块" Click="Enter_Click" />
-            </shell:ApplicationBar.MenuItems>-->
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="设置" Click="Setting_Click" />
+            </shell:ApplicationBar.MenuItems>
 
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

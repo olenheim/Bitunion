@@ -6,6 +6,7 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit ="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -18,12 +19,18 @@
         <!--枢轴控件-->
         <phone:Pivot Title="我的应用程序">
             <!--枢轴项一-->
-            <phone:PivotItem Header="item1">
-                <Grid/>
+            <phone:PivotItem Header="设置">
+                <Grid>
+                    <toolkit:ToggleSwitch x:Name="tsShowPhoto" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Content="显示" IsChecked="true"  Width="436" Header="显示图片" Checked="tsShowPhoto_Checked" Unchecked="tsShowPhoto_Unchecked" />
+                    <toolkit:ToggleSwitch x:Name="tsOutNet" HorizontalAlignment="Left" Margin="10,126,0,0" VerticalAlignment="Top"  IsChecked="true" Width="436" Header="网络模式" Content="外网" Unchecked="tsOutNet_Unchecked" Checked="tsOutNet_Checked"/>
+                    <toolkit:ToggleSwitch x:Name="tsThreadCount" HorizontalAlignment="Left" Margin="10,242,0,0" VerticalAlignment="Top"  IsChecked="true" Width="436" Header="每一页中的楼层个数" Content="10" Checked="tsThreadCount_Checked" Unchecked="tsThreadCount_Unchecked" />
+                    <toolkit:ToggleSwitch x:Name="tsShowTail" HorizontalAlignment="Left" Margin="10,358,0,0" VerticalAlignment="Top"  IsChecked="true" Width="436" Header="显示消息尾巴" Content="显示" Unchecked="tsShowTail_Unchecked" Checked="tsShowTail_Checked"/>
+                    <TextBox x:Name="tbMsgTail" Margin="10,474,10,0" FontSize="24" Text="--测试字体"  TextWrapping="Wrap"  VerticalAlignment="Top"/>
+                </Grid>
             </phone:PivotItem>
 
             <!--枢轴项二-->
-            <phone:PivotItem Header="item2">
+            <phone:PivotItem Header="关于">
                 <Grid/>
             </phone:PivotItem>
         </phone:Pivot>

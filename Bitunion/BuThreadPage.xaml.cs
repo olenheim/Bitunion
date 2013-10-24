@@ -67,7 +67,7 @@ namespace Bitunion
             NavigationContext.QueryString.TryGetValue("fid", out _fid);
             NavigationContext.QueryString.TryGetValue("fname", out _fname);
             
-            _maxpage = Convert.ToUInt16(_replies) / (uint)10 + 1;
+            _maxpage = Convert.ToUInt16(_replies) / (uint)BuSetting.PageThreadCount + 1;
             ShowViewModel(_currentpage);
         }
 
@@ -85,7 +85,7 @@ namespace Bitunion
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
                 postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * BuSetting.PageThreadCount).ToString(), 
-                    (pageno * BuSetting.PageThreadCount - 1).ToString());
+                    (pageno * BuSetting.PageThreadCount).ToString());
                 _pagecache[pageno] = postlist;
             }
 

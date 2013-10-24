@@ -98,6 +98,9 @@
       <DependentUpon>BuForumPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="BuSetting.cs" />
+    <Compile Include="BuSettingPage.xaml.cs">
+      <DependentUpon>BuSettingPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BuThreadPage.xaml.cs">
       <DependentUpon>BuThreadPage.xaml</DependentUpon>
     </Compile>
@@ -138,6 +141,10 @@
     <Page Include="BuForumPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BuSettingPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="BuThreadPage.xaml">
       <Generator>MSBuild:Compile</Generator>
