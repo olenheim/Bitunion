@@ -154,9 +154,6 @@ namespace Bitunion
         //保存账号密码，用于登出操作
         static string _name, _password;
 
-        //是否显示图片，是否外网
-        static bool _showpic = true, _LAN = false;
-
         //用于保存获取的论坛列表
         static Dictionary<string ,BuForum> _forumList;
 
@@ -481,7 +478,7 @@ namespace Bitunion
 
         public static ImageSource GetImageSrc(string pid)
         {
-            if (_showpic)
+            if (BuSetting.ShowPhoto)
                 return new BitmapImage(new Uri(BuAPI._url.Replace("open_api/", "") + pid));
             else
                 return null;

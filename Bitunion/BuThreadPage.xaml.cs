@@ -76,7 +76,6 @@ namespace Bitunion
             _currentpage = pageno;
             ThreadName.Text = string.Format(_pagetemplate, pageno.ToString(), _maxpage.ToString()) + _subject;
             pgbar.Visibility = Visibility.Visible;
-           // scrollViewer.ScrollToVerticalOffset(0);
             //清除界面数据
             _threadview.PostItems.Clear();
 
@@ -84,6 +83,7 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
+                //载入期间禁用菜单栏
                 (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = false;
                 (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = false;
                 (ApplicationBar.MenuItems[0] as ApplicationBarMenuItem).IsEnabled = false;
@@ -92,9 +92,11 @@ namespace Bitunion
                 postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * BuSetting.PageThreadCount).ToString(), 
                     (pageno * BuSetting.PageThreadCount).ToString());
                 _pagecache[pageno] = postlist;
-                CheckBtnEnable();
+                
             }
-
+            //控制菜单显示
+            CheckBtnEnable();
+            
             if (postlist == null || postlist.Count == 0)
                 return;
 
@@ -112,11 +114,6 @@ namespace Bitunion
             PopupContainer pc = new PopupContainer(this);
             pc.Show(_popupreply);
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["reply"];
-        }
-
-        public static void callback_replay(string str)
-        {
-            MessageBox.Show(str);
         }
 
         private void Prev_Click(object sender, EventArgs e)
@@ -204,7 +201,9 @@ namespace Bitunion
             {
                 _popupreply.contentTextBox.Text = string.Empty;
                 MessageBox.Show("回复成功");
-                //todo 刷新，先简单做一下。
+                //此处其实还需修改版面上该帖的相关数据，懒得弄了╮(╯_╰)╭
+                if (Convert.ToUInt16(_replies) == _maxpage * BuSetting.PageThreadCount)
+                    _maxpage++;
                 _pagecache.Remove(_maxpage);
                 ShowViewModel(_maxpage);
             }

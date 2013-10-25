@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using System.Windows;
 using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
 
 namespace Bitunion
 {
@@ -22,36 +15,71 @@ namespace Bitunion
         private void Init()
         {
             tsThreadCount.IsChecked = (BuSetting.PageThreadCount == 20);
+            tsOutNet.IsChecked = (BuSetting.NetWork == "out");
+            tsShowPhoto.IsChecked = BuSetting.ShowPhoto;
+            tsShowTail.IsChecked = BuSetting.ShowTail;
+            tbMsgTail.Text = BuSetting.TailMsg;
+
+            if (tsThreadCount.IsChecked == true)
+                tsThreadCount_Checked(null, null);
+            else
+                tsThreadCount_Unchecked(null,null);
+
+            if (tsOutNet.IsChecked == true)
+                tsOutNet_Checked(null, null);
+            else
+                tsOutNet_Unchecked(null, null);
+
+            if(tsShowPhoto.IsChecked == true)
+                tsShowPhoto_Checked(null, null);
+            else
+                tsShowPhoto_Unchecked(null, null);
+
+            if(tsShowTail.IsChecked == true)
+                tsShowTail_Checked(null, null);
+            else
+                tsShowTail_Unchecked(null, null);
+
+
         }
 
         private void tsShowPhoto_Checked(object sender, RoutedEventArgs e)
         {
-          //  BuSetting.
+            tsShowPhoto.Content = "显示";
+            BuSetting.ShowPhoto = true;
         }
 
         private void tsShowPhoto_Unchecked(object sender, RoutedEventArgs e)
         {
-
+            tsShowPhoto.Content = "隐藏";
+            BuSetting.ShowPhoto = false;
         }
 
-        private void tsOutNet_Unchecked(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+  
         private void tsShowTail_Unchecked(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void tsOutNet_Checked(object sender, RoutedEventArgs e)
-        {
-
+            tsShowTail.Content = "隐藏";
+            BuSetting.ShowTail = false;
+            tbMsgTail.IsEnabled = false;
         }
 
         private void tsShowTail_Checked(object sender, RoutedEventArgs e)
         {
+            tsShowTail.Content = "显示";
+            BuSetting.ShowTail = true;
+            tbMsgTail.IsEnabled = true;
+        }
 
+        private void tsOutNet_Checked(object sender, RoutedEventArgs e)
+        {
+            tsOutNet.Content = "外网";
+            BuSetting.NetWork = "out";
+        }
+
+        private void tsOutNet_Unchecked(object sender, RoutedEventArgs e)
+        {
+            tsOutNet.Content = "内网";
+            BuSetting.NetWork = "in";
         }
 
         private void tsThreadCount_Checked(object sender, RoutedEventArgs e)
@@ -64,6 +92,11 @@ namespace Bitunion
         {
             tsThreadCount.Content = "10";
             BuSetting.PageThreadCount = 10;
+        }
+
+        private void tbMsgTail_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            BuSetting.TailMsg = tbMsgTail.Text;
         }
     }
 }
