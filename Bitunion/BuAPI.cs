@@ -145,9 +145,6 @@ namespace Bitunion
         //保存登陆后的session
         static string _session;
 
-        //保存访问联盟论坛的前缀地址
-        static string _url = "http://out.bitunion.org/open_api/";
-
         //Http库，用于进行Post操作
         static HttpEngine _httphelper = new HttpEngine();
 
@@ -168,7 +165,7 @@ namespace Bitunion
             staff.Add(new JProperty("password", password));
             string LoginContext = staff.ToString();
 
-            Stream response = await _httphelper.PostAsync(_url + "bu_logging.php", LoginContext);
+            Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_logging.php", LoginContext);
             if (response.Length == 0)
                 return false;
 
@@ -197,7 +194,7 @@ namespace Bitunion
             staff.Add(new JProperty("session", _session));
             string LogoutContext = staff.ToString(); 
             
-            Stream response = await _httphelper.PostAsync(_url + "bu_logging.php", LogoutContext);
+            Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_logging.php", LogoutContext);
             if (response.Length == 0)
             {
                 _session = "";
@@ -232,7 +229,7 @@ namespace Bitunion
             staff.Add(new JProperty("session", _session));
             string Context = staff.ToString(); 
 
-            Stream response = await _httphelper.PostAsync(_url + "bu_forum.php", Context);
+            Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_forum.php", Context);
             if (response.Length == 0)
                 return null;
 
@@ -270,7 +267,7 @@ namespace Bitunion
             staff.Add(new JProperty("to", end));
             string Context = staff.ToString(); 
 
-            Stream response = await  _httphelper.PostAsync(_url + "bu_thread.php", Context);
+            Stream response = await  _httphelper.PostAsync(BuSetting.URL + "bu_thread.php", Context);
             if (response.Length == 0)
                 return null;
             
@@ -293,7 +290,7 @@ namespace Bitunion
             staff.Add(new JProperty("to", end));
             string Context = staff.ToString();
 
-            Stream response = await _httphelper.PostAsync(_url + "bu_post.php", Context);
+            Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_post.php", Context);
             if (response.Length == 0)
                 return null;
 
@@ -314,7 +311,7 @@ namespace Bitunion
             staff.Add(new JProperty("uid", uid));
             string Context = staff.ToString();
 
-            Stream response = await _httphelper.PostAsync(_url + "bu_profile.php", Context);
+            Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_profile.php", Context);
             if (response.Length == 0)
                 return null;
 
@@ -337,7 +334,7 @@ namespace Bitunion
             staff.Add(new JProperty("attachment", 1));
            string Context = staff.ToString();
 
-           Stream response = await _httphelper.PostFormAsync(_url + "bu_newpost.php", Context);
+           Stream response = await _httphelper.PostFormAsync(BuSetting.URL + "bu_newpost.php", Context);
            if (response.Length == 0)
                return false;
 
@@ -361,7 +358,7 @@ namespace Bitunion
             staff.Add(new JProperty("attachment", 1));
            string Context = staff.ToString();
 
-           Stream response = await _httphelper.PostFormAsync(_url + "bu_newpost.php", Context);
+           Stream response = await _httphelper.PostFormAsync(BuSetting.URL + "bu_newpost.php", Context);
            if (response.Length == 0)
                return false;
 
@@ -411,7 +408,7 @@ namespace Bitunion
            staff.Add(new JProperty("session", _session));
            string Context = staff.ToString();
 
-           Stream response = await _httphelper.PostAsync(_url + "bu_home.php", Context);
+           Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_home.php", Context);
            if (response.Length == 0)
                return null;
 
@@ -421,50 +418,6 @@ namespace Bitunion
 
            return JsonConvert.DeserializeObject<List<BuLatestThread>>(jsonret["newlist"].ToString());
        }
-
-        public static List<string> ParseText(string text)
-        {
-            const int MAX = 100;
-            var reader = new StringReader(text);
-            var tblist = new List<string>();
-
-            string line;
-            var builder = new StringBuilder();
-            while ((line = reader.ReadLine()) != null)
-            {
-                //如果总长度不超过MAX，则加入
-                if (line.Length + builder.Length < MAX)
-                {
-                    builder.AppendLine(line);
-                }
-                else
-                {
-                    //先加入
-                    tblist.Add(builder.ToString().Trim());
-
-                    builder = new StringBuilder();
-                    //单行长度小于MAX，则Append
-                    if (line.Length < MAX)
-                    {
-                        builder.AppendLine(line);
-                    }
-                    //单行长度大于MAX，则
-                    else
-                    {
-                        int times = line.Length / MAX;
-                        for (int j = 0; j < times; j++)
-                        {
-                            tblist.Add(line.Substring(j * MAX, MAX).Trim());
-                        }
-                        builder.AppendLine(line.Substring(times * MAX));
-                    }
-                }
-            }
-            if (builder.Length > 0)
-                tblist.Add(builder.ToString().Trim());
-
-            return tblist;
-        }
 
         //将PHP时间戳格式转换为DateTime格式
         public static DateTime  DateTimeConvertTime(string  strtime)
@@ -476,10 +429,11 @@ namespace Bitunion
             return dt;
         }
 
+        //
         public static ImageSource GetImageSrc(string pid)
         {
             if (BuSetting.ShowPhoto)
-                return new BitmapImage(new Uri(BuAPI._url.Replace("open_api/", "") + pid));
+                return new BitmapImage(new Uri(BuSetting.URL.Replace("open_api/", "") + pid));
             else
                 return null;
         }

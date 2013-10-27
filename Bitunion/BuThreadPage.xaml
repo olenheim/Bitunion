@@ -54,6 +54,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PostPanel" Margin="0,0,-11,0" Width="480">
+                       
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />

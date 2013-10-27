@@ -15,7 +15,7 @@ namespace Bitunion
         private void Init()
         {
             tsThreadCount.IsChecked = (BuSetting.PageThreadCount == 20);
-            tsOutNet.IsChecked = (BuSetting.NetWork == "out");
+            tsOutNet.IsChecked = (BuSetting.URL == "http://out.bitunion.org/open_api/");
             tsShowPhoto.IsChecked = BuSetting.ShowPhoto;
             tsShowTail.IsChecked = BuSetting.ShowTail;
             tbMsgTail.Text = BuSetting.TailMsg;
@@ -73,13 +73,13 @@ namespace Bitunion
         private void tsOutNet_Checked(object sender, RoutedEventArgs e)
         {
             tsOutNet.Content = "外网";
-            BuSetting.NetWork = "out";
+            BuSetting.URL = "http://out.bitunion.org/open_api/";
         }
 
         private void tsOutNet_Unchecked(object sender, RoutedEventArgs e)
         {
             tsOutNet.Content = "内网";
-            BuSetting.NetWork = "in";
+            BuSetting.URL = "http://www.bitunion.org/open_api/";
         }
 
         private void tsThreadCount_Checked(object sender, RoutedEventArgs e)

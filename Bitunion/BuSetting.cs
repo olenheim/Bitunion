@@ -9,14 +9,22 @@ namespace Bitunion
 {
     class BuSetting
     {
+        #region 设定资源
         //独立存储配置
         private static IsolatedStorageSettings _setting = IsolatedStorageSettings.ApplicationSettings;
+        //页面中的楼层个数
         private static string _pagethreadcount;
+        //是否显示图片
         private static string _showphoto;
-        private static string _network;
+        //内外网不同的url
+        private static string _url;
+        //是否显示消息尾巴
         private static string _showtail;
+        //消息尾巴的信息
         private static string _tailmsg;
+        #endregion
 
+        //初始化
         public static void Inital()
         {
             if (!_setting.TryGetValue("pagethreadcount", out _pagethreadcount)) 
@@ -30,11 +38,11 @@ namespace Bitunion
                 _showphoto = "True";
                 _setting.Add("showphoto", _showphoto);
             }
-
-            if(!_setting.TryGetValue("network", out _network))
+            _setting["network"] = "http://out.bitunion.org/open_api/";
+            if(!_setting.TryGetValue("network", out _url))
             {
-                _network = "out";
-                _setting.Add("network", _network);
+                _url = "http://out.bitunion.org/open_api/";
+                _setting.Add("network", _url);
             }
 
             if(!_setting.TryGetValue("showtail",out _showtail))
@@ -67,17 +75,17 @@ namespace Bitunion
             }
         }
 
-        public static string NetWork
+        public static string URL
         {
             get
             {
-                return _network;
+                return _url;
             }
             set
             {
-                if (value != _network)
+                if (value != _url)
                 {
-                    _network = value;
+                    _url = value;
                     _setting["network"] = value;
                 }
             }
