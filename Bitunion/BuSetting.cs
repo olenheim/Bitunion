@@ -22,6 +22,12 @@ namespace Bitunion
         private static string _showtail;
         //消息尾巴的信息
         private static string _tailmsg;
+        //是否记住密码
+        private static string _rempassword;
+        //是否自动登录
+        private static string _autologin;
+        //用户名及密码
+        private static string _id, _password;
         #endregion
 
         //初始化
@@ -38,7 +44,7 @@ namespace Bitunion
                 _showphoto = "True";
                 _setting.Add("showphoto", _showphoto);
             }
-            _setting["network"] = "http://out.bitunion.org/open_api/";
+
             if(!_setting.TryGetValue("network", out _url))
             {
                 _url = "http://out.bitunion.org/open_api/";
@@ -55,6 +61,26 @@ namespace Bitunion
             {
                 _tailmsg = "发自联盟WindowsPhone8客户端";   
                 _setting.Add("tailmsg", _tailmsg);
+            }
+            if (!_setting.TryGetValue("rememberpassword", out _rempassword))
+            {
+                _rempassword = "True";
+                _setting.Add("rememberpassword", _rempassword);
+            }
+            if (!_setting.TryGetValue("autologin", out _autologin))
+            {
+                _autologin = "True";
+                _setting.Add("autologin", _autologin);
+            }
+            if (!_setting.TryGetValue("id", out _id))
+            {
+                _id = string.Empty;
+                _setting.Add("id", _id);
+            }
+            if(!_setting.TryGetValue("password",out _password))
+            {
+                _password = string.Empty;
+                _setting.Add("password",_password);
             }
            
         }
@@ -123,6 +149,38 @@ namespace Bitunion
             }
         }
 
+        public static bool RemPassWord
+        {
+            get
+            {
+                return (_rempassword == "True");
+            }
+            set
+            {
+                if (value != (_rempassword == "True"))
+                {
+                    _rempassword = value.ToString();
+                    _setting["rememberpassword"] = value.ToString();
+                }
+            }
+        }
+
+        public static bool AutoLogin
+        {
+            get
+            {
+                return (_autologin == "True");
+            }
+            set
+            {
+                if (value != (_autologin == "True"))
+                {
+                    _autologin = value.ToString();
+                    _setting["autologin"] = value.ToString();
+                }
+            }
+        }
+
         public static string TailMsg
         {
             get
@@ -135,6 +193,38 @@ namespace Bitunion
                 {
                     _tailmsg = value;
                     _setting["tailmsg"] = value;
+                }
+            }
+        }
+
+        public static string ID
+        {
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (value != _id)
+                {
+                    _id = value;
+                    _setting["id"] = value;
+                }
+            }
+        }
+
+        public static string Password
+        {
+            get
+            {
+                return _password;
+            }
+            set
+            {
+                if (value != _password)
+                {
+                    _password = value;
+                    _setting["password"] = value;
                 }
             }
         }

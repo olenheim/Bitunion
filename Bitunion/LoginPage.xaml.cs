@@ -9,15 +9,6 @@ namespace Bitunion
 {
     public partial class LoginPage : PhoneApplicationPage
     {
-        //独立存储配置与保存用户账号密码
-        private IsolatedStorageSettings userinfo = IsolatedStorageSettings.ApplicationSettings;
-
-        //账号密码
-        private string _id, _password;
-
-        //是否保存密码与是否自动登陆
-        private string _isrempw, _isautologin;
-
         public LoginPage()
         {
             InitializeComponent();
@@ -47,72 +38,32 @@ namespace Bitunion
                 MessageBox.Show("登出失败，可能与服务器连接已断开");
          
             //填写记录的默认信息
-            ID.Text = _id;
-            Password.Password = _password;
-            if (_isrempw == "false")
+            ID.Text = BuSetting.ID;
+            Password.Password = BuSetting.Password;
+            if (!BuSetting.RemPassWord)
                 isRemPassword_Unchecked(null, null);
-            if (_isautologin == "false")
+            if (!BuSetting.AutoLogin)
                 isAutoLogin_Unchecked(null, null);
 
             //自动登录
-            if (_isautologin == "true" && _isrempw == "true" && type != "logout")
+            if (BuSetting.AutoLogin && BuSetting.RemPassWord && type != "logout")
                 login_click(null, null);
         }
 
         //从独立存储中提取信息
         private void InitLoginPage()
         {
-            if (!userinfo.TryGetValue("rememberpassword", out _isrempw))
-            {
-                _isrempw = "false";
-                userinfo.Add("rememberpassword", _isrempw);
-            }
 
-            if (!userinfo.TryGetValue("autologin", out _isautologin))
-            {
-                _isautologin = "false";
-                userinfo.Add("autologin", _isrempw);
-            }
-
-            if (_isrempw == "true")
-            {
-                if (!userinfo.TryGetValue("password", out _password))
-                {
-                    _password = "";
-                    userinfo.Add("password", _password);
-                }
-            }
-            else
-            {
-                _password = "";
-            }
-
-            if (!userinfo.TryGetValue("id", out _id))
-            {
-                _id = "";
-                userinfo.Add("id", _id);
-            }
         }
 
         //保存账号密码及配置到独立储存
         private void SaveConfig()
         {
-            userinfo["id"] = ID.Text;
-            if (isRemPassword.IsChecked == true)
-            {
-                userinfo["password"] = Password.Password;
-                userinfo["rememberpassword"] = "true";
-            }
+            BuSetting.ID = ID.Text;
+            if (BuSetting.RemPassWord)
+                BuSetting.Password = Password.Password;
             else
-            {
-                userinfo["password"] = "";
-                userinfo["rememberpassword"] = "false";
-            }
-
-            if (isAutoLogin.IsChecked == true)
-                userinfo["autologin"] = "true";
-            else
-                userinfo["autologin"] = "false";
+                BuSetting.Password = string.Empty;
         }
 
         //点击登陆事件
@@ -125,11 +76,7 @@ namespace Bitunion
                 SaveConfig();
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
-            else
-            {
-                SwitchLoading(false);
-                MessageBox.Show("密码输入错误或联盟反思中……");
-            }
+            SwitchLoading(false);
         }
 
         //载入动画效果的切换
@@ -172,22 +119,38 @@ namespace Bitunion
         {
             isRemPassword.Content = "关闭";
             isAutoLogin.IsEnabled = false;
+            BuSetting.RemPassWord = false;
         }
 
         private void isRemPassword_Checked(object sender, RoutedEventArgs e)
         {
             isRemPassword.Content = "开启";
             isAutoLogin.IsEnabled = true;
+            BuSetting.RemPassWord = true;
         }
 
         private void isAutoLogin_Unchecked(object sender, RoutedEventArgs e)
         {
             isAutoLogin.Content = "关闭";
+            BuSetting.AutoLogin = false;
         }
 
         private void isAutoLogin_Checked(object sender, RoutedEventArgs e)
         {
             isAutoLogin.Content = "开启";
+            BuSetting.AutoLogin = true;
+        }
+
+        private void NetWork_Checked(object sender, RoutedEventArgs e)
+        {
+            NetWork.Content = "外网";
+            BuSetting.URL = "http://out.bitunion.org/open_api/";
+        }
+
+        private void NetWork_Unchecked(object sender, RoutedEventArgs e)
+        {
+            NetWork.Content = "内网";
+            BuSetting.URL = "http://www.bitunion.org/open_api/";
         }
 
     }

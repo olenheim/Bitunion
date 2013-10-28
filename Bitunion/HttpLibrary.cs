@@ -12,6 +12,7 @@ using System.Windows.Shapes;
 using System.Threading.Tasks;
 using System.IO;
 using System.Text;
+using Microsoft.Phone.Net.NetworkInformation;
 
 namespace HttpLibrary
 {
@@ -58,7 +59,12 @@ namespace HttpLibrary
             catch (Exception ex)
             {
                 WriteDebug("PostError", ex.Message);
-                throw;
+                bool isConnected = NetworkInterface.GetIsNetworkAvailable();
+                if (isConnected)
+                    MessageBox.Show("请求超时，联盟反（da）思(yi)中(ma)……");
+                else
+                    MessageBox.Show("请求超时，请检查网络设置");
+                return null;
             }
         }
 

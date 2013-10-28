@@ -170,8 +170,11 @@ namespace Bitunion
                 return false;
 
             JObject jsonret = null;
-            if(!StreamToJobjAndCheckState(response,ref jsonret))
+            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            {
+                
                 return false;
+            }
       
             _session = jsonret["session"].ToString();
             if (_session == null)
