@@ -69,14 +69,14 @@ namespace Bitunion.ViewModels
 
                 List<BuQuote> quotes = BuAPI.parseQuotes(ref message);
                 foreach (var quote in quotes)
-                    QuoteItems.Add(new QuoteViewModel(quote.author + "  " + quote.time + quote.content));
+                    QuoteItems.Add(new QuoteViewModel(quote.author + "  " + quote.time + quote.content.Trim()));
 
                 DateTime dt = BuAPI.DateTimeConvertTime(post.dateline);
 
                 //格式化时间”年-月-日 小时:分钟“
                 string strtime = dt.ToString("yyyy-M-d HH:mm");
 
-                Message = HttpUtility.UrlDecode(BuAPI.parseHTML(message));
+                Message = (BuAPI.parseHTML(message)).Trim();
                 AddInfo = HttpUtility.UrlDecode(post.author) + "  " + strtime;
                 post.dateline = strtime;
                 post.message = Message;

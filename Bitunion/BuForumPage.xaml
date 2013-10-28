@@ -42,8 +42,9 @@
                     <phone:LongListSelector.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Margin="0,0,0,20"  toolkit:TiltEffect.IsTiltEnabled="True">
-                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="28" Margin="12,0,12,5"/>
-                                <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Author}" TextWrapping="Wrap" Margin="12,0,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="274" Foreground="{StaticResource PhoneAccentBrush}" />
+                                <TextBlock Text="{Binding Subject}" TextWrapping="Wrap" Style="{StaticResource PhoneTextExtraLargeStyle}" FontSize="28" Margin="12,0,12,5"  />
+                                <TextBlock Text="{Binding Replies}" TextWrapping="Wrap" Margin="12,-6,0,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Left" Width="274" />
                                 <TextBlock Text="{Binding Time}" TextWrapping="Wrap" Margin="0,-26,12,0" Style="{StaticResource PhoneTextSubtleStyle}" Height="26" HorizontalAlignment="Right" TextAlignment="Right"/>
                             </StackPanel>
                         </DataTemplate>

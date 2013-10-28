@@ -44,6 +44,8 @@ namespace Bitunion
                 isRemPassword_Unchecked(null, null);
             if (!BuSetting.AutoLogin)
                 isAutoLogin_Unchecked(null, null);
+            if (BuSetting.URL == "http://www.bitunion.org/open_api/")
+                NetWork_Unchecked(null, null);
 
             //自动登录
             if (BuSetting.AutoLogin && BuSetting.RemPassWord && type != "logout")
@@ -76,7 +78,8 @@ namespace Bitunion
                 SaveConfig();
                 NavigationService.Navigate(new Uri("/MainPage.xaml", UriKind.Relative));
             }
-            SwitchLoading(false);
+            else
+                SwitchLoading(false);
         }
 
         //载入动画效果的切换

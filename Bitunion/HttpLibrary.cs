@@ -61,7 +61,7 @@ namespace HttpLibrary
                 WriteDebug("PostError", ex.Message);
                 bool isConnected = NetworkInterface.GetIsNetworkAvailable();
                 if (isConnected)
-                    MessageBox.Show("请求超时，联盟反（da）思(yi)中(ma)……");
+                    MessageBox.Show("请求超时，联盟反(yi)思(ma)中……");
                 else
                     MessageBox.Show("请求超时，请检查网络设置");
                 return null;

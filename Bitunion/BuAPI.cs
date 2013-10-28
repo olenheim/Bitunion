@@ -166,7 +166,7 @@ namespace Bitunion
             string LoginContext = staff.ToString();
 
             Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_logging.php", LoginContext);
-            if (response.Length == 0)
+            if (response == null || response.Length == 0)
                 return false;
 
             JObject jsonret = null;
@@ -198,7 +198,7 @@ namespace Bitunion
             string LogoutContext = staff.ToString(); 
             
             Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_logging.php", LogoutContext);
-            if (response.Length == 0)
+            if (response == null || response.Length == 0)
             {
                 _session = "";
                 return false;
@@ -233,7 +233,7 @@ namespace Bitunion
             string Context = staff.ToString(); 
 
             Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_forum.php", Context);
-            if (response.Length == 0)
+            if (response == null || response.Length == 0)
                 return null;
 
             JObject jsonret = null;
@@ -271,7 +271,7 @@ namespace Bitunion
             string Context = staff.ToString(); 
 
             Stream response = await  _httphelper.PostAsync(BuSetting.URL + "bu_thread.php", Context);
-            if (response.Length == 0)
+            if (response == null || response.Length == 0)
                 return null;
             
             JObject jsonret = null;
@@ -294,7 +294,7 @@ namespace Bitunion
             string Context = staff.ToString();
 
             Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_post.php", Context);
-            if (response.Length == 0)
+            if (response == null || response.Length == 0)
                 return null;
 
             JObject jsonret = null;
@@ -315,7 +315,7 @@ namespace Bitunion
             string Context = staff.ToString();
 
             Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_profile.php", Context);
-            if (response.Length == 0)
+            if (response == null || response.Length == 0)
                 return null;
 
             JObject jsonret = null;
@@ -338,7 +338,7 @@ namespace Bitunion
            string Context = staff.ToString();
 
            Stream response = await _httphelper.PostFormAsync(BuSetting.URL + "bu_newpost.php", Context);
-           if (response.Length == 0)
+           if (response == null || response.Length == 0)
                return false;
 
            JObject jsonret = null;
@@ -362,7 +362,7 @@ namespace Bitunion
            string Context = staff.ToString();
 
            Stream response = await _httphelper.PostFormAsync(BuSetting.URL + "bu_newpost.php", Context);
-           if (response.Length == 0)
+           if (response == null || response.Length == 0)
                return false;
 
            JObject jsonret = null;
@@ -412,7 +412,7 @@ namespace Bitunion
            string Context = staff.ToString();
 
            Stream response = await _httphelper.PostAsync(BuSetting.URL + "bu_home.php", Context);
-           if (response.Length == 0)
+           if (response == null || response.Length == 0)
                return null;
 
            JObject jsonret = null;

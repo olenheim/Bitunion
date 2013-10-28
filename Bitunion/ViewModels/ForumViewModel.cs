@@ -18,7 +18,7 @@ namespace Bitunion.ViewModels
         public ForumViewModel(BuForum forum)
         {
             Name = BuAPI.parseHTML(HttpUtility.UrlDecode(forum.name));
-            Description = HttpUtility.UrlDecode(forum.description);
+            Description = BuAPI.parseHTML(HttpUtility.UrlDecode(forum.description));
             Moderator = HttpUtility.UrlDecode(forum.moderator);
             Onlines = forum.onlines;
             this.forum= forum;
