@@ -22,7 +22,7 @@
                 <shell:ApplicationBarIconButton x:Name="newpost" IconUri="/Images/post.png" Text="发帖" Click="newpost_click" />
                 <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
                 <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
-            </shell:ApplicationBar>
+        </shell:ApplicationBar>
      
         <shell:ApplicationBar x:Key="post" IsVisible="True">
             <shell:ApplicationBarIconButton x:Name="post" IconUri="/Images/post.png" Text="提交" Click="post_click" />

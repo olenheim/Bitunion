@@ -169,14 +169,17 @@ namespace Bitunion
             if (response == null || response.Length == 0)
                 return false;
 
-            JObject jsonret = null;
-            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            StreamReader reader = new StreamReader(response);
+            string strret = reader.ReadToEnd();
+            JObject jsonobj= JObject.Parse(strret);
+            if (jsonobj["result"].ToString() != "success")
             {
-                
+                MessageBox.Show("用户名或密码错误，请重新输入");
                 return false;
             }
-      
-            _session = jsonret["session"].ToString();
+
+
+            _session = jsonobj["session"].ToString();
             if (_session == null)
                 return false;
 
@@ -216,10 +219,7 @@ namespace Bitunion
             string strret = reader.ReadToEnd();
             jsonobj = JObject.Parse(strret);
             if (jsonobj["result"].ToString() != "success")
-            {
-                MessageBox.Show(HttpUtility.UrlDecode(jsonobj["msg"].ToString()));
                 return false;
-            }
             return true;
         }
 
@@ -237,7 +237,7 @@ namespace Bitunion
                 return null;
 
             JObject jsonret = null;
-            if(!StreamToJobjAndCheckState(response,ref jsonret))
+            if(!StreamToJobjAndCheckState(response,ref jsonret) && !await Login(_name,_password))
                 return null;
 
             List<BuGroupForum> BuGroupForumList = new List<BuGroupForum>(); int i=0;
@@ -275,7 +275,7 @@ namespace Bitunion
                 return null;
             
             JObject jsonret = null;
-            if(!StreamToJobjAndCheckState(response,ref jsonret))
+            if(!StreamToJobjAndCheckState(response,ref jsonret) && !await Login(_name,_password))
                 return null;
 
             return JsonConvert.DeserializeObject<List<BuThread>>(jsonret["threadlist"].ToString());
@@ -298,7 +298,7 @@ namespace Bitunion
                 return null;
 
             JObject jsonret = null;
-            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
                 return null;
 
             return JsonConvert.DeserializeObject<List<BuPost>>(jsonret["postlist"].ToString());
@@ -319,7 +319,7 @@ namespace Bitunion
                 return null;
 
             JObject jsonret = null;
-            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
                 return null;
 
             return JsonConvert.DeserializeObject<BuUserProfile>(jsonret["BuUserProfile"].ToString());
@@ -342,7 +342,7 @@ namespace Bitunion
                return false;
 
            JObject jsonret = null;
-           if (!StreamToJobjAndCheckState(response, ref jsonret))
+           if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
                return false;
 
            return true;
@@ -366,7 +366,7 @@ namespace Bitunion
                return false;
 
            JObject jsonret = null;
-           if (!StreamToJobjAndCheckState(response, ref jsonret))
+           if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
                return false;
 
            return true;
@@ -416,7 +416,7 @@ namespace Bitunion
                return null;
 
            JObject jsonret = null;
-           if (!StreamToJobjAndCheckState(response, ref jsonret))
+           if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
                return null;
 
            return JsonConvert.DeserializeObject<List<BuLatestThread>>(jsonret["newlist"].ToString());

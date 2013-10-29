@@ -28,7 +28,7 @@ namespace Bitunion
             string type;
             NavigationContext.QueryString.TryGetValue("type", out type);
             if (type == "logout")
-            {
+            { 
                 NavigationService.RemoveBackEntry();
                 SwitchLoading();
                 bl = await BuAPI.Logout();
@@ -40,11 +40,22 @@ namespace Bitunion
             //填写记录的默认信息
             ID.Text = BuSetting.ID;
             Password.Password = BuSetting.Password;
-            if (!BuSetting.RemPassWord)
+            isRemPassword.IsChecked = BuSetting.RemPassWord;
+            isAutoLogin.IsChecked = BuSetting.AutoLogin;
+            NetWork.IsChecked = (BuSetting.URL == "http://out.bitunion.org/open_api/");
+            if (BuSetting.RemPassWord)
+                isRemPassword_Checked(null, null);
+            else
                 isRemPassword_Unchecked(null, null);
-            if (!BuSetting.AutoLogin)
+
+            if (BuSetting.AutoLogin)
+                isAutoLogin_Checked(null, null);
+            else
                 isAutoLogin_Unchecked(null, null);
-            if (BuSetting.URL == "http://www.bitunion.org/open_api/")
+
+            if (BuSetting.URL == "http://out.bitunion.org/open_api/")
+                NetWork_Checked(null, null);
+            else
                 NetWork_Unchecked(null, null);
 
             //自动登录

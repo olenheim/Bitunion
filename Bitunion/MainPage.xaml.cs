@@ -164,7 +164,7 @@ namespace Bitunion
 
          private void Setting_Click(object sender, EventArgs e)
          {
-             NavigationService.Navigate(new Uri("/BuSettingPage.xaml?type=logout", UriKind.Relative));
+             NavigationService.Navigate(new Uri("/BuSettingPage.xaml", UriKind.Relative));
          }
 
         // 用于生成本地化 ApplicationBar 的示例代码

@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:ec="clr-namespace:Microsoft.Expression.Interactivity.Core;assembly=Microsoft.Expression.Interactions"
     xmlns:local="clr-namespace:Bitunion"
+    xmlns:toolkit ="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     x:Class="Bitunion.BuThreadPage"
      d:DataContext="{d:DesignData SampleData/ThreadViewModelSampleData.xaml}"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
@@ -26,6 +27,7 @@
                 <shell:ApplicationBarMenuItem Text="第一页" Click="FirstPage_Click" />
                 <shell:ApplicationBarMenuItem Text="最后一页" Click="LastPage_Click" />
                 <shell:ApplicationBarMenuItem Text="进入该板块" Click="Enter_Click" />
+                <shell:ApplicationBarMenuItem Text="设置" Click="Setting_Click" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
         <shell:ApplicationBar x:Key="reply" IsVisible="True">
@@ -54,7 +56,13 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel x:Name="PostPanel" Margin="0,0,-11,0" Width="480">
-                       
+                            <toolkit:ContextMenuService.ContextMenu>
+                                <toolkit:ContextMenu>
+                                    <toolkit:MenuItem Header="引用回复" Click="QuoteReply_Click"/>
+                                    <toolkit:MenuItem Header="添加至引用队列" Click="AddToQuoteList_Click"/>
+                                    <toolkit:MenuItem Header="查看作者资料" Click="AuthorInfo_Click"/>
+                                </toolkit:ContextMenu>
+                            </toolkit:ContextMenuService.ContextMenu>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*" />

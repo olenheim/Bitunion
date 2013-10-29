@@ -17,6 +17,7 @@ namespace Bitunion
 {
     public partial class PopupContainer : UserControl
     {
+        //用于切换pop弹出后所变化的appbar
         IApplicationBar _AppBar;
         #region Constructor
 

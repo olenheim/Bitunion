@@ -20,7 +20,7 @@ namespace Bitunion.ViewModels
             Subject = BuAPI.parseHTML(HttpUtility.UrlDecode(bt.pname));
             Author = HttpUtility.UrlDecode(bt.author);
             ForumName = HttpUtility.UrlDecode(bt.fname);
-            Replies = "回复" + bt.tid_sum;
+            Replies = "回复:" + bt.tid_sum;
             this.latestthread = bt;
             PostItems = new ObservableCollection<PostViewModel>();
         }
@@ -33,7 +33,7 @@ namespace Bitunion.ViewModels
             Author = HttpUtility.UrlDecode(thread.author);
             Time = BuAPI.DateTimeConvertTime(thread.dateline).ToString("MM-dd HH:mm");
             PostItems = new ObservableCollection<PostViewModel>();
-            Replies = "回复" + thread.replies;
+            Replies = "回复:" + thread.replies;
             this.thread = thread;
         }
 

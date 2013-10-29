@@ -75,7 +75,6 @@ namespace Bitunion
         {
             _currentpage = pageno;
             ThreadName.Text = string.Format(_pagetemplate, pageno.ToString(), _maxpage.ToString()) + _subject;
-            pgbar.Visibility = Visibility.Visible;
             //清除界面数据
             _threadview.PostItems.Clear();
 
@@ -83,6 +82,7 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
+                pgbar.Visibility = Visibility.Visible;
                 //载入期间禁用菜单栏
                 (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = false;
                 (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = false;
@@ -91,21 +91,28 @@ namespace Bitunion
 
                 postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * BuSetting.PageThreadCount).ToString(), 
                     (pageno * BuSetting.PageThreadCount).ToString());
+
+
+                pgbar.Visibility = Visibility.Collapsed;
+                if (postlist == null || postlist.Count == 0)
+                {
+                    //控制菜单显示
+                    CheckBtnEnable();
+                    return;
+                }
+
                 _pagecache[pageno] = postlist;
-                
             }
+
+            //修改标题的所在页码
+            ThreadName.Text = string.Format(_pagetemplate, pageno.ToString(), _maxpage.ToString()) + _subject;
             //控制菜单显示
             CheckBtnEnable();
-            
-            if (postlist == null || postlist.Count == 0)
-                return;
 
             uint floorno = (pageno - 1) * BuSetting.PageThreadCount;
             //填写视图模型
             foreach (BuPost post in postlist)
                 _threadview.PostItems.Add(new PostViewModel(post,++floorno));
-
-            pgbar.Visibility = Visibility.Collapsed;
          
         }
 
@@ -119,14 +126,12 @@ namespace Bitunion
         private void Prev_Click(object sender, EventArgs e)
         {
             ShowViewModel(_currentpage-1);
-            ThreadName.Text = string.Format(_pagetemplate, _currentpage.ToString(), _maxpage.ToString()) + _subject;
         }
 
         //置灰可能的翻页按钮
         private void Next_Click(object sender, EventArgs e)
         {
             ShowViewModel(_currentpage+1);
-            ThreadName.Text = string.Format(_pagetemplate, _currentpage.ToString(), _maxpage.ToString()) + _subject;
         }
 
         private void CheckBtnEnable()
@@ -213,6 +218,33 @@ namespace Bitunion
 
         private void ItemsControl_DoubleTap_1(object sender, System.Windows.Input.GestureEventArgs e)
         {
+            //if (PostItemsList.SelectedItem == null)
+            //    return;
+            //PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
+            //BuPost post = ps._post;
+            //_popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
+            //reply_click(null, null);
+        }
+
+        private void PostItemsList_Hold(object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            //if (PostItemsList.SelectedItem == null)
+            //    return;
+            //PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
+            //BuPost post = ps._post;
+            //_popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
+            //reply_click(null, null);
+        }
+
+        private void Setting_Click(object sender, EventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/BuSettingPage.xaml", UriKind.Relative));
+        }
+
+        private void QuoteReply_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+            PostItemsList.SelectedItem = selectedListBoxItem;
             if (PostItemsList.SelectedItem == null)
                 return;
             PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
@@ -221,14 +253,20 @@ namespace Bitunion
             reply_click(null, null);
         }
 
-        private void PostItemsList_Hold(object sender, System.Windows.Input.GestureEventArgs e)
+        private void AuthorInfo_Click(object sender, RoutedEventArgs e)
         {
+            MessageBox.Show("开发中，敬请期待");
+        }
+
+        private void AddToQuoteList_Click(object sender, RoutedEventArgs e)
+        {
+            ListBoxItem selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+            PostItemsList.SelectedItem = selectedListBoxItem;
             if (PostItemsList.SelectedItem == null)
                 return;
             PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
             BuPost post = ps._post;
-            _popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
-            reply_click(null, null);
+            _popupreply.contentTextBox.Text += string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
         }
 
     }

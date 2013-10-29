@@ -69,7 +69,7 @@ namespace Bitunion.ViewModels
 
                 List<BuQuote> quotes = BuAPI.parseQuotes(ref message);
                 foreach (var quote in quotes)
-                    QuoteItems.Add(new QuoteViewModel(quote.author + "  " + quote.time + quote.content.Trim()));
+                    QuoteItems.Add(new QuoteViewModel(quote.author + "  " + quote.time + "\r\n" + quote.content.Trim()));
 
                 DateTime dt = BuAPI.DateTimeConvertTime(post.dateline);
 
