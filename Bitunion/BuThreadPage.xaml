@@ -31,7 +31,7 @@
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
         <shell:ApplicationBar x:Key="reply" IsVisible="True">
-            <shell:ApplicationBarIconButton x:Name="post" IconUri="/Images/post.png" Text="提交" Click="post_click" />
+            <shell:ApplicationBarIconButton x:Name="post" IconUri="/Images/ok.png" Text="提交" Click="post_click" />
             <shell:ApplicationBarIconButton x:Name="cancel" IconUri="/Images/cancel.png" Text="取消" Click="cancel_Click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.Resources>
