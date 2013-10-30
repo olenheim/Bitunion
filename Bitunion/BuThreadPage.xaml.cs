@@ -53,6 +53,7 @@ namespace Bitunion
             _popupreply.titleTextBox.Visibility = Visibility.Collapsed;
             //由于隐藏了title，所以缩小控件高度
             _popupreply.Height -= 72;
+            pgbar.Visibility = Visibility.Collapsed;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -66,10 +67,19 @@ namespace Bitunion
             NavigationContext.QueryString.TryGetValue("replies", out _replies);
             NavigationContext.QueryString.TryGetValue("fid", out _fid);
             NavigationContext.QueryString.TryGetValue("fname", out _fname);
-            
+
             _maxpage = Convert.ToUInt16(_replies) / (uint)BuSetting.PageThreadCount + 1;
             ShowViewModel(_currentpage);
         }
+
+        private void togglePgBar()
+        {
+            if (pgbar.Visibility == Visibility.Visible)
+                pgbar.Visibility = Visibility.Collapsed;
+            else
+                pgbar.Visibility = Visibility.Visible;
+        }
+
 
         private async void ShowViewModel(uint pageno)
         {
@@ -82,7 +92,7 @@ namespace Bitunion
             List<BuPost> postlist;
             if (!_pagecache.TryGetValue(pageno, out postlist))
             {
-                pgbar.Visibility = Visibility.Visible;
+                togglePgBar();
                 //载入期间禁用菜单栏
                 (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = false;
                 (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = false;
@@ -92,8 +102,7 @@ namespace Bitunion
                 postlist = await BuAPI.QueryPost(_tid, ((pageno - 1) * BuSetting.PageThreadCount).ToString(), 
                     (pageno * BuSetting.PageThreadCount).ToString());
 
-
-                pgbar.Visibility = Visibility.Collapsed;
+                togglePgBar();
                 if (postlist == null || postlist.Count == 0)
                 {
                     //控制菜单显示
@@ -244,10 +253,9 @@ namespace Bitunion
         private void QuoteReply_Click(object sender, RoutedEventArgs e)
         {
             ListBoxItem selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
-            PostItemsList.SelectedItem = selectedListBoxItem;
-            if (PostItemsList.SelectedItem == null)
+            if (selectedListBoxItem == null)
                 return;
-            PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
+            PostViewModel ps = selectedListBoxItem.DataContext as PostViewModel;
             BuPost post = ps._post;
             _popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
             reply_click(null, null);
@@ -261,10 +269,9 @@ namespace Bitunion
         private void AddToQuoteList_Click(object sender, RoutedEventArgs e)
         {
             ListBoxItem selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
-            PostItemsList.SelectedItem = selectedListBoxItem;
-            if (PostItemsList.SelectedItem == null)
+            if (selectedListBoxItem == null)
                 return;
-            PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
+            PostViewModel ps = selectedListBoxItem.DataContext as PostViewModel;
             BuPost post = ps._post;
             _popupreply.contentTextBox.Text += string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
         }

@@ -214,6 +214,11 @@ namespace Bitunion
         {
             pp.CloseMeAsPopup();
         }
+
+        private void FavoritePage_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("开发中，敬请期待");
+        }
    
     }
 }

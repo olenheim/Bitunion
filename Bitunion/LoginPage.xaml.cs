@@ -42,7 +42,7 @@ namespace Bitunion
             Password.Password = BuSetting.Password;
             isRemPassword.IsChecked = BuSetting.RemPassWord;
             isAutoLogin.IsChecked = BuSetting.AutoLogin;
-            NetWork.IsChecked = (BuSetting.URL == "http://out.bitunion.org/open_api/");
+            tsNetWork.IsChecked = (BuSetting.URL == "http://out.bitunion.org/open_api/");
             if (BuSetting.RemPassWord)
                 isRemPassword_Checked(null, null);
             else
@@ -157,13 +157,13 @@ namespace Bitunion
 
         private void NetWork_Checked(object sender, RoutedEventArgs e)
         {
-            NetWork.Content = "外网";
+            tsNetWork.Content = "外网";
             BuSetting.URL = "http://out.bitunion.org/open_api/";
         }
 
         private void NetWork_Unchecked(object sender, RoutedEventArgs e)
         {
-            NetWork.Content = "内网";
+            tsNetWork.Content = "内网";
             BuSetting.URL = "http://www.bitunion.org/open_api/";
         }
 

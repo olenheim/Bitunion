@@ -35,7 +35,15 @@ namespace Bitunion
             DataContext = _mainvm;
            
             DictFourm = new Dictionary<string,List<BuForum>>();
-            //TiltEffect.SetIsTiltEnabled((App.Current as App).RootFrame, true);
+            pgBar.Visibility = Visibility.Collapsed;
+        }
+
+        private void togglePgBar()
+        {
+            if (pgBar.Visibility == Visibility.Visible)
+                pgBar.Visibility = Visibility.Collapsed;
+            else
+                pgBar.Visibility = Visibility.Visible;
         }
 
         // 为 ViewModel 项加载数据
@@ -43,8 +51,7 @@ namespace Bitunion
         {
             //消除后退堆栈中的登录页面
             NavigationService.RemoveBackEntry();
-            if (_mainvm.LatestThreadItems.Count == 0)
-                LoadLatestThreadList();
+            LoadLatestThreadList();
         }                                                                                                                                                                                                 
 
         //响应在最新帖子列表中选择某帖子的事件
@@ -72,24 +79,40 @@ namespace Bitunion
         //异步加载最新帖子列表
         private async void LoadLatestThreadList()
         {
-            pgBar.Visibility = Visibility.Visible;
+            if (_mainvm.LatestThreadItems.Count != 0)
+                return;
+
+            togglePgBar();
             List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
+            togglePgBar();
+
+            if (btl == null)
+                return;
 
             foreach (BuLatestThread bt in btl)
                 _mainvm.LatestThreadItems.Add(new ThreadViewModel(bt));
-            pgBar.Visibility = Visibility.Collapsed;
+
         }
         
         //异步加载论坛列表
         private async void LoadForumList()
         {
+            if (_mainvm.ForumItems.Count() != 0)
+                return;
+
             if (isloadingforumlist)
                 return;
 
             isloadingforumlist = true;
 
-          pgBar.Visibility = Visibility.Visible;
+            togglePgBar();
           List<BuGroupForum> bl = await BuAPI.QueryForumList();
+          togglePgBar();
+          if (bl == null)
+          {
+              isloadingforumlist = false;
+              return;
+          }
 
           foreach (BuGroupForum bt in bl)
           {
@@ -109,9 +132,6 @@ namespace Bitunion
                   DictFourm[bt.main[0].fid].Add(subforum);
           }
             
-
-            pgBar.Visibility = Visibility.Collapsed;
-
             isloadingforumlist = false;
         }
         
@@ -133,10 +153,7 @@ namespace Bitunion
          {
              //如果切换到论坛分组的页面才加载论坛分组列表
              if (MainPagePivot.SelectedIndex == 1)
-             {
-                 if (_mainvm.ForumItems.Count() == 0)
                     LoadForumList();
-             }
          }
 
          //响应论坛列表选择进入某一个论坛的事件

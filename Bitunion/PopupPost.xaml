@@ -7,9 +7,9 @@
     mc:Ignorable="d"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
-    Foreground="{StaticResource PhoneForegroundBrush}" d:DesignWidth="480" Height="325">
+    Foreground="{StaticResource PhoneForegroundBrush}" d:DesignWidth="480" Height="300">
 
-    <Grid x:Name="LayoutRoot" Width="480" Background="Black" Opacity="0.95" Height="340" VerticalAlignment="Top" Margin="0,0,0,-15">
+    <Grid x:Name="LayoutRoot" Width="480" Background="Black" Opacity="0.95" Height="340" VerticalAlignment="Top" Margin="0,-32,0,-15">
         <StackPanel Height="Auto" HorizontalAlignment="Left" Margin="12,35,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="456"/>
         <StackPanel HorizontalAlignment="Right" Margin="0,13,12,10" Name="grid1" Width="456">
             <toolkit:PhoneTextBox Hint="请输入标题" Height="72" HorizontalAlignment="Left" x:Name="titleTextBox"  VerticalAlignment="Top" Width="456" />

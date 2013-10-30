@@ -22,6 +22,9 @@
                 <shell:ApplicationBarIconButton x:Name="newpost" IconUri="/Images/post.png" Text="发帖" Click="newpost_click" />
                 <shell:ApplicationBarIconButton x:Name="prev" IconUri="/Images/prev.png" Text="上一页" Click="Prev_Click" />
                 <shell:ApplicationBarIconButton x:Name="next" IconUri="/Images/next.png" Text="下一页" Click="Next_Click" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="收藏版面" Click="FavoritePage_Click" />
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
      
         <shell:ApplicationBar x:Key="post" IsVisible="True">
