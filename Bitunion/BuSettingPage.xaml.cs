@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Phone.Controls;
+using Microsoft.Phone.Tasks;
 
 namespace Bitunion
 {
@@ -97,6 +98,13 @@ namespace Bitunion
         private void tbMsgTail_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
         {
             BuSetting.TailMsg = tbMsgTail.Text;
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MarketplaceReviewTask marketplaceReviewTask = new MarketplaceReviewTask();
+
+            marketplaceReviewTask.Show();
         }
     }
 }

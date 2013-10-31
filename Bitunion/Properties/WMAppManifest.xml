@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="zh-CN" />
-  <App xmlns="" ProductID="{5977d1b3-0acc-42ff-b9a5-97d2d0564a02}" Title="Bitunion" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal" Author="Bitunion author" Description="Sample description" Publisher="Bitunion" PublisherID="{29de8efb-b3c5-4be4-9e1d-2bc1c4298185}">
+  <App xmlns="" ProductID="{5977d1b3-0acc-42ff-b9a5-97d2d0564a02}" Title="Bitunion" RuntimeType="Silverlight" Version="0.9.0.0" Genre="apps.normal" Author="Bitunion author" Description="Sample description" Publisher="Bitunion" PublisherID="{29de8efb-b3c5-4be4-9e1d-2bc1c4298185}">
     <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
@@ -11,7 +11,7 @@
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
     </Capabilities>
     <Tasks>
-      <DefaultTask Name="_default" NavigationPage="LoginPage.xaml" />
+      <DefaultTask Name="_default" NavigationPage="LoginPage.xaml" ActivationPolicy="Resume"/>
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="BitunionToken" TaskName="_default">
@@ -26,16 +26,20 @@
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackgroundImageURI>
+          <LargeBackContent />
+          <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
+          </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
-          <HasLarge>
-          </HasLarge>
+          <HasLarge>True</HasLarge>
         </TemplateFlip>
       </PrimaryToken>
     </Tokens>
     <ScreenResolutions>
-      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
       <ScreenResolution Name="ID_RESOLUTION_HD720P" />
+      <ScreenResolution Name="ID_RESOLUTION_WXGA" />
       <ScreenResolution Name="ID_RESOLUTION_WVGA" />
     </ScreenResolutions>
   </App>

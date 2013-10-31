@@ -225,26 +225,6 @@ namespace Bitunion
                 MessageBox.Show("回复失败");
         }
 
-        private void ItemsControl_DoubleTap_1(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            //if (PostItemsList.SelectedItem == null)
-            //    return;
-            //PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
-            //BuPost post = ps._post;
-            //_popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
-            //reply_click(null, null);
-        }
-
-        private void PostItemsList_Hold(object sender, System.Windows.Input.GestureEventArgs e)
-        {
-            //if (PostItemsList.SelectedItem == null)
-            //    return;
-            //PostViewModel ps = PostItemsList.SelectedItem as PostViewModel;
-            //BuPost post = ps._post;
-            //_popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
-            //reply_click(null, null);
-        }
-
         private void Setting_Click(object sender, EventArgs e)
         {
             NavigationService.Navigate(new Uri("/BuSettingPage.xaml", UriKind.Relative));
@@ -252,9 +232,10 @@ namespace Bitunion
 
         private void QuoteReply_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxItem selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+            var selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as FrameworkElement;
             if (selectedListBoxItem == null)
                 return;
+       
             PostViewModel ps = selectedListBoxItem.DataContext as PostViewModel;
             BuPost post = ps._post;
             _popupreply.contentTextBox.Text = string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
@@ -268,9 +249,10 @@ namespace Bitunion
 
         private void AddToQuoteList_Click(object sender, RoutedEventArgs e)
         {
-            ListBoxItem selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as ListBoxItem;
+            var selectedListBoxItem = PostItemsList.ItemContainerGenerator.ContainerFromItem((sender as MenuItem).DataContext) as FrameworkElement;
             if (selectedListBoxItem == null)
                 return;
+
             PostViewModel ps = selectedListBoxItem.DataContext as PostViewModel;
             BuPost post = ps._post;
             _popupreply.contentTextBox.Text += string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);

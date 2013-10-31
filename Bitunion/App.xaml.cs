@@ -13,6 +13,8 @@ namespace Bitunion
 {
     public partial class App : Application
     {
+        private static bool _wasLaunched = false;
+
         private static MainViewModel viewModel = null;
 
         /// <summary>
@@ -89,6 +91,7 @@ namespace Bitunion
             if (!App.ViewModel.IsDataLoaded)
             {
                // App.ViewModel.LoadData();
+                _wasLaunched = true;
             }
         }
 
@@ -147,8 +150,22 @@ namespace Bitunion
             // 在下一次导航中处理清除 BackStack 的重置请求，
             RootFrame.Navigated += CheckForResetNavigation;
 
+            // 处理Fast Resume 逻辑
+            RootFrame.Navigating += RootFrame_Navigating;
+
             // 确保我们未再次初始化
             phoneApplicationInitialized = true;
+        }
+
+        private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
+        {
+            if (e.NavigationMode == NavigationMode.Reset)
+                return;
+            if (e.NavigationMode == NavigationMode.New && _wasLaunched)
+            {
+                _wasLaunched = false;
+                e.Cancel = true;
+            }
         }
 
         // 请勿向此方法中添加任何其他代码
