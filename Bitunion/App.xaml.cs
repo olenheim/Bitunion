@@ -148,7 +148,7 @@ namespace Bitunion
             RootFrame.NavigationFailed += RootFrame_NavigationFailed;
 
             // 在下一次导航中处理清除 BackStack 的重置请求，
-            RootFrame.Navigated += CheckForResetNavigation;
+         //   RootFrame.Navigated += CheckForResetNavigation;
 
             // 处理Fast Resume 逻辑
             RootFrame.Navigating += RootFrame_Navigating;
@@ -159,8 +159,6 @@ namespace Bitunion
 
         private void RootFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
-            if (e.NavigationMode == NavigationMode.Reset)
-                return;
             if (e.NavigationMode == NavigationMode.New && _wasLaunched)
             {
                 _wasLaunched = false;
