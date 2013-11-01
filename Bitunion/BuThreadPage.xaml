@@ -51,11 +51,11 @@
             </Grid.RowDefinitions>-->
 
             <!--具有文字环绕的双线列表-->
-           <ScrollViewer HorizontalAlignment="Left" Name="scrollViewer" Width="480" Margin="0,0,0,0">
-            <ItemsControl x:Name="PostItemsList" HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.RowSpan="1" Width="480"  >
+           <ScrollViewer Name="scrollViewer" Margin="0,0,0,0">
+                <ItemsControl x:Name="PostItemsList" HorizontalAlignment="Left" ItemsSource="{Binding PostItems}" Grid.Column="0" Grid.RowSpan="1"  Margin="0,0,0,0"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel x:Name="PostPanel" Margin="0,0,-11,0" Width="480">
+                        <StackPanel x:Name="PostPanel" Margin="0">
                             <toolkit:ContextMenuService.ContextMenu>
                                 <toolkit:ContextMenu>
                                     <toolkit:MenuItem Header="引用回复" Click="QuoteReply_Click"/>
@@ -84,15 +84,15 @@
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>
      
-                            <local:EyeableTextBlock Style="{StaticResource SuperTextBlockSytle}" FontSize="25" Text="{Binding Message}" Margin="6,15,12,15" Padding="0,0,5,0" Width="Auto"  />
+                            <local:EyeableTextBlock Style="{StaticResource SuperTextBlockSytle}" FontSize="25" Text="{Binding Message}" Margin="6,15,6,5" Padding="0,0,0,0" Width="Auto"  />
                                                 
                             <!--<Button Content="引用" HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" Width="90" Height="66" FontSize="18"/>-->
                               
                                     <TextBlock Text="本帖包含图片附件: "  Visibility="{Binding ImageSrc, Converter={StaticResource ImgConverter}}"   FontSize="25" Margin="6,15,12,15"/>
-                                  
-                                      <Image CacheMode="BitmapCache" Source="{Binding ImageSrc}"  Stretch="Uniform" Tap="OnImageTap" Margin="12,0,32,15" ImageFailed="Image_ImageFailed_1" ImageOpened="Image_ImageOpened_1" />
+
+                                <Image CacheMode="BitmapCache" Visibility="{Binding ImageSrc, Converter={StaticResource ImgConverter}}" Source="{Binding ImageSrc}"  Stretch="Uniform" Tap="OnImageTap" Margin="12,0,32,15" ImageFailed="Image_ImageFailed_1" ImageOpened="Image_ImageOpened_1" />
                     
-                                <Border BorderThickness="0,0,0,1"  HorizontalAlignment="Left" Width="447" Padding="0,0,0,5" Margin="12,0,0,0">
+                                <Border BorderThickness="0,0,0,1" Padding="0,0,0,5" Margin="6,0,6,0">
                             <Border.BorderBrush>
                                     <SolidColorBrush Color="{StaticResource PhoneAccentColor}"/>
                                 </Border.BorderBrush>

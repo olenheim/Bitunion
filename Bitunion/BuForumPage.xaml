@@ -16,7 +16,7 @@
         shell:SystemTray.Opacity="0">
 
     <phone:PhoneApplicationPage.Resources>
-        <shell:ApplicationBar x:Key="forum" IsVisible="True">
+        <shell:ApplicationBar x:Key="forum" IsVisible="True" Opacity="1">
            
                 <shell:ApplicationBarIconButton x:Name="refresh" IconUri="/Images/refresh.png" Text="刷新" Click="refresh_click" />
                 <shell:ApplicationBarIconButton x:Name="newpost" IconUri="/Images/post.ico" Text="发帖" Click="newpost_click" />

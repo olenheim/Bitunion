@@ -42,7 +42,7 @@
 
     </Grid>
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar x:Name="ForumAppBar" IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="0.5" >
+        <shell:ApplicationBar x:Name="ForumAppBar" IsVisible="True" IsMenuEnabled="True" Mode="Default" Opacity="1" >
             <shell:ApplicationBarIconButton x:Name="longin" IconUri="/Images/ok.png" Text="登录" Click="login_click" />
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>

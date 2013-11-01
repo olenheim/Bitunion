@@ -2,7 +2,7 @@
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="zh-CN" />
   <App xmlns="" ProductID="{5977d1b3-0acc-42ff-b9a5-97d2d0564a02}" Title="Bitunion" RuntimeType="Silverlight" Version="0.9.0.0" Genre="apps.normal" Author="Bitunion author" Description="Sample description" Publisher="Bitunion" PublisherID="{29de8efb-b3c5-4be4-9e1d-2bc1c4298185}">
-    <IconPath IsRelative="true" IsResource="false">Assets\ApplicationIcon.png</IconPath>
+    <IconPath IsRelative="true" IsResource="false">Images\metro.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />
       <Capability Name="ID_CAP_MEDIALIB_AUDIO" />
@@ -11,14 +11,14 @@
       <Capability Name="ID_CAP_WEBBROWSERCOMPONENT" />
     </Capabilities>
     <Tasks>
-      <DefaultTask Name="_default" NavigationPage="LoginPage.xaml" ActivationPolicy="Resume"/>
+      <DefaultTask Name="_default" NavigationPage="LoginPage.xaml" ActivationPolicy="Resume" />
     </Tasks>
     <Tokens>
       <PrimaryToken TokenID="BitunionToken" TaskName="_default">
-        <TemplateFlip>
-          <SmallImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileSmall.png</SmallImageURI>
+        <!--<TemplateFlip>
+          <SmallImageURI IsRelative="true" IsResource="false">Images\metro.png</SmallImageURI>
           <Count>0</Count>
-          <BackgroundImageURI IsRelative="true" IsResource="false">Assets\Tiles\FlipCycleTileMedium.png</BackgroundImageURI>
+          <BackgroundImageURI IsRelative="true" IsResource="false">Images\metro.png</BackgroundImageURI>
           <Title>Bitunion</Title>
           <BackContent>
           </BackContent>
@@ -26,15 +26,23 @@
           </BackBackgroundImageURI>
           <BackTitle>
           </BackTitle>
-          <LargeBackgroundImageURI IsRelative="true" IsResource="false">
-          </LargeBackgroundImageURI>
+          <LargeBackgroundImageURI IsRelative="true" IsResource="false">Images\123.jpg</LargeBackgroundImageURI>
           <LargeBackContent />
           <LargeBackBackgroundImageURI IsRelative="true" IsResource="false">
           </LargeBackBackgroundImageURI>
           <DeviceLockImageURI>
           </DeviceLockImageURI>
           <HasLarge>True</HasLarge>
-        </TemplateFlip>
+        </TemplateFlip>-->
+        <TemplateCycle>
+          <SmallImageURI IsRelative="true" IsResource="false">/Assets/Tiles/321.png</SmallImageURI>
+          <Title>ProShot</Title>
+          <Photo01ImageURI IsRelative="true" IsResource="false">/Assets/Tiles/321.png</Photo01ImageURI>
+          <Photo02ImageURI IsRelative="true" IsResource="false">/Assets/Tiles/123.png</Photo02ImageURI>
+          <Count>2</Count>
+          <HasLarge>True</HasLarge>
+          <DeviceLockImageURI IsRelative="true" IsResource="false"></DeviceLockImageURI>
+        </TemplateCycle>
       </PrimaryToken>
     </Tokens>
     <ScreenResolutions>

@@ -188,6 +188,8 @@
     <Content Include="Assets\ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Tiles\123.jpg" />
+    <Content Include="Assets\Tiles\321.png" />
     <Content Include="Assets\Tiles\FlipCycleTileLarge.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -203,16 +205,17 @@
     <Content Include="Assets\Tiles\IconicTileSmall.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Images\123.jpg" />
     <Content Include="Images\cancel.png" />
     <Content Include="Images\loginpage.png" />
     <Content Include="Images\logout.png" />
+    <Content Include="Images\metro.png" />
     <Content Include="Images\next.png" />
     <Content Include="Images\ok.png" />
     <Content Include="Images\post.ico" />
     <Content Include="Images\prev.png" />
     <Content Include="Images\refresh.png" />
     <Content Include="Images\reply.png" />
-    <Content Include="README_FIRST.txt" />
     <Content Include="Toolkit.Content\ApplicationBar.Add.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Cancel.png" />
     <Content Include="Toolkit.Content\ApplicationBar.Check.png" />

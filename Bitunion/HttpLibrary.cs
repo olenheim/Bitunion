@@ -115,7 +115,7 @@ namespace HttpLibrary
 
         private void HandleEx(Exception ex)
         {
-            if (ex.HResult == -2146233079)
+            if (ex.Message != "The remote server returned an error: NotFound.")
                 return;
             bool isConnected = NetworkInterface.GetIsNetworkAvailable();
             if (isConnected)

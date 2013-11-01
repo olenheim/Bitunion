@@ -89,8 +89,8 @@ namespace Bitunion
             _threadview.PostItems.Clear();
 
             //先从缓存中获取
-            List<BuPost> postlist;
-            if (!_pagecache.TryGetValue(pageno, out postlist))
+            List<BuPost> postlist = null;
+            if (!_pagecache.TryGetValue(pageno, out postlist) || BuSetting.PageThreadCount != postlist.Count)//尾页刷新&设置页码后刷新
             {
                 togglePgBar();
                 //载入期间禁用菜单栏

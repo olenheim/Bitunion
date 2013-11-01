@@ -38,14 +38,6 @@ namespace Bitunion
             pgBar.Visibility = Visibility.Collapsed;
         }
 
-        private void togglePgBar()
-        {
-            if (pgBar.Visibility == Visibility.Visible)
-                pgBar.Visibility = Visibility.Collapsed;
-            else
-                pgBar.Visibility = Visibility.Visible;
-        }
-
         // 为 ViewModel 项加载数据
         protected override  void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -82,9 +74,11 @@ namespace Bitunion
             if (_mainvm.LatestThreadItems.Count != 0)
                 return;
 
-            togglePgBar();
+            pgBar.Visibility = Visibility.Visible;
+            (ApplicationBar.Buttons[0] as ApplicationBarIconButton).IsEnabled = false;
             List<BuLatestThread> btl = await BuAPI.QueryLatestThreadList();
-            togglePgBar();
+            (ApplicationBar.Buttons[0] as ApplicationBarIconButton).IsEnabled = true;
+            pgBar.Visibility = Visibility.Collapsed;
 
             if (btl == null)
                 return;
@@ -105,9 +99,9 @@ namespace Bitunion
 
             isloadingforumlist = true;
 
-            togglePgBar();
+            pgBar.Visibility = Visibility.Visible;
           List<BuGroupForum> bl = await BuAPI.QueryForumList();
-          togglePgBar();
+          pgBar.Visibility = Visibility.Collapsed;
           if (bl == null)
           {
               isloadingforumlist = false;

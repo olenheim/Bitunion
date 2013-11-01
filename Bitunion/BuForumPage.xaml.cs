@@ -32,6 +32,7 @@ namespace Bitunion
             InitializeComponent();
             DataContext = _forumpageviewmodel;
             this.ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["forum"];
+            pgbar.Visibility = Visibility.Collapsed;
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -66,24 +67,48 @@ namespace Bitunion
             LoadThreadList();
         }
 
+        private void togglePgBar()
+        {
+            if (pgbar.Visibility == Visibility.Visible)
+                pgbar.Visibility = Visibility.Collapsed;
+            else
+                pgbar.Visibility = Visibility.Visible;
+        }
+
         //异步加载帖子列表
         private async void LoadThreadList()
         {
-            pgbar.Visibility = Visibility.Visible;
-            CheckBtnEnable();
             //清除界面数据
             _forumpageviewmodel.ThreadItems.Clear();
 
             //先从缓存中获取
             List<BuThread> threadlist;
             if (!_pagecache.TryGetValue(_pageno, out threadlist))
-                _pagecache[_pageno] = await BuAPI.QueryThreadList(_fid, ((_pageno - 1) * 20).ToString(), (_pageno * 20 - 1).ToString());
+            {
+                togglePgBar();
+                //载入期间禁用菜单栏
+                (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = false;
+                (ApplicationBar.Buttons[3] as ApplicationBarIconButton).IsEnabled = false;
 
+                threadlist = await BuAPI.QueryThreadList(_fid, ((_pageno - 1) * 20).ToString(), (_pageno * 20 - 1).ToString());
+
+                togglePgBar();
+                if (threadlist == null || threadlist.Count == 0)
+                {
+                    //控制菜单显示
+                    CheckBtnEnable();
+                    return;
+                }
+
+                _pagecache[_pageno] = threadlist;
+            }
+
+            //控制菜单显示
+            CheckBtnEnable();
+          
             //填写视图模型
-            foreach (BuThread bt in _pagecache[_pageno])
+            foreach (BuThread bt in threadlist)
                 _forumpageviewmodel.ThreadItems.Add(new ThreadViewModel(bt));
-
-            pgbar.Visibility = Visibility.Collapsed;
         }
 
         //点击某一个帖子
@@ -170,6 +195,7 @@ namespace Bitunion
         {
             //禁用工具栏按钮的方法
             (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
+            (ApplicationBar.Buttons[3] as ApplicationBarIconButton).IsEnabled = true;
         }
 
  
