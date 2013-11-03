@@ -38,7 +38,7 @@ namespace Bitunion
         private PopupPost _popupreply;
 
         //引用、页码、楼层的文字模板
-        private const string _quotetemplate = "[quote={0}][b]{1}[/b] {2}\r\n{3}[/quote]";
+        private const string _quotetemplate = "[quote={0}][b]{1}[/b] {2}\r\n{3}[/quote]\r\n";
         private const string _pagetemplate = "({0}/{1})";
         private const string _floortempalte = "{0}楼";
         #endregion
@@ -72,6 +72,12 @@ namespace Bitunion
             ShowViewModel(_currentpage);
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _popupreply.CloseMeAsPopup();
+            base.OnNavigatedFrom(e);
+        }
+
         private void togglePgBar()
         {
             if (pgbar.Visibility == Visibility.Visible)
@@ -90,7 +96,7 @@ namespace Bitunion
 
             //先从缓存中获取
             List<BuPost> postlist = null;
-            if (!_pagecache.TryGetValue(pageno, out postlist) || BuSetting.PageThreadCount != postlist.Count)//尾页刷新&设置页码后刷新
+            if (!_pagecache.TryGetValue(pageno, out postlist))//尾页刷新&设置页码后刷新
             {
                 togglePgBar();
                 //载入期间禁用菜单栏
@@ -129,17 +135,19 @@ namespace Bitunion
         {
             PopupContainer pc = new PopupContainer(this);
             pc.Show(_popupreply);
-            ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["reply"];
+           ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["reply"];
         }
 
         private void Prev_Click(object sender, EventArgs e)
         {
+            scrollViewer.ScrollToVerticalOffset(0);
             ShowViewModel(_currentpage-1);
         }
 
         //置灰可能的翻页按钮
         private void Next_Click(object sender, EventArgs e)
         {
+            scrollViewer.ScrollToVerticalOffset(0);
             ShowViewModel(_currentpage+1);
         }
 
@@ -164,11 +172,13 @@ namespace Bitunion
 
           private void FirstPage_Click(object sender, EventArgs e)
           {
+              scrollViewer.ScrollToVerticalOffset(0);
               ShowViewModel(1);
           }
 
           private void LastPage_Click(object sender, EventArgs e)
           {
+              scrollViewer.ScrollToVerticalOffset(0);
               ShowViewModel(_maxpage);
           }
 
@@ -256,6 +266,12 @@ namespace Bitunion
             PostViewModel ps = selectedListBoxItem.DataContext as PostViewModel;
             BuPost post = ps._post;
             _popupreply.contentTextBox.Text += string.Format(_quotetemplate, post.pid, post.author, post.dateline, post.message);
+        }
+
+        private void refresh_click(object sender, EventArgs e)
+        {
+            _pagecache.Remove(_currentpage);
+            ShowViewModel(_currentpage);
         }
 
     }

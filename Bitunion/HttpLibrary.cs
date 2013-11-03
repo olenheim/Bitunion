@@ -119,7 +119,7 @@ namespace HttpLibrary
                 return;
             bool isConnected = NetworkInterface.GetIsNetworkAvailable();
             if (isConnected)
-                MessageBox.Show("请求超时，请检查网络模式，或联盟反(yi)思(ma)中");
+                MessageBox.Show("请求超时，请检查网络模式，或联盟反思中");
             else
                 MessageBox.Show("请求超时，请检查手机网络设置");
         }

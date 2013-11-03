@@ -25,14 +25,18 @@ namespace Bitunion
 
         //当前页码
         private uint _pageno = 1;
+
+        //发帖所用的控件对象
+        private PopupPost _popuppost;
         #endregion
-        private PopupPost pp;
+
         public BuForumPage()
         {
             InitializeComponent();
             DataContext = _forumpageviewmodel;
             this.ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["forum"];
             pgbar.Visibility = Visibility.Collapsed;
+            _popuppost = new PopupPost();
         }
 
         protected override void OnNavigatedTo(System.Windows.Navigation.NavigationEventArgs e)
@@ -67,6 +71,12 @@ namespace Bitunion
             LoadThreadList();
         }
 
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _popuppost.CloseMeAsPopup();
+            base.OnNavigatedFrom(e);
+        }
+
         private void togglePgBar()
         {
             if (pgbar.Visibility == Visibility.Visible)
@@ -87,11 +97,13 @@ namespace Bitunion
             {
                 togglePgBar();
                 //载入期间禁用菜单栏
+                (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = false;
                 (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = false;
                 (ApplicationBar.Buttons[3] as ApplicationBarIconButton).IsEnabled = false;
 
                 threadlist = await BuAPI.QueryThreadList(_fid, ((_pageno - 1) * 20).ToString(), (_pageno * 20 - 1).ToString());
 
+                (ApplicationBar.Buttons[3] as ApplicationBarIconButton).IsEnabled = true;
                 togglePgBar();
                 if (threadlist == null || threadlist.Count == 0)
                 {
@@ -194,8 +206,8 @@ namespace Bitunion
         private void CheckBtnEnable()
         {
             //禁用工具栏按钮的方法
-            (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
-            (ApplicationBar.Buttons[3] as ApplicationBarIconButton).IsEnabled = true;
+            (ApplicationBar.Buttons[1] as ApplicationBarIconButton).IsEnabled = (_pageno != (uint)1);
+            (ApplicationBar.Buttons[2] as ApplicationBarIconButton).IsEnabled = true;
         }
 
  
@@ -203,33 +215,31 @@ namespace Bitunion
         private void newpost_click(object sender, EventArgs e)
         {
             PopupContainer pc = new PopupContainer(this);
-            pp = new PopupPost();
-            pc.Show(pp);
-
+            pc.Show(_popuppost);
             ApplicationBar = (Microsoft.Phone.Shell.ApplicationBar)Resources["post"];
         }
 
         private async void post_click(object sender, EventArgs e)
         {
-            if (pp.contentTextBox.Text == string.Empty)
+            if (_popuppost.contentTextBox.Text == string.Empty)
             {
                 MessageBox.Show("请输入内容");
                 return;
             }
-            if (pp.titleTextBox.Text == string.Empty)
+            if (_popuppost.titleTextBox.Text == string.Empty)
             {
                 MessageBox.Show("请输入标题");
                 return;
             }
             
             pgbar.Visibility = Visibility.Visible;
-            bool bl = await BuAPI.PostThread(_fid, pp.titleTextBox.Text, pp.contentTextBox.Text);
+            bool bl = await BuAPI.PostThread(_fid, _popuppost.titleTextBox.Text, _popuppost.contentTextBox.Text);
             pgbar.Visibility = Visibility.Collapsed;
 
             if (bl)
             {
                 MessageBox.Show("发布成功");
-                pp.CloseMeAsPopup();
+                _popuppost.CloseMeAsPopup();
             }
             else
                 MessageBox.Show("发布失败");
@@ -238,7 +248,9 @@ namespace Bitunion
 
         private void cancel_Click(object sender, EventArgs e)
         {
-            pp.CloseMeAsPopup();
+            _popuppost.titleTextBox.Text = string.Empty;
+            _popuppost.contentTextBox.Text = string.Empty;
+            _popuppost.CloseMeAsPopup();
         }
 
         private void FavoritePage_Click(object sender, EventArgs e)

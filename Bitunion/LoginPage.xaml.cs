@@ -59,7 +59,7 @@ namespace Bitunion
                 NetWork_Unchecked(null, null);
 
             //自动登录
-            if (BuSetting.AutoLogin && BuSetting.RemPassWord && type != "logout")
+            if (BuSetting.AutoLogin && BuSetting.RemPassWord && type != "logout" && e.NavigationMode == NavigationMode.New)
                 login_click(null, null);
         }
 
@@ -82,6 +82,8 @@ namespace Bitunion
         //点击登陆事件
         private async void login_click(object sender, EventArgs e)
         {
+            if (ID.Text == string.Empty || Password.Password == string.Empty)
+                return;
             SwitchLoading();
             bool bl = await BuAPI.Login(ID.Text, Password.Password);
             if (bl)

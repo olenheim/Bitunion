@@ -18,7 +18,7 @@
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Transparent">
         <!--枢轴控件-->
-        <phone:Pivot Title="我的应用程序">
+        <phone:Pivot Title="Bitunion">
             <!--枢轴项一-->
             <phone:PivotItem Header="设置">
                 <ScrollViewer>
@@ -35,7 +35,7 @@
             <!--枢轴项二-->
             <phone:PivotItem Header="关于">
                 <Grid>
-                    <TextBlock Text="版本：1.0" Margin="10,10,318,554" FontSize="24"/>
+                    <TextBlock Text="版本：0.9.0.0" Margin="10,10,296,554" FontSize="24"/>
                     <Button Margin="100,105,100,0" Height="85" Content="打分并评价" VerticalAlignment="Top" Click="Button_Click_1"  />
                     <Button Margin="100,209,100,0"  Height="85" Content="意见与建议" VerticalAlignment="Top" IsEnabled="False" />
                 </Grid>

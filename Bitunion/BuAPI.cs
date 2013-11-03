@@ -154,6 +154,9 @@ namespace Bitunion
         //用于保存获取的论坛列表
         static Dictionary<string ,BuForum> _forumList;
 
+        //重登录机制
+        static bool relogin = false;
+
         #endregion
 
         //登陆，成功后初始化session
@@ -237,8 +240,15 @@ namespace Bitunion
                 return null;
 
             JObject jsonret = null;
-            if(!StreamToJobjAndCheckState(response,ref jsonret) && !await Login(_name,_password))
-                return null;
+            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            {
+                if (relogin == true) { relogin = false; return null; }
+                relogin = true;
+                if (await Login(_name, _password))
+                    return await QueryForumList();
+                else
+                    return null;
+            }
 
             List<BuGroupForum> BuGroupForumList = new List<BuGroupForum>(); int i=0;
             foreach (JToken forumgroup in JObject.Parse(jsonret["forumslist"].ToString()).Values())
@@ -246,7 +256,6 @@ namespace Bitunion
                 if(i == 6)
                     break;
 
- 
                     foreach (JToken forum in JObject.Parse(forumgroup.ToString()).Values())
                         BuGroupForumList.Add(JsonConvert.DeserializeObject<BuGroupForum>
                             (JObject.Parse(forum.ToString()).ToString()));
@@ -275,8 +284,15 @@ namespace Bitunion
                 return null;
             
             JObject jsonret = null;
-            if(!StreamToJobjAndCheckState(response,ref jsonret) && !await Login(_name,_password))
-                return null;
+            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            {
+                if (relogin == true) { relogin = false; return null; }
+                relogin = true;
+                if (await Login(_name, _password))
+                    return await QueryThreadList(fid, start, end);
+                else
+                    return null;
+            }
 
             return JsonConvert.DeserializeObject<List<BuThread>>(jsonret["threadlist"].ToString());
         }
@@ -298,8 +314,15 @@ namespace Bitunion
                 return null;
 
             JObject jsonret = null;
-            if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
-                return null;
+            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            {
+                if (relogin == true) { relogin = false; return null; }
+                relogin = true;
+                if (await Login(_name, _password))
+                    return await QueryPost(tid, start, end);
+                else
+                    return null;
+            }
 
             return JsonConvert.DeserializeObject<List<BuPost>>(jsonret["postlist"].ToString());
         }
@@ -319,8 +342,15 @@ namespace Bitunion
                 return null;
 
             JObject jsonret = null;
-            if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
-                return null;
+            if (!StreamToJobjAndCheckState(response, ref jsonret))
+            {
+                if (relogin == true) { relogin = false; return null; }
+                relogin = true;
+                if (await Login(_name, _password))
+                    return await QueryUserProfile(uid);
+                else
+                    return null;
+            }
 
             return JsonConvert.DeserializeObject<BuUserProfile>(jsonret["BuUserProfile"].ToString());
         }
@@ -328,6 +358,10 @@ namespace Bitunion
         //回复帖子
         public static async Task<bool> ReplyPost(string tid, string msg)
        {
+            //增加消息尾巴
+           if (BuSetting.ShowTail)
+               msg += "\r\n[i]" + BuSetting.TailMsg + "[/i]";
+
            JObject staff = new JObject();
            staff.Add(new JProperty("action", "newreply"));
            staff.Add(new JProperty("username", Uri.EscapeDataString(_name)));
@@ -342,8 +376,15 @@ namespace Bitunion
                return false;
 
            JObject jsonret = null;
-           if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
-               return false;
+           if (!StreamToJobjAndCheckState(response, ref jsonret))
+           {
+               if (relogin == true) { relogin = false; return false; }
+               relogin = true;
+               if (await Login(_name, _password))
+                   return await ReplyPost(tid, msg);
+               else
+                   return false;
+           }
 
            return true;
        }
@@ -351,6 +392,10 @@ namespace Bitunion
         //发表新帖子
         public static async Task<bool> PostThread(string fid, string subject, string msg)
        {
+           //增加消息尾巴
+           if (BuSetting.ShowTail)
+               msg += "\r\n[i]" + BuSetting.TailMsg + "[/i]";
+
             JObject staff = new JObject();
            staff.Add(new JProperty("action", "newthread"));
            staff.Add(new JProperty("username", Uri.EscapeDataString(_name)));
@@ -366,8 +411,15 @@ namespace Bitunion
                return false;
 
            JObject jsonret = null;
-           if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
-               return false;
+           if (!StreamToJobjAndCheckState(response, ref jsonret))
+           {
+               if (relogin == true) { relogin = false; return false; }
+               relogin = true;
+               if (await Login(_name, _password))
+                   return await PostThread(fid, subject, msg);
+               else
+                   return false;
+           }
 
            return true;
        }
@@ -398,6 +450,7 @@ namespace Bitunion
             htmldoc.LoadHtml(htmlstr);
             var node = htmldoc.DocumentNode;
             string ret = node.InnerText.Replace("&nbsp;"," ");
+            ret = ret.Replace("&amp;", "&");
             ret = ret.Replace("..:: From BIT-Union Open API Project ::..","\r\n..:: From BIT-Union Open API Project ::..");
             ret = ret.Replace("请仔细阅读发帖须知及本版版规，确认无误后删除本默认内容","");
             return ret;
@@ -416,8 +469,15 @@ namespace Bitunion
                return null;
 
            JObject jsonret = null;
-           if (!StreamToJobjAndCheckState(response, ref jsonret) && !await Login(_name, _password))
-               return null;
+           if (!StreamToJobjAndCheckState(response, ref jsonret))
+           {
+               if (relogin == true) { relogin = false; return null; }
+               relogin = true;
+               if (await Login(_name, _password))
+                   return await QueryLatestThreadList();
+               else
+                   return null;
+           }
 
            return JsonConvert.DeserializeObject<List<BuLatestThread>>(jsonret["newlist"].ToString());
        }

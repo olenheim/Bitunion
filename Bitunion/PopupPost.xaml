@@ -13,7 +13,7 @@
         <StackPanel Height="Auto" HorizontalAlignment="Left" Margin="12,35,0,0" Name="stackPanel1" VerticalAlignment="Top" Width="456"/>
         <StackPanel HorizontalAlignment="Right" Margin="0,13,12,10" Name="grid1" Width="456">
             <toolkit:PhoneTextBox Hint="请输入标题" Height="72" HorizontalAlignment="Left" x:Name="titleTextBox"  VerticalAlignment="Top" Width="456" />
-            <toolkit:PhoneTextBox  Hint="请输入内容" x:Name="contentTextBox" VerticalAlignment="Top" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Height="232" />
+            <toolkit:PhoneTextBox  Hint="请输入内容" x:Name="contentTextBox" VerticalAlignment="Top" TextWrapping="Wrap" VerticalScrollBarVisibility="Visible" AcceptsReturn="True" Height="232" />
         </StackPanel>
 
     </Grid>
