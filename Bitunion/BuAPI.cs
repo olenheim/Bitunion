@@ -5,6 +5,7 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -434,8 +435,7 @@ namespace Bitunion
             HtmlDocument htmldoc = new HtmlDocument();
             htmldoc.LoadHtml(htmlstr);
             var node = htmldoc.DocumentNode;
-            string ret = node.InnerText.Replace("&nbsp;", " ");
-            ret = ret.Replace("&amp;", "&");
+            string ret = HttpUtility.HtmlDecode(node.InnerText);
             ret = ret.Replace("..:: From BIT-Union Open API Project ::..", "\r\n..:: From BIT-Union Open API Project ::..");
             ret = ret.Replace("请仔细阅读发帖须知及本版版规，确认无误后删除本默认内容", "");
             return ret;

@@ -268,5 +268,10 @@ namespace Bitunion
             ShowViewModel(_currentpage);
         }
 
+        private void AddToFavoriteThread_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("开发中，敬请期待");
+        }
+
     }
 }

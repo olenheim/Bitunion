@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2012/deployment" AppPlatformVersion="8.0">
   <DefaultLanguage xmlns="" code="zh-CN" />
-  <App xmlns="" ProductID="{5977d1b3-0acc-42ff-b9a5-97d2d0564a02}" Title="北理ftp联盟" RuntimeType="Silverlight" Version="0.9.0.0" Genre="apps.normal" Author="Olivier" Description="Bitunion是北理Ftp联盟的wp8客户端，基于联盟开放api构建，实现了最新贴查看，板块浏览，帖子浏览，回帖，新帖发布等功能，支持校园内外网切换以及隐藏图片等功能&#xD;&#xA;" Publisher="Olivier" PublisherID="{29de8efb-b3c5-4be4-9e1d-2bc1c4298185}">
+  <App xmlns="" ProductID="{5977d1b3-0acc-42ff-b9a5-97d2d0564a02}" Title="北理ftp联盟" RuntimeType="Silverlight" Version="0.9.1.0" Genre="apps.normal" Author="Olivier" Description="Bitunion是北理Ftp联盟的wp8客户端，基于联盟开放api构建，实现了最新贴查看，板块浏览，帖子浏览，回帖，新帖发布等功能，支持校园内外网切换以及隐藏图片等功能&#xD;&#xA;" Publisher="Olivier" PublisherID="{29de8efb-b3c5-4be4-9e1d-2bc1c4298185}">
     <IconPath IsRelative="true" IsResource="false">Assets\Tiles\metro63.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_NETWORKING" />

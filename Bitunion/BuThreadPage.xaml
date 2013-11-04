@@ -27,6 +27,7 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem Text="第一页" Click="FirstPage_Click" />
                 <shell:ApplicationBarMenuItem Text="最后一页" Click="LastPage_Click" />
+                <shell:ApplicationBarMenuItem Text="收藏本帖" Click="AddToFavoriteThread_Click" />
                 <shell:ApplicationBarMenuItem Text="进入该板块" Click="Enter_Click" />
                 <shell:ApplicationBarMenuItem Text="设置" Click="Setting_Click" />
             </shell:ApplicationBar.MenuItems>
