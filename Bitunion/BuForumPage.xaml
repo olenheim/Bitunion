@@ -69,6 +69,6 @@
                 </phone:LongListSelector>
             </phone:PivotItem>
         </phone:Pivot>
-        <ProgressBar x:Name="pgbar" HorizontalAlignment="Left" Height="13" VerticalAlignment="Top" Width="480" IsIndeterminate="True" Margin="0"/>
+        <ProgressBar x:Name="pgbar"  Height="13" VerticalAlignment="Top"  IsIndeterminate="True" Margin="0"/>
     </Grid>
 </phone:PhoneApplicationPage>

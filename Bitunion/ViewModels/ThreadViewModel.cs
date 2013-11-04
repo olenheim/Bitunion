@@ -17,9 +17,9 @@ namespace Bitunion.ViewModels
 
         public ThreadViewModel(BuLatestThread bt)
         {
-            Subject = BuAPI.parseHTML(HttpUtility.UrlDecode(bt.pname));
-            Author = HttpUtility.UrlDecode(bt.author);
-            ForumName = HttpUtility.UrlDecode(bt.fname);
+            Subject = bt.pname = BuAPI.parseHTML(HttpUtility.UrlDecode(bt.pname));
+            Author = bt.author = HttpUtility.UrlDecode(bt.author);
+            ForumName = bt.fname = BuAPI.parseHTML(HttpUtility.UrlDecode(bt.fname));
             Replies = "回复:" + bt.tid_sum;
             this.latestthread = bt;
             PostItems = new ObservableCollection<PostViewModel>();
@@ -29,8 +29,8 @@ namespace Bitunion.ViewModels
 
         public ThreadViewModel(BuThread thread) 
         {
-            Subject = BuAPI.parseHTML(HttpUtility.UrlDecode(thread.subject));
-            Author = HttpUtility.UrlDecode(thread.author);
+            Subject = thread.subject = BuAPI.parseHTML(HttpUtility.UrlDecode(thread.subject));
+            Author = thread.author = HttpUtility.UrlDecode(thread.author);
             Time = BuAPI.DateTimeConvertTime(thread.dateline).ToString("MM-dd HH:mm");
             PostItems = new ObservableCollection<PostViewModel>();
             Replies = "回复:" + thread.replies;

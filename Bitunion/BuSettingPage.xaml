@@ -23,10 +23,10 @@
             <phone:PivotItem Header="设置">
                 <ScrollViewer>
                     <Grid>         
-                    <toolkit:ToggleSwitch x:Name="tsShowPhoto" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Content="显示" IsChecked="true"  Width="436" Header="显示图片" Checked="tsShowPhoto_Checked" Unchecked="tsShowPhoto_Unchecked" />
-                    <toolkit:ToggleSwitch x:Name="tsOutNet" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top"  IsChecked="true" Width="436" Header="网络模式" Content="外网" Unchecked="tsOutNet_Unchecked" Checked="tsOutNet_Checked"/>
-                    <toolkit:ToggleSwitch x:Name="tsThreadCount" HorizontalAlignment="Left" Margin="10,200,0,0" VerticalAlignment="Top"  IsChecked="true" Width="436" Header="页面中的楼层数" Content="10" Checked="tsThreadCount_Checked" Unchecked="tsThreadCount_Unchecked" />
-                    <toolkit:ToggleSwitch x:Name="tsShowTail" HorizontalAlignment="Left" Margin="10,300,0,0" VerticalAlignment="Top"  IsChecked="true" Width="436" Header="显示消息尾巴" Content="显示" Unchecked="tsShowTail_Unchecked" Checked="tsShowTail_Checked"/>
+                    <toolkit:ToggleSwitch x:Name="tsShowPhoto"  Margin="10,10,10,0" VerticalAlignment="Top" Content="显示" IsChecked="true"   Header="显示图片" Checked="tsShowPhoto_Checked" Unchecked="tsShowPhoto_Unchecked" />
+                    <toolkit:ToggleSwitch x:Name="tsOutNet"  Margin="10,100,10,0" VerticalAlignment="Top"  IsChecked="true"  Header="网络模式" Content="外网" Unchecked="tsOutNet_Unchecked" Checked="tsOutNet_Checked"/>
+                    <toolkit:ToggleSwitch x:Name="tsThreadCount" Margin="10,200,10,0" VerticalAlignment="Top"  IsChecked="true"  Header="页面中的楼层数" Content="10" Checked="tsThreadCount_Checked" Unchecked="tsThreadCount_Unchecked" />
+                    <toolkit:ToggleSwitch x:Name="tsShowTail"  Margin="10,300,10,0" VerticalAlignment="Top"  IsChecked="true"  Header="显示消息尾巴" Content="显示" Unchecked="tsShowTail_Unchecked" Checked="tsShowTail_Checked"/>
                     <TextBox x:Name="tbMsgTail" Margin="10,400,10,0" FontSize="24" Text="--测试字体"  TextWrapping="Wrap"  VerticalAlignment="Top" TextChanged="tbMsgTail_TextChanged"/>         
                   </Grid>
                 </ScrollViewer>

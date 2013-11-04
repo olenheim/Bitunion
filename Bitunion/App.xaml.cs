@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Bitunion.Resources;
+using Bitunion.ViewModels;
+using Microsoft.Phone.Controls;
+using Microsoft.Phone.Shell;
+using System;
 using System.Diagnostics;
-using System.Resources;
 using System.Windows;
 using System.Windows.Markup;
 using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Bitunion.Resources;
-using Bitunion.ViewModels;
 
 namespace Bitunion
 {
