@@ -1,5 +1,7 @@
 ﻿using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using System;
+using System.Reflection;
 using System.Windows;
 
 namespace Bitunion
@@ -40,6 +42,9 @@ namespace Bitunion
                 tsShowTail_Checked(null, null);
             else
                 tsShowTail_Unchecked(null, null);
+
+            Assembly asbly = Assembly.GetExecutingAssembly();
+            VersionText.Text = "版本: " + asbly.GetName().Version.ToString();
 
 
         }
@@ -106,5 +111,16 @@ namespace Bitunion
 
             marketplaceReviewTask.Show();
         }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new Uri("/BuThreadPage.xaml?tid=" + "10548923"
+            + "&subject=" + "联盟WindowsPhone8客户端"
+            + "&replies=" + "0"
+            + "&fid=" + "14"
+            + "&fname=" + "灌水乐园"
+            , UriKind.Relative));
+        }
+
     }
 }
